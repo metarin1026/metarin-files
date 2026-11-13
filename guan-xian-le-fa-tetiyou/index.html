@@ -1,0 +1,1656 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:,">
+<title>管弦楽法てちょう — ビドール＋リムスキー＋フォーサイスを編曲に使うための手帖</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFF8F0; --bg2:#FFF1E3; --card:#FFFFFF; --card2:#FFF6EC;
+    --ink:#3A2E28; --ink2:#6B5B52; --ink3:#9A887C;
+    --line:#F0DDCC; --line2:#E6CDB4;
+    --rose:#D96C57; --rose-bg:#FDECE8;
+    --sage:#5F8F6B; --sage-bg:#EAF3EC;
+    --butter:#B07E1E; --butter-bg:#FBF0D3;
+    --sky:#4A7CA5; --sky-bg:#E8F0F7;
+    --plum:#8A5A7A; --plum-bg:#F6EAF2;
+    --warn-bg:#FFF3D6; --warn-line:#E9C46A; --warn-ink:#7A5A12;
+    --accent:#C65D3F; --accent-ink:#fff;
+    --shadow:0 2px 10px rgba(90,55,30,.07), 0 10px 28px rgba(90,55,30,.05);
+    --radius:18px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#211B17; --bg2:#2A221C; --card:#2E2721; --card2:#332B24;
+      --ink:#F3E8DC; --ink2:#CDBBA9; --ink3:#9C8A78;
+      --line:#453A30; --line2:#57493C;
+      --rose:#E89A8A; --rose-bg:#3D2A26;
+      --sage:#9CC4A6; --sage-bg:#27352A;
+      --butter:#E3C27A; --butter-bg:#3A3220;
+      --sky:#9CC0DE; --sky-bg:#26333F;
+      --plum:#D3A3C4; --plum-bg:#382A34;
+      --warn-bg:#3A3018; --warn-line:#8A6D2F; --warn-ink:#E8CD8A;
+      --accent:#D96C57; --accent-ink:#fff;
+      --shadow:0 2px 10px rgba(0,0,0,.3), 0 10px 28px rgba(0,0,0,.25);
+    }
+  }
+  html{box-sizing:border-box; scroll-behavior:smooth;}
+  *,*::before,*::after{box-sizing:inherit;}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:"Noto Sans JP",system-ui,sans-serif; font-size:16px; line-height:1.75; -webkit-font-smoothing:antialiased;}
+  h1,h2,h3,h4,p,ul,ol,figure,blockquote{margin:0;}
+  ul,ol{padding:0; list-style:none;}
+  a{color:var(--accent);}
+  button{font:inherit; cursor:pointer;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 18px 72px;}
+
+  /* ---- top banner ---- */
+  .top-banner{margin:18px 0 0; border-radius:18px; overflow:hidden; box-shadow:var(--shadow); line-height:0;}
+  .top-banner img{width:100%; height:auto; display:block;}
+
+  /* ---- intro ---- */
+  .intro{padding:34px 0 8px;}
+  .intro .kicker{display:inline-block; background:var(--rose-bg); color:var(--rose); font-family:"M PLUS Rounded 1c",sans-serif; font-weight:700; font-size:13px; letter-spacing:.04em; padding:5px 12px; border-radius:999px;}
+  .intro h1{font-family:"M PLUS Rounded 1c",sans-serif; font-weight:800; font-size:clamp(30px,6vw,46px); line-height:1.25; letter-spacing:.01em; margin:14px 0 10px;}
+  .intro h1 .thin{font-weight:500; font-size:.52em; color:var(--ink2); display:block; margin-top:6px; letter-spacing:0;}
+  .intro .lead{font-size:16.5px; color:var(--ink2); max-width:46em;}
+  .intro .lead strong{color:var(--ink);}
+  .howto{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:22px 0 6px;}
+  .howto div{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px 16px; box-shadow:var(--shadow);}
+  .howto b{font-family:"M PLUS Rounded 1c",sans-serif; display:block; font-size:14.5px; margin-bottom:4px;}
+  .howto p{font-size:13.5px; color:var(--ink2); line-height:1.65;}
+  .howto .n{display:inline-flex; width:22px; height:22px; border-radius:50%; background:var(--accent); color:#fff; font-size:12.5px; align-items:center; justify-content:center; margin-right:6px; vertical-align:2px;}
+
+  /* ---- toolbar (compact sticky bar) ---- */
+  .toolbar{position:sticky; top:0; z-index:30; background:color-mix(in srgb, var(--bg) 94%, transparent); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); padding:8px 0 7px; margin-top:14px; border-bottom:1px solid var(--line);}
+  .toolbar .row{display:flex; flex-wrap:wrap; gap:8px; align-items:center;}
+  .search{flex:1 1 170px; min-width:0; display:flex; align-items:center; gap:7px; background:var(--card); border:1.5px solid var(--line2); border-radius:999px; padding:7px 12px;}
+  .search input{border:0; outline:0; background:transparent; color:var(--ink); font:inherit; font-size:15px; width:100%; min-width:0;}
+  .search input::placeholder{color:var(--ink3);}
+  .sr-only{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap;}
+  .sel{position:relative; flex:0 1 auto; display:block;}
+  .sel::after{content:"▾"; position:absolute; right:11px; top:50%; transform:translateY(-52%); font-size:12px; color:var(--ink3); pointer-events:none;}
+  .sel select{appearance:none; -webkit-appearance:none; width:100%; border:1.5px solid var(--line2); background:var(--card); color:var(--ink); border-radius:999px; padding:8px 28px 8px 13px; font-size:13.5px; font-weight:700; font-family:"M PLUS Rounded 1c",sans-serif; cursor:pointer; text-overflow:ellipsis;}
+  .sel select:focus-visible{outline:2px solid var(--accent); outline-offset:1px;}
+  .count{font-size:12px; color:var(--ink3); margin-top:5px; line-height:1.4;}
+  section[id], .tsub[id]{scroll-margin-top:78px;}
+  @media (max-width:560px){
+    .toolbar{padding:7px 0 6px;}
+    .search{flex:1 1 100%;}
+    .sel{flex:1 1 0; min-width:0;}
+    .sel select{font-size:13px; padding:7px 26px 7px 11px;}
+  }
+
+  /* ---- sections ---- */
+  section.fam{margin-top:44px;}
+  .fam-head{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:6px;}
+  .fam-head h2{font-family:"M PLUS Rounded 1c",sans-serif; font-weight:800; font-size:clamp(22px,4vw,29px);}
+  .fam-head .tag{font-size:12.5px; font-weight:700; padding:3px 10px; border-radius:999px;}
+  .fam-head p{width:100%; color:var(--ink2); font-size:14.5px; max-width:52em;}
+  .grid{display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:16px;}
+  .grid.single{grid-template-columns:1fr;}
+
+  /* ---- instrument card ---- */
+  .card{background:var(--card); border:1px solid var(--line); border-top:5px solid var(--fc,var(--sage)); border-radius:var(--radius); padding:20px 20px 16px; box-shadow:var(--shadow); display:flex; flex-direction:column; gap:12px;}
+  .card.hide{display:none;}
+  .card-top{display:flex; justify-content:space-between; gap:10px; align-items:flex-start; flex-wrap:wrap;}
+  .card h3{font-family:"M PLUS Rounded 1c",sans-serif; font-weight:800; font-size:20px; line-height:1.35;}
+  .card h3 .en{display:block; font-size:12px; font-weight:500; color:var(--ink3); letter-spacing:.05em; margin-top:2px;}
+  .fam-chip{font-size:11.5px; font-weight:700; background:var(--fc-bg,var(--sage-bg)); color:var(--fc,var(--sage)); padding:3px 9px; border-radius:999px; white-space:nowrap;}
+  .range{background:var(--card2); border:1px dashed var(--line2); border-radius:12px; padding:10px 13px; font-size:14px;}
+  .range b{font-family:"M PLUS Rounded 1c",sans-serif;}
+  .range .rr{display:flex; flex-wrap:wrap; gap:4px 18px;}
+  .range .note{font-size:12.5px; color:var(--ink2); margin-top:3px; line-height:1.6;}
+  .blk h4{font-family:"M PLUS Rounded 1c",sans-serif; font-size:13px; font-weight:800; letter-spacing:.03em; margin-bottom:4px; display:flex; align-items:center; gap:7px;}
+  .blk h4::before{content:""; width:8px; height:8px; border-radius:50%; background:var(--fc,var(--sage)); flex:none;}
+  .blk.danger h4{color:var(--rose);}
+  .blk.danger h4::before{background:var(--rose);}
+  .blk.point h4{color:var(--accent);}
+  .blk.point h4::before{background:var(--accent);}
+  .blk p,.blk li{font-size:14.5px; line-height:1.7; color:var(--ink);}
+  .blk p+p{margin-top:5px;}
+  .blk ul li{padding-left:15px; position:relative; margin-top:3px;}
+  .blk ul li::before{content:"・"; position:absolute; left:0; color:var(--ink3);}
+  .modern{background:var(--warn-bg); border:1px solid var(--warn-line); border-radius:12px; padding:9px 13px; font-size:13.5px; color:var(--warn-ink); line-height:1.65;}
+  .modern b{font-family:"M PLUS Rounded 1c",sans-serif;}
+  .keyline{background:var(--fc-bg,var(--sage-bg)); border-radius:12px; padding:10px 13px; font-size:14.5px; font-weight:700; line-height:1.65;}
+  .speed{display:flex; flex-wrap:wrap; gap:6px;}
+  .speed span{background:var(--card2); border:1px solid var(--line); border-radius:8px; padding:3px 9px; font-size:12.5px; font-weight:700;}
+  .speed span i{font-style:normal; color:var(--ink3); font-weight:400;}
+
+  /* ---- checklist ---- */
+  .check-sec{margin-top:40px; background:var(--card); border:2px solid var(--accent); border-radius:22px; padding:24px 22px; box-shadow:var(--shadow);}
+  .check-sec h2{font-family:"M PLUS Rounded 1c",sans-serif; font-weight:800; font-size:clamp(21px,4vw,27px);}
+  .check-sec .sub{color:var(--ink2); font-size:14.5px; margin-top:6px; max-width:50em;}
+  .progress{height:12px; background:var(--card2); border:1px solid var(--line); border-radius:999px; overflow:hidden; margin:16px 0 6px;}
+  .progress i{display:block; height:100%; width:0%; background:var(--sage); border-radius:999px; transition:width .35s ease;}
+  .progress-txt{font-size:13px; color:var(--ink2); font-weight:700;}
+  .checks{display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-top:14px;}
+  .check{display:flex; gap:11px; align-items:flex-start; text-align:left; width:100%; background:var(--card2); border:1.5px solid var(--line); border-radius:14px; padding:12px 14px; color:var(--ink); font-size:14.5px; line-height:1.6;}
+  .check .box{flex:none; width:24px; height:24px; border-radius:8px; border:2px solid var(--line2); background:var(--card); display:flex; align-items:center; justify-content:center; font-size:15px; color:transparent; margin-top:1px;}
+  .check .why{display:block; font-size:12.5px; color:var(--ink3); margin-top:2px; line-height:1.55;}
+  .check.done{border-color:var(--sage); background:var(--sage-bg);}
+  .check.done .box{background:var(--sage); border-color:var(--sage); color:#fff;}
+  .check.done .txt{text-decoration:none;}
+  .check-actions{display:flex; flex-wrap:wrap; gap:8px; margin-top:16px;}
+  .btn{border-radius:999px; padding:9px 18px; font-family:"M PLUS Rounded 1c",sans-serif; font-weight:700; font-size:14px; border:1.5px solid var(--line2); background:var(--card); color:var(--ink);}
+  .btn.primary{background:var(--accent); border-color:var(--accent); color:var(--accent-ink);}
+  .btn:active{transform:scale(.98);}
+  .copied{font-size:13px; color:var(--sage); font-weight:700; align-self:center;}
+
+  /* ---- principle / changes / ask ---- */
+  .principle{background:var(--butter-bg); border:1px solid var(--warn-line); border-radius:var(--radius); padding:18px 20px; margin-top:16px;}
+  .principle h3{font-family:"M PLUS Rounded 1c",sans-serif; font-size:17px; margin-bottom:6px;}
+  .principle p,.principle li{font-size:14.5px;}
+  .principle ul li{padding-left:15px; position:relative; margin-top:3px;}
+  .principle ul li::before{content:"・"; position:absolute; left:0;}
+  .changes{display:grid; grid-template-columns:1fr 1fr; gap:10px 22px; margin-top:14px;}
+  .changes li{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:11px 14px; font-size:14px; line-height:1.65;}
+  .changes li b{font-family:"M PLUS Rounded 1c",sans-serif;}
+  .changes li .from{color:var(--ink3); text-decoration:line-through; text-decoration-thickness:1px;}
+  .askbox{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:20px; box-shadow:var(--shadow); margin-top:16px;}
+  .askbox pre{white-space:pre-wrap; font-family:"Noto Sans JP",sans-serif; font-size:13.5px; line-height:1.7; background:var(--card2); border:1px dashed var(--line2); border-radius:12px; padding:14px 16px; margin:12px 0; color:var(--ink);}
+  footer{margin-top:52px; border-top:1px solid var(--line); padding-top:18px; font-size:13px; color:var(--ink3); line-height:1.8;}
+  .empty{display:none; text-align:center; color:var(--ink2); padding:34px 10px; font-size:15px;}
+  .empty.show{display:block;}
+
+  /* ---- instrument photos ---- */
+  .inst-photo{margin:0;}
+  .inst-photo .ph{display:block; background:var(--card2); border:1px solid var(--line); border-radius:12px; padding:10px;}
+  .inst-photo img{display:block; width:100%; height:270px; object-fit:contain; margin:0 auto;}
+  .inst-photo figcaption{font-size:13px; color:var(--ink2); line-height:1.6; margin-top:7px;}
+  .inst-photo figcaption b{font-family:"M PLUS Rounded 1c",sans-serif; color:var(--ink);}
+  .inst-photo .credit{display:block; font-size:11.5px; color:var(--ink3); margin-top:2px; line-height:1.55;}
+  .photo-row{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .photo-row .inst-photo img{height:250px;}
+  .photo-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .photo-grid .inst-photo img{height:180px;}
+  .inst-photo.small{max-width:330px;}
+  .inst-photo.small img{height:auto; max-height:170px;}
+  @media (max-width:480px){ .inst-photo img{height:230px;} .photo-row .inst-photo img{height:200px;} .photo-grid .inst-photo img{height:150px;} }
+
+  /* ---- score figures ---- */
+  .score-fig{margin:0;}
+  .score-fig img{width:100%; height:auto; display:block; border:1px solid var(--line2); border-radius:12px; background:#fff;}
+  .score-fig figcaption{font-size:13px; color:var(--ink2); line-height:1.6; margin-top:7px;}
+  .score-fig figcaption b{font-family:"M PLUS Rounded 1c",sans-serif; color:var(--ink);}
+  .figrow{display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:16px;}
+  .figcard{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:16px; box-shadow:var(--shadow);}
+
+  /* ---- compare table ---- */
+  .cmp{width:100%; border-collapse:separate; border-spacing:0; margin-top:16px; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow);}
+  .cmp th,.cmp td{padding:12px 14px; font-size:14px; line-height:1.65; text-align:left; vertical-align:top; border-bottom:1px solid var(--line);}
+  .cmp tr:last-child td{border-bottom:0;}
+  .cmp thead th{font-family:"M PLUS Rounded 1c",sans-serif; font-size:14.5px; background:var(--card2); border-bottom:2px solid var(--line2);}
+  .cmp tbody th{font-family:"M PLUS Rounded 1c",sans-serif; font-size:13.5px; width:21%; background:var(--card2);}
+  .cmp td .now{display:inline-block; font-size:11.5px; font-weight:700; background:var(--sage-bg); color:var(--sage); border-radius:999px; padding:1px 8px; margin-left:4px; white-space:nowrap;}
+  .srcnote{font-size:12.5px; color:var(--ink3); margin-top:10px; line-height:1.7;}
+
+  /* ---- rimsky principles ---- */
+  .axiom{background:var(--ink); color:var(--bg); border-radius:var(--radius); padding:20px 22px; box-shadow:var(--shadow);}
+  .axiom .ax-label{font-family:"M PLUS Rounded 1c",sans-serif; font-size:12.5px; font-weight:700; letter-spacing:.06em; opacity:.75;}
+  .axiom p{font-family:"M PLUS Rounded 1c",sans-serif; font-weight:800; font-size:clamp(19px,3.4vw,24px); line-height:1.5; margin-top:6px;}
+  .axiom .ax-sub{font-family:"Noto Sans JP",sans-serif; font-weight:400; font-size:14px; margin-top:8px; opacity:.85;}
+  .staff-table{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;}
+  .staff-table span{background:var(--card2); border:1px solid var(--line); border-radius:10px; padding:6px 12px; font-size:13.5px; font-weight:700;}
+  .staff-table span i{font-style:normal; color:var(--ink3); font-weight:400; font-size:12.5px;}
+
+  /* ---- theory & balance (2nd expansion) ---- */
+  .tsub{margin-top:30px;}
+  .tsub-head{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; border-bottom:2px solid var(--line2); padding-bottom:8px;}
+  .tsub-head h3{font-family:"M PLUS Rounded 1c",sans-serif; font-weight:800; font-size:20px;}
+  .tsub-head .yr{font-size:12.5px; font-weight:700; color:var(--ink3);}
+  .tsub-head p{width:100%; font-size:14px; color:var(--ink2);}
+  .tcard{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:18px 20px; box-shadow:var(--shadow); margin-top:14px;}
+  .tcard h4{font-family:"M PLUS Rounded 1c",sans-serif; font-size:16.5px; font-weight:800; margin-bottom:6px;}
+  .tcard h4 .en{display:block; font-size:11.5px; font-weight:500; color:var(--ink3); letter-spacing:.05em;}
+  .tcard p,.tcard li{font-size:14.5px; line-height:1.7;}
+  .tcard ul li{padding-left:15px; position:relative; margin-top:3px;}
+  .tcard ul li::before{content:"・"; position:absolute; left:0; color:var(--ink3);}
+  .rules4{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px;}
+  .rules4 div{background:var(--card2); border:1px solid var(--line); border-radius:12px; padding:12px 14px; font-size:14px; line-height:1.65;}
+  .rules4 b{font-family:"M PLUS Rounded 1c",sans-serif; display:block; font-size:13px; color:var(--accent);}
+  .split2{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px;}
+  .split2 .col{border-radius:var(--radius); padding:16px 18px; border:1px solid var(--line);}
+  .split2 .col.old{background:var(--card); box-shadow:var(--shadow);}
+  .split2 .col.new{background:var(--sky-bg); border-color:var(--line2);}
+  .split2 h4{font-family:"M PLUS Rounded 1c",sans-serif; font-size:15px; font-weight:800; margin-bottom:6px;}
+  .split2 p,.split2 li{font-size:14px; line-height:1.7;}
+  .split2 ul li{padding-left:15px; position:relative; margin-top:4px;}
+  .split2 ul li::before{content:"・"; position:absolute; left:0; color:var(--ink3);}
+  .balbar{margin-top:10px;}
+  .balbar .rowb{display:grid; grid-template-columns:170px 1fr 64px; gap:10px; align-items:center; margin-top:8px; font-size:13.5px;}
+  .balbar .rowb b{font-family:"M PLUS Rounded 1c",sans-serif; font-size:13.5px;}
+  .balbar .track{height:16px; background:var(--card2); border:1px solid var(--line); border-radius:999px; overflow:hidden;}
+  .balbar .track i{display:block; height:100%; background:var(--butter); border-radius:999px;}
+  .balbar .track i.horn{background:var(--rose);}
+  .balbar .val{font-weight:700; color:var(--ink2); font-size:12.5px;}
+  .sizes{width:100%; border-collapse:separate; border-spacing:0; margin-top:14px; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow);}
+  .sizes th,.sizes td{padding:10px 13px; font-size:14px; text-align:left; border-bottom:1px solid var(--line);}
+  .sizes thead th{font-family:"M PLUS Rounded 1c",sans-serif; background:var(--card2);}
+  .sizes tr:last-child td{border-bottom:0;}
+  @media (max-width:760px){
+    .rules4,.split2{grid-template-columns:1fr;}
+    .balbar .rowb{grid-template-columns:118px 1fr 52px;}
+    .figrow{grid-template-columns:1fr;}
+    .cmp thead{display:none;}
+    .cmp,.cmp tbody,.cmp tr,.cmp td,.cmp tbody th{display:block; width:auto;}
+    .cmp tbody th{border-bottom:0; padding-bottom:2px;}
+    .cmp td{border-bottom:0; padding-top:2px; padding-left:22px;}
+    .cmp td::before{content:attr(data-who); display:block; font-family:"M PLUS Rounded 1c",sans-serif; font-size:11.5px; font-weight:700; color:var(--ink3);}
+    .cmp tr{border-bottom:1px solid var(--line); padding:6px 0;}
+    .cmp tr:last-child{border-bottom:0;}
+    .grid,.checks,.changes{grid-template-columns:1fr;}
+    .howto{grid-template-columns:1fr;}
+    .card{padding:17px 16px 14px;}
+    .check-sec{padding:19px 15px;}
+  }
+  /* ---- theory foundations (integrated chapter) ---- */
+  .route{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:18px 0 4px;}
+  .route a{display:block; text-decoration:none; color:var(--ink); background:var(--card); border:1px solid var(--line); border-top:5px solid var(--rc,var(--sky)); border-radius:14px; padding:14px 16px; box-shadow:var(--shadow);}
+  .route b{font-family:"M PLUS Rounded 1c",sans-serif; display:block; font-size:15.5px; margin-bottom:4px;}
+  .route p{font-size:13px; color:var(--ink2); line-height:1.6;}
+  .route .n{display:inline-flex; width:22px; height:22px; border-radius:50%; background:var(--rc,var(--sky)); color:#fff; font-size:12.5px; align-items:center; justify-content:center; margin-right:6px; vertical-align:2px; font-family:"M PLUS Rounded 1c",sans-serif;}
+  .book{background:var(--card); border:1px solid var(--line); border-top:5px solid var(--fc,var(--plum)); border-radius:var(--radius); padding:22px 22px 18px; box-shadow:var(--shadow); margin-top:18px;}
+  .book h3{font-family:"M PLUS Rounded 1c",sans-serif; font-weight:800; font-size:21px; line-height:1.4;}
+  .book h3 .en{display:block; font-size:12px; font-weight:500; color:var(--ink3); letter-spacing:.04em; margin-top:2px;}
+  .biblio{background:var(--card2); border:1px dashed var(--line2); border-radius:12px; padding:11px 14px; font-size:13.5px; line-height:1.7; margin-top:12px; color:var(--ink2);}
+  .biblio b{font-family:"M PLUS Rounded 1c",sans-serif; color:var(--ink);}
+  .gain{background:var(--fc-bg,var(--plum-bg)); border-radius:12px; padding:11px 14px; font-size:14.5px; line-height:1.7; margin-top:12px;}
+  .gain b{font-family:"M PLUS Rounded 1c",sans-serif; color:var(--fc,var(--plum)); display:block; font-size:13px; letter-spacing:.03em; margin-bottom:2px;}
+  .note-box{background:var(--warn-bg); border:1px solid var(--warn-line); border-radius:12px; padding:9px 13px; font-size:13.5px; color:var(--warn-ink); line-height:1.65; margin-top:12px;}
+  .note-box b{font-family:"M PLUS Rounded 1c",sans-serif;}
+  .orig{margin:16px 0 0;}
+  .orig img{width:100%; height:auto; display:block; border:1px solid var(--line2); border-radius:12px; background:#fff;}
+  .orig figcaption{font-size:13px; color:var(--ink2); line-height:1.65; margin-top:7px;}
+  .orig figcaption b{font-family:"M PLUS Rounded 1c",sans-serif; color:var(--ink);}
+  .orig.narrow{max-width:560px;}
+  .chips{display:flex; flex-wrap:wrap; gap:6px; margin-top:8px;}
+  .chips span{background:var(--card2); border:1px solid var(--line); border-radius:8px; padding:4px 10px; font-size:12.5px; font-weight:700;}
+  .chips span i{font-style:normal; color:var(--ink3); font-weight:400;}
+  .steps{display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-top:12px;}
+  .steps div{background:var(--card2); border:1px solid var(--line); border-radius:12px; padding:11px 13px; font-size:13.5px; line-height:1.6;}
+  .steps b{font-family:"M PLUS Rounded 1c",sans-serif; display:block; font-size:13px; color:var(--fc,var(--butter));}
+  .rules4 .ok{color:var(--sage); font-weight:700;}
+  .rules4 .ng{color:var(--rose); font-weight:700;}
+  .formula{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-top:10px;}
+  .formula .ch{font-family:"M PLUS Rounded 1c",sans-serif; font-weight:800; font-size:16px; background:var(--fc-bg,var(--sage-bg)); color:var(--ink); border:1.5px solid var(--line2); border-radius:10px; padding:5px 13px;}
+  .formula .arw{color:var(--ink3); font-weight:700;}
+  .formula .lbl{font-size:12.5px; color:var(--ink3); width:100%;}
+  .fusion{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:18px 20px; box-shadow:var(--shadow); margin-top:16px;}
+  .fusion h4{font-family:"M PLUS Rounded 1c",sans-serif; font-size:16.5px; font-weight:800; margin-bottom:4px;}
+  .fusion p{font-size:14.5px; line-height:1.72;}
+  .fusion svg{width:100%; height:auto; display:block; margin-top:12px;}
+  .fusion .cap{font-size:12.5px; color:var(--ink3); margin-top:8px; line-height:1.6;}
+  .qa{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:18px 20px; box-shadow:var(--shadow); margin-top:16px;}
+  .qa h3{font-family:"M PLUS Rounded 1c",sans-serif; font-size:16.5px; font-weight:800;}
+  .qa .sub{font-size:13.5px; color:var(--ink2); margin-top:3px;}
+  .qa details{border-top:1px dashed var(--line2); margin-top:10px; padding-top:10px;}
+  .qa summary{cursor:pointer; font-size:14.5px; font-weight:700; font-family:"M PLUS Rounded 1c",sans-serif; list-style:none; display:flex; gap:8px; align-items:baseline;}
+  .qa summary::-webkit-details-marker{display:none;}
+  .qa summary::before{content:"問"; flex:none; font-size:11.5px; background:var(--fc-bg,var(--sky-bg)); color:var(--fc,var(--sky)); border-radius:6px; padding:1px 7px;}
+  .qa details .ans{font-size:14.5px; line-height:1.72; margin-top:6px; padding-left:34px; color:var(--ink2);}
+  .qa details .ans b{color:var(--ink);}
+  .learn-back{margin-top:26px; display:flex; flex-wrap:wrap; gap:10px; align-items:center;}
+  .learn-back .note{font-size:13px; color:var(--ink3);}
+  @media (max-width:760px){
+    .route{grid-template-columns:1fr 1fr;}
+    .steps{grid-template-columns:1fr 1fr;}
+    .book{padding:18px 16px 15px;}
+  }
+  @media (max-width:480px){
+    .route{grid-template-columns:1fr;}
+    .steps{grid-template-columns:1fr;}
+  }
+  /* ---- field chapter (Ragonne) ---- */
+  .grade{display:inline-block; font-size:11px; font-weight:700; padding:1px 8px; border-radius:999px; white-space:nowrap; line-height:1.6; vertical-align:1px;}
+  .g-fact{background:var(--sage-bg); color:var(--sage);}
+  .g-common{background:var(--sky-bg); color:var(--sky);}
+  .g-voice{background:var(--butter-bg); color:var(--butter);}
+  .g-unconf{background:var(--rose-bg); color:var(--rose);}
+  .field-source{background:var(--plum-bg); border:1px solid var(--line2); border-radius:var(--radius); padding:16px 18px; margin-top:16px; font-size:14px; line-height:1.75;}
+  .field-source b{font-family:"M PLUS Rounded 1c",sans-serif;}
+  .points{counter-reset:pt; margin-top:10px;}
+  .points li{counter-increment:pt; position:relative; padding-left:34px; margin-top:10px; font-size:14.5px; line-height:1.72;}
+  .points li::before{content:counter(pt); position:absolute; left:0; top:1px; width:24px; height:24px; border-radius:50%; background:var(--plum); color:#fff; font-family:"M PLUS Rounded 1c",sans-serif; font-weight:800; font-size:13px; display:flex; align-items:center; justify-content:center;}
+  .points li b{font-family:"M PLUS Rounded 1c",sans-serif;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .progress i{transition:none;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <figure class="top-banner">
+    <img src="assets/orchestration-notebook-banner.jpg" alt="管弦楽法てちょう — 編曲のそばに置く手帖。開いた五線紙の手帖とランプ、鉛筆と指揮棒が描かれたバナー" width="1920" height="825">
+  </figure>
+
+  <header class="intro">
+    <span class="kicker">♪ 編曲のそばに置く手帖</span>
+    <h1>管弦楽法てちょう<span class="thin">ビドール（1904）＋リムスキー（1913）＋フォーサイス（1914）を、今の楽器に合わせて読み直したもの</span></h1>
+    <p class="lead">土台はビドール『近代管弦楽法』——ベルリオーズの『楽器法』に「今の楽器の実態・音域・技法」を補うために書かれた古典です。この手帖は、その知恵を<strong>楽器ごとのカード</strong>に分け、<strong>⚠️印で2026年の標準と違う所</strong>を添えて、編曲の最中にすぐ引ける形にしました。第2期ではフォーサイス『Orchestration』とリムスキー『管弦楽法原理』を加え、<strong>原典の楽譜画像を見て覚える</strong>形に育てています。増築では、<strong>編成の大きさで変わる音量バランスの章</strong>を足しました。<strong>楽典・和声学・対位法の「理論の土台」</strong>（1725–1914の原典4冊）は、この手帖の中の1章として<strong>統合</strong>してあります。今回の増築では、しれーりんが集めて出典・ライセンスを台帳で照合してくれた<strong>楽器写真34点</strong>を、各カードの冒頭に組み込みました（写真下の小さな字が出典とライセンスです）。3人の意見が違う所は「見比べ」表で並べてあります。音域はすべて<strong>記音（譜面に書く音）／実音（実際に出る音）</strong>を分けて書いてあります。進み方はピストン『管弦楽法』に寄せてあります——まず弦・木管・金管・打楽器・その他の楽器を1つずつ見て、次に声部の原理、音量バランスへ進み、点検のチェックと頼み方は巻末の実習にまとめました。理論の土台の章では、楽典→和声学→対位法→「禁則は、絶対か」の順に積み上げる形にしてあります。</p>
+    <div class="howto">
+      <div><b><span class="n">1</span>書く前に</b><p>楽器カードで音域と「危ない所」を確認。移調楽器は実音の欄を必ず見る。</p></div>
+      <div><b><span class="n">2</span>書いている時に</b><p>各カード末尾の「ヴォイシングの勘所」が、その楽器の置き方のコツです。意見が割れる所は「3人の先生の見比べ」へ。</p></div>
+      <div><b><span class="n">3</span>書き終わったら</b><p>巻末の「ヴォイシング・チェック」20項目を上からなぞる。5分で事故の芽がだいぶ減ります。</p></div>
+    </div>
+  </header>
+
+
+  <div class="toolbar">
+    <div class="row">
+      <label class="search"><span aria-hidden="true">🔍</span><input id="q" type="search" placeholder="楽器名・言葉で探す（例：ホルン、ピチカート、pp）" aria-label="楽器や言葉で検索"></label>
+      <label class="sel"><span class="sr-only">楽器の種類で絞り込む</span><select id="famSelect" aria-label="楽器の種類で絞り込む">
+        <option value="all" selected>ぜんぶの楽器</option>
+        <option value="strings">弦楽器</option>
+        <option value="wood">木管</option>
+        <option value="brass">金管</option>
+        <option value="perc">打楽器</option>
+        <option value="other">サックス・ハープ・オルガン</option>
+      </select></label>
+      <label class="sel"><span class="sr-only">セクションへ移動</span><select id="jumpSelect" aria-label="セクションへ移動">
+        <option value="" selected>目次へ移動</option>
+        <option value="#strings">弦楽器</option>
+        <option value="#wood">木管</option>
+        <option value="#brass">金管</option>
+        <option value="#perc">打楽器</option>
+        <option value="#other">サックス・ハープ・オルガン</option>
+        <option value="#theory">理論の土台（楽典・和声・対位法）</option>
+        <option value="#prohibitions">理論の土台「禁則は、絶対か」</option>
+        <option value="#rimsky">リムスキーの原理</option>
+        <option value="#balance">音量バランス</option>
+        <option value="#compare">3人の先生の見比べ</option>
+        <option value="#changes">1904年からの変更点</option>
+        <option value="#field">オーケストラという現場——ルール・用語・対立</option>
+        <option value="#check">✓ ヴォイシング・チェック（実習）</option>
+        <option value="#ask">楽譜チェックの頼み方（実習）</option>
+      </select></label>
+    </div>
+    <p class="count" id="count"></p>
+  </div>
+  <p class="empty" id="empty">見つかりませんでした。言葉を短くするか、「ぜんぶの楽器」に戻してみてください。</p>
+
+<!-- ============ STRINGS ============ -->
+<section class="fam" id="strings" style="--fc:var(--sky); --fc-bg:var(--sky-bg);">
+<div class="fam-head"><h2>弦楽器</h2><span class="tag" style="background:var(--sky-bg); color:var(--sky);">オーケストラの土台</span>
+<p>いちばん先に来るのは、オーケストラの土台になる弦楽器たち。ピストンが弦から始めたように、この手帖も弦を起点に進みます。重音・弓・ピチカートの「できる／できない」が、そのまま編曲の出来を決めます。</p></div>
+<div class="grid">
+
+<article class="card" data-fam="strings" data-search="バイオリン ヴァイオリン violin 重音 ハーモニックス 運弓 ピチカート スピカート スタカート 弱音器 ponticello レーニョ">
+<div class="card-top"><h3>バイオリン<span class="en">VIOLON</span></h3><span class="fam-chip">弦楽器</span></div>
+<figure class="inst-photo"><span class="ph"><img src="assets/violin-met.jpg" alt="バイオリンの歴史資料の写真" loading="lazy"></span><figcaption><b>バイオリン（歴史資料の個体）</b><span class="credit">The Metropolitan Museum of Art, CC0</span></figcaption></figure>
+<div class="range"><div class="rr"><span><b>記音＝実音</b> 最大で G3–D7（3オクターブ＋5度）</span></div>
+<p class="note">管弦楽では最高部が危険地帯。B♭ は「最後の共鳴音」で、それより上の4音は次第に細くなります。</p></div>
+<div class="blk"><h4>性格</h4><p>半音階は全音階ほど鮮やかではなく（指を滑らせるため）、下行の半音階が特に難しい（上行は実用的）。G線は低音のオクターブが最も強く、共鳴は第7ポジションの C まで曇りがちです。</p></div>
+<div class="blk"><h4>できること</h4><ul>
+<li><b>手の伸び</b>：同一弦では増4度（減5度）まで。2弦にまたがる限度は短9度（慎重に）</li>
+<li><b>重音</b>：開放弦を含むものは全て容易。6度・3度は容易、完全4度・増4度・減5度・増5度・オクターブは可能、長2度は可能</li>
+<li><b>運弓</b>：原則は強拍＝下げ弓（⊓）、弱拍＝上げ弓（∨）。グラン・デタシェは弓全長、中デタシェは弓の1/3でアレグロの主力</li>
+<li>ソティエ（スピカート）は弓中央の反跳で軽快・高速。駒の近く（sul ponticello）は金属的な金槌色で、pp では空気のようにきらめく。指板の上（sul tasto）は弱く鈍い音</li>
+<li>ハーモニックス：自然倍音は開放弦の第2〜6倍音。最高部の例外として、ハーモニックスの E は優秀</li>
+<li>ピチカートの上行スラーは右手グリッサンドで速度ほぼ無制限</li></ul>
+<div class="speed"><span>一弓の目安 <i>ppp保持音は Moderato で3/4小節まで</i></span><span>ピチカート上限 <i>16分音符で ♩=104</i></span></div></div>
+<div class="blk danger"><h4>危ない所</h4><ul>
+<li><b>完全5度の重音は音程が不正確になりがちで「管弦楽にとって恐るべきもの」</b>。やむを得ない時は範囲を限定する。短2度は微妙で最大限慎重に</li>
+<li>最高部の音は、隣接音に導かれるか、前に十分な休止（Moderato で最低4拍）がないと出せない</li>
+<li>管弦楽で G線に第7ポジションの C より上を書くのは軽率（独奏は別）</li>
+<li><b>スタッカートとスピカートは別物</b>（スタッカートは弓先〜中央を押しつける奏法で、管弦楽では稀。下げ弓スタカートは使わない）。速い楽句を一弓2/4小節超にしない</li>
+<li>ピチカート有効域は低音 Sol（G線）〜高音 Mi（E線）まで。ピチカート→アルコの移行は時間がかかり、速い曲では切り替え自体が不可能な場合がある。下行ピチカート・グリッサンドは不可</li>
+<li>弱音器は音量を落とし性格を濃くするが、G線では鈍らせすぎるので用心。コル・レーニョは正当な理由なく使うと危険</li></ul></div>
+<div class="blk point"><h4>ヴォイシングの勘所</h4><div class="keyline">三重音・四重音は調ごとに可能な組合せが決まります（属7・減7・9度の和音とその解決が中心）。3弦同時の力任せの奏法は、管弦楽ではごく稀なものとして扱う。</div></div>
+</article>
+
+<article class="card" data-fam="strings" data-search="ビオラ ヴィオラ viola 伸び 限度 省略">
+<div class="card-top"><h3>ビオラ<span class="en">VIOLA</span></h3><span class="fam-chip">弦楽器</span></div>
+<figure class="inst-photo"><span class="ph"><img src="assets/viola.jpg" alt="ビオラの写真" loading="lazy"></span><figcaption><b>ビオラ</b> — Roberto Regazzi製、2020年。<span class="credit">Photo: Florenus, CC BY-SA 4.0, via Wikimedia Commons</span></figcaption></figure>
+<div class="range"><div class="rr"><span><b>原則</b> バイオリンの全規則を5度下に移す</span></div></div>
+<div class="blk"><h4>性格</h4><p>バイオリンと同じ考え方で書けますが、楽器が大きい分だけ手の伸びの限度が狭くなります。重音は6度、7度（減・短・長）、3度、4度、減5・増5、オクターブ、2度まで概ね可能。完全5度の上限は Si–Fa# の線で、低音の Fa–Si♭ は響きが悪い。ピチカートの上限はA線のオクターブまで、ハーモニックスも5度移行で同じです。</p></div>
+<div class="blk danger"><h4>危ない所</h4><div class="keyline"><b>同一弦は完全4度まで、2弦はオクターブまで</b>（バイオリンは増4度／短9度）。これを超える9度などを書くと、奏者は低音を省略して弾きます——そして作曲家への尊敬を失います。</div></div>
+</article>
+
+<article class="card" data-fam="strings" data-search="ヴィオラダモーレ ヴィオラ・ダモーレ viola d'amore 共鳴弦 復興 フォーサイス">
+<div class="card-top"><h3>ヴィオラ・ダモーレ<span class="en">VIOLA D'AMORE ／ フォーサイス1914で初登場</span></h3><span class="fam-chip">弦楽器</span></div>
+<div class="blk"><h4>性格</h4><p>ヴィオラ属で、演奏弦の下に<b>共鳴弦</b>を持つ楽器。弾いていない弦が共鳴して、かすかな残響のヴェールがかかります。バロック期の楽器ですが、フォーサイスの時代はちょうど<b>復興期</b>で、近代の作曲家が再び使い始めた所でした。</p></div>
+<div class="blk point"><h4>ヴォイシングの勘所</h4><div class="keyline">音量ではなく「共鳴の気配」が持ち味。特殊な色彩として、静かな場面に置く楽器です。</div></div>
+<p class="srcnote">出典：フォーサイス『Orchestration』（1914）。</p>
+</article>
+
+<article class="card" data-fam="strings" data-search="チェロ violoncelle 親指ポジション 基音 コントラバス 対 ピチカート">
+<div class="card-top"><h3>チェロ<span class="en">VIOLONCELLE</span></h3><span class="fam-chip">弦楽器</span></div>
+<figure class="inst-photo"><span class="ph"><img src="assets/cello.jpg" alt="チェロの写真" loading="lazy"></span><figcaption><b>チェロ</b><span class="credit">Photo: Georg Feitscher, CC BY-SA 3.0, via Wikimedia Commons</span></figcaption></figure>
+<div class="range"><div class="rr"><span><b>記音＝実音（現代）</b> C2–E5（3オクターブ＋3度）</span></div>
+<p class="note">頂点の E が f での最後の良い音。それより上は聞きづらく、耳障りでざらざらします（管弦楽での話。独奏は別）。</p></div>
+<div class="blk"><h4>性格</h4><p>弦ごとに性格が違います。第1弦が歌い最も強い印象。第2弦は少し嗄れた響きが貴重。第3弦も歌えますが多くは低音の役割。第4弦（C）はねっとり静かで大編成の重みを支えます。低音域は半音ごとに指が違うので半音階が非常に易しく、高音は親指ポジション（デマンシェ）です。一本の弦にとどまる必然性がバイオリンより強い楽器です。</p></div>
+<div class="blk"><h4>できること</h4><ul>
+<li>手の伸びは同一弦で長3度まで</li>
+<li><b>ピチカートのアルペジオは上下両方向とも良好</b>（バイオリンと違う）。速度上限は16分音符で ♩=104</li>
+<li>四重奏の和音を上げ弓で始めると最大の力強さが得られる特殊効果がある</li></ul></div>
+<div class="blk danger"><h4>危ない所</h4><ul>
+<li>自然な運指から親指ポジションへの急な跳躍は冒険的</li>
+<li><b>第3弦（G線）で5度を超えた所にある4音は、誰が弾いてもざらざらして一貫しない</b>（原因不明と本書に明記）</li>
+<li>ピチカートの鋭い音の限界は Sol#、La、Si♭ あたり。Si♭ はほとんど振動しないので超えて書かない</li>
+<li>親指を使う2度とオクターブは、片方が開放弦でない限り管弦楽では避ける。完全4度は同一弦では不可能</li></ul></div>
+<div class="blk point"><h4>ヴォイシングの勘所</h4><div class="keyline">チェロだけでは低音が不十分、コントラバスだけでは響きが鈍く音程が不正確。両者が合わさると、澄んで堅固で深く可鍛性のある最良の基音になります。別々に書く例外（『マイスタージンガー』第2幕）以外は、対で扱うのが原則です。</div></div>
+<p class="modern"><b>⚠️ 古典スコアの罠：</b>旧慣習ではチェロの高音部記号は1オクターブ下で読みます（16フィート読み）。現代は実音で書くのが標準です。</p>
+</article>
+
+<article class="card" data-fam="strings" data-search="コントラバス contrebasse 低音 支え ピチカート プルト 重音 ハーモニックス">
+<div class="card-top"><h3>コントラバス<span class="en">CONTREBASSE</span></h3><span class="fam-chip">弦楽器</span></div>
+<figure class="inst-photo"><span class="ph"><img src="assets/contrabass-met.jpg" alt="コントラバスの歴史資料の写真" loading="lazy"></span><figcaption><b>コントラバス（歴史資料の個体）</b><span class="credit">The Metropolitan Museum of Art, CC0</span></figcaption></figure>
+<div class="range"><div class="rr"><span><b>実音</b> E1–B♭3（2オクターブ＋5度）</span><span><b>記音</b> 実音の1オクターブ上</span></div>
+<p class="note">調律は4度間隔。最良の響き（ソノリテ）は記音 La–Ré の範囲。ヴィルトゥオーソはその上の C・D も使います。</p></div>
+<div class="blk"><h4>性格</h4><p>歌う楽器ではなく、オーケストラの真の低音の支え。低いポジションでは指の間隔は半音が限度です。弓が短いので、弱拍での弓の取り直しは気づかれませんが、強拍では必ず気づかれます。</p></div>
+<div class="blk"><h4>できること</h4><ul>
+<li>ピチカートは全音域で使え、最良は記音 La–Ré</li>
+<li>重音は3度（Fa–Ré）、完全4度（Mi–Ré）、完全5度（Fa–Do）が容易</li>
+<li>ハーモニックスは自然倍音のみ（第4弦は太さのため第4・第5倍音だけ）</li></ul></div>
+<div class="blk danger"><h4>危ない所</h4><ul>
+<li><b>速いピチカートは奏者を疲弊させる → プルトを分けて交互に弾かせる</b></li>
+<li>6度・7度・オクターブの重音は、片方が開放弦でない限り不可能。人工倍音も不可能</li>
+<li>高いピチカートは詩情を失い平板。快速でのレガートは不可能</li>
+<li>ヴェルディ『ファルスタッフ』の E♭ は、管弦楽では使わない方がよい</li></ul></div>
+<div class="blk point"><h4>ヴォイシングの勘所</h4><div class="keyline">チェロと対で基音を作るのが原則（チェロのカード参照）。単独では「支え」として書き、歌わせない。</div></div>
+<p class="modern"><b>⚠️ 現代の注記：</b>現代は5弦、またはC延長管で C1 まで下りるのが大編成では標準的です。ビドールの時代に独英で普及しつつあった5弦（低音Cまで）が、そのまま現代の形になりました。</p>
+</article>
+
+<article class="card" data-fam="strings" data-search="ギター guitar 付録 消される">
+<div class="card-top"><h3>ギター（付録）<span class="en">GUITARE</span></h3><span class="fam-chip">弦楽器</span></div>
+<div class="range"><div class="rr"><span><b>記音</b> 実音の1オクターブ上として書く</span><span><b>実音</b> 記音の1オクターブ下</span></div>
+<p class="note">6弦（Mi, La, Ré, Sol, Si, Mi）、半音階で約4オクターブ。和音は5〜6音。トレモロは親指の同音反復。</p></div>
+<div class="blk danger"><h4>危ない所</h4><p>管弦楽の中では音が細くデリケートすぎて消されがちです。効果は期待しすぎないこと。</p></div>
+</article>
+
+</div>
+</section>
+
+  <!-- ============ WOODWINDS ============ -->
+  <section class="fam" id="wood" style="--fc:var(--sage); --fc-bg:var(--sage-bg);">
+    <div class="fam-head"><h2>木管楽器</h2><span class="tag" style="background:var(--sage-bg); color:var(--sage);">スコアの一番上から</span>
+      <p>フルートからコントラ・バスーンまで、スコアの並び順です。木管の合奏は「誰が一番上に来るか」「誰が低音を支えるか」で響きが決まります。</p></div>
+    <div class="grid">
+
+      <article class="card" data-fam="wood" data-search="フルート flute 俊敏 運舌 倍音 ハーモニックス 歌 伴奏">
+        <div class="card-top"><h3>フルート<span class="en">FLÛTE</span></h3><span class="fam-chip">木管</span></div>
+<figure class="inst-photo"><span class="ph"><img src="assets/flute.jpg" alt="フルートの写真。銀色の管体にキイが並ぶ" loading="lazy"></span><figcaption><b>フルート</b> — 銀色の管体とキイが並ぶ、現代の標準的な姿。<span class="credit">Photo: Thea Paraskevaides, CC BY-SA 4.0, via Wikimedia Commons</span></figcaption></figure>
+        <div class="range"><div class="rr"><span><b>記音</b> C4–C7（3オクターブ）</span><span><b>実音</b> 記音どおり</span></div>
+          <p class="note">35番目の音までは自由に強弱・持続ができます。36番目は名手のみ、37番目は実質不可能。一部の奏者が出せる E♭7 は例外扱いで、一般の奏者のために書くのが原則です。</p></div>
+        <div class="blk"><h4>性格</h4><p>全楽器中もっとも運動性が高い楽器。臨時記号の少ない調が得意です。歌口で吹くため息の消費が大きく、長いアンダンテでは呼吸の計画が要ります。</p></div>
+        <div class="blk"><h4>できること</h4>
+          <div class="speed"><span>単切 <i>♩=112（低音）〜120（高音）</i></span><span>三切 <i>♩=144</i></span><span>複切 <i>♩=160</i></span></div>
+          <ul><li>運舌は単切（t）・複切（tk）・三切（tkt）。中音域の速さは弦と競えます</li><li>トリルは Ré–Mi の範囲で概ね良好（一部不可能なものあり）</li><li>倍音は基音側1〜14番目のハーモニックスまで実用</li></ul></div>
+        <div class="blk danger"><h4>危ない所</h4><ul>
+          <li><b>欠陥音</b>：3つのCはやや高め、E♭はやや低め、<b>D♭（=C#）は非常出にくい</b> → 優雅な旋律では D♭ を避ける</li>
+          <li>低音のスタッカートは出しにくく魅力もないので避ける</li>
+          <li>速い下行アルペジオの一部のかたちは困難</li></ul></div>
+        <div class="blk point"><h4>ヴォイシングの勘所</h4><div class="keyline">歌の伴奏では歌より1オクターブ上に置く（ゲファールトの規則）。管の和音では最上声部を受け持ちます。スコア上は冗長に見えるフルートの重複も、実音では明るさの要で「無用の長物」ではありません。</div></div>
+        <p class="modern"><b>⚠️ 現代の注記：</b>アルト・フルート（G管）とバス・フルートは、ビドールの時代の珍品から、今は実用楽器として定着しています。</p>
+      </article>
+
+      <article class="card" data-fam="wood" data-search="ピッコロ piccolo 輝き 効果 スタッカート">
+        <div class="card-top"><h3>ピッコロ<span class="en">PETITE FLÛTE</span></h3><span class="fam-chip">木管</span></div>
+<figure class="inst-photo"><span class="ph"><img src="assets/piccolo.jpg" alt="ピッコロの写真" loading="lazy"></span><figcaption><b>ピッコロ</b> — フルートの半分ほどの長さで、記音の1オクターブ上に鳴る。<span class="credit">Photo: Mezzofortist, CC BY-SA 3.0, via Wikimedia Commons</span></figcaption></figure>
+        <div class="range"><div class="rr"><span><b>記音</b> フルートと同じ</span><span><b>実音</b> 記音の1オクターブ上</span></div>
+          <p class="note">最低のCと最高のBは通常出しません。B♮ は大部分の奏者には不可能で、1つ上のCは必要な場合のみ。</p></div>
+        <div class="blk"><h4>性格</h4><p>音程が不安定で下がり気味、響き（sonorité）は貧弱です。「第1フルートのソプラノ」と考えるのは誤り。</p></div>
+        <div class="blk"><h4>できること</h4><p>役割は機械的・効果的です。スタッカート、速い coulée（滑らかな音の流れ）、全体への輝きの付加。ベルリオーズ『ファウストの劫罰』の扱いが模範とされます。</p></div>
+        <div class="blk danger"><h4>危ない所</h4><ul>
+          <li><b>ソロで歌わせるのは誤り</b>。旋律楽器ではなく効果の楽器として書く</li>
+          <li>フルートでは不可能な高音トリルを書くと、奏者は1オクターブ下げて吹いてしまう（事故のもと）</li></ul></div>
+        <div class="blk point"><h4>ヴォイシングの勘所</h4><div class="keyline">「もう少し明るさがほしい」という所に薄く重ねるのが本領。主役にせず、輝きの粉として使う。</div></div>
+        <p class="modern"><b>⚠️ 現代の注記：</b>現代のピッコロは最低音D（C管でもDまで）が標準的です。書く時の下限はDと思ってください。</p>
+      </article>
+
+      <article class="card" data-fam="wood" data-search="オーボエ oboe 牧歌 悲しみ 際立つ 音色">
+        <div class="card-top"><h3>オーボエ<span class="en">HAUTBOIS</span></h3><span class="fam-chip">木管</span></div>
+<figure class="inst-photo"><span class="ph"><img src="assets/oboe.jpg" alt="オーボエの写真。黒い管体に銀色のキイ" loading="lazy"></span><figcaption><b>オーボエ</b><span class="credit">Photo: Hustvedt, CC BY-SA 3.0, via Wikimedia Commons</span></figcaption></figure>
+        <div class="range"><div class="rr"><span><b>記音＝実音</b> B♭3–G6（34音、フランス式＝現代の標準）</span></div>
+          <p class="note">最低の B♭ は出しにくく柔らかさも保ちにくいので信用しないこと。最高部の2音は硬く細くなり音色を失います。</p></div>
+        <div class="blk"><h4>性格</h4><p>感情表現の幅が最大級の楽器（悲しみ・喜び・劇的・牧歌）。全音域で p も f も正確でなめらかです（上の例外を除く）。息の消費は全管楽器で最小クラスで、フルートよりはるかに長いフレーズが持ちます。</p></div>
+        <div class="blk"><h4>できること</h4>
+          <div class="speed"><span>単切のみ <i>上限 ♩=120（全音域）</i></span></div>
+          <ul><li>トリルは現代の楽器で B♭–F（改良型はF#）まで全て正確に可能</li><li>上行の跳躍は楽。スラーで唇を休ませられる音型なら速い例もあるが例外扱い</li></ul></div>
+        <div class="blk danger"><h4>危ない所</h4><ul>
+          <li>同じ音の速い反復は苦手（三切法はなおさら）</li>
+          <li><b>下行跳躍はぎこちない</b>。♩=120に近づくと危険になる型がある</li>
+          <li>C# と D は音色は悪くないが、超高速ではデリケートすぎる</li></ul></div>
+        <div class="blk point"><h4>ヴォイシングの勘所</h4><div class="keyline">音色が際立ちすぎるので、持続音・和音・第2プランで使う時は「一番良い音域」を選び、侵略的な低音を避け、常によく聞こえる前提で書くこと。オーボエとクラリネットのパートを入れ替えると響きが壊れます（ベートーヴェン第8の例）＝楽器の個性そのものがヴォイシングの一部です。</div></div>
+      </article>
+
+      <article class="card" data-fam="wood" data-search="オーボエダモーレ ダモーレ amour バッハ A管 移調">
+        <div class="card-top"><h3>オーボエ・ダモーレ<span class="en">HAUTBOIS D'AMOUR ／ A管</span></h3><span class="fam-chip">木管・移調</span></div>
+        <div class="range"><div class="rr"><span><b>記音</b> オーボエに準ずる</span><span><b>実音</b> 記音より短3度下</span></div>
+          <p class="note">低音 B♭ はありません。</p></div>
+        <div class="blk"><h4>性格</h4><p>音色の柔らかさと均質性が際立ちます。バッハが最も哀切な旋律を託した楽器です（ロ短調ミサ、マタイ受難曲ほか）。</p></div>
+        <div class="blk point"><h4>ヴォイシングの勘所</h4><div class="keyline">オーボエより影のある歌がほしい時に。移調（短3度下）の計算を忘れずに。</div></div>
+        <figure class="score-fig">
+          <img src="assets/oboe-damore-strauss.jpg" alt="R.シュトラウス『家庭交響曲』のオーボエ・ダモーレ実例譜を示したフォーサイス原典のページ" loading="lazy">
+          <figcaption><b>実例で見る（フォーサイス1914）</b> — R.シュトラウス『家庭交響曲』のオーボエ・ダモーレ実例譜2つ。ダモーレの歌わせ方のお手本として引かれている。</figcaption>
+        </figure>
+        <p class="modern"><b>⚠️ 現代の注記：</b>現代でもバロック演奏と一部の近代作品で使われますが、入手性は要確認の特殊楽器です。</p>
+      </article>
+
+      <article class="card" data-fam="wood" data-search="コーラングレ イングリッシュホルン cor anglais F管 移調">
+        <div class="card-top"><h3>コーラングレ<span class="en">COR ANGLAIS ／ F管</span></h3><span class="fam-chip">木管・移調</span></div>
+<figure class="inst-photo"><span class="ph"><img src="assets/english-horn.jpg" alt="コーラングレの写真。先端に球状のベルが付いた長い管体" loading="lazy"></span><figcaption><b>コーラングレ</b> — 先端の球状のベルと、曲がったボーカル（吹き口の管）が目印。<span class="credit">Photo: Hustvedt, CC BY-SA 3.0, via Wikimedia Commons</span></figcaption></figure>
+        <div class="range"><div class="rr"><span><b>記音</b> B–F（最低B♭なし）</span><span><b>実音</b> 記音より完全5度下 ＝ E–C</span></div></div>
+        <div class="blk"><h4>性格</h4><p>音色は3層です。低音は非常に強いが荒く、高音は虚弱、<b>中間が最良</b>。トリルは現代の楽器で B–Ré まで全て可能です。</p></div>
+        <div class="blk point"><h4>ヴォイシングの勘所</h4><div class="keyline">歌わせるなら中音域に。低音の荒さは「効果として欲しい時だけ」使う。</div></div>
+      </article>
+
+      <article class="card" data-fam="wood" data-search="クラリネット clarinet シャルモー クラリオン pp エコー 溶け合い 持ち替え">
+        <div class="card-top"><h3>クラリネット<span class="en">CLARINETTE ／ B♭管・A管</span></h3><span class="fam-chip">木管・移調</span></div>
+<div class="photo-row"><figure class="inst-photo"><span class="ph"><img src="assets/clarinet.jpg" alt="クラリネットの写真" loading="lazy"></span><figcaption><b>クラリネット</b><span class="credit">Photo: RobertoMM, Public domain, via Wikimedia Commons</span></figcaption></figure><figure class="inst-photo"><span class="ph"><img src="assets/basset-horn.jpg" alt="バセットホルンの歴史的モデルの写真。下端に金属のベルが付く" loading="lazy"></span><figcaption><b>バセットホルン（歴史的モデル）</b> — クラリネット属の仲間。F管、Anton Fischer製、19世紀中頃。<span class="credit">The Metropolitan Museum of Art, CC0</span></figcaption></figure></div>
+        <div class="range"><div class="rr"><span><b>記音</b> E3–A6（42音、木管で最広）</span><span><b>実音</b> B♭管＝長2度下／A管＝短3度下</span></div>
+          <p class="note">極限域は困難で、C7 は大多数の奏者に不可能。B♭管は記音E→実音Dまで、A管は記音E→実音C#まで（最低音が半音低い）。</p></div>
+        <div class="blk"><h4>性格</h4><p>音色は3層。低音＝シャルモーは劇的だが控えめで弱く、中音は万能、高音は華やか。敏捷性はフルートに次ぎ、音階・半音階・主要三和音／属7／減7のアルペジオが美しい楽器です。</p></div>
+        <div class="blk"><h4>できること</h4>
+          <div class="speed"><span>運舌上限 <i>♩=120</i></span><span>中音域 p の持続 <i>40〜50秒（名手の計算）</i></span></div>
+          <ul><li><b>管楽器で唯一、本物の pp エコー効果</b>が出せる（低音でも中音でも極限まで落とせる）</li><li>中音域は万能の溶け合い役。第2フルート・第2ホルン・バスーンの代役まで務まる</li><li>得意な調：C, F, G, B♭（とその関係調）</li></ul></div>
+        <div class="blk danger"><h4>危ない所</h4><ul>
+          <li>低音シャルモーを主題の中心にしない（経過的に使う音域）</li>
+          <li>D長調・E♭長調は難しい方。遠い調への移行は速いパッセージでは慎む</li>
+          <li><b>B♭管とA管の持ち替えには休止が必要</b>。楽章の途中では持ち替えない</li>
+          <li>フルート並みの速度を要求すると正確さが落ち、高音域では目立ちすぎる</li>
+          <li>A, B♭, B♮ の3音は常に発音が微妙。バッテリーは5度を超えると重くなる</li></ul></div>
+        <div class="blk point"><h4>ヴォイシングの勘所</h4><div class="keyline">B♭管は華やか、A管は気品。迷ったら中音域へ——そこが一番溶けて、一番よく働く場所です。</div></div>
+        <div class="blk"><h4>訂正（フォーサイス1914）</h4><p>昔の教本に載る「不可能なシェイク（トリル）の表」は、<b>1914年時点で既に時代遅れ</b>。全音・半音シェイクはほぼ全域で可能で、残る苦手は低い F♯ 系など6つだけです。</p></div>
+        <figure class="score-fig">
+          <img src="assets/clarinet-shakes.jpg" alt="クラリネットの不可能なシェイクの表はもう時代遅れと書かれたフォーサイス原典のページ" loading="lazy">
+          <figcaption><b>原典で見る（フォーサイス1914）</b> — 「不可能トリル表は時代遅れ」と書いたページの実物。残る苦手は6つだけ、と明記している。</figcaption>
+        </figure>
+        <p class="modern"><b>⚠️ 現代の注記：</b>現代の音色区分は「低音域＝シャルモー、中音域＝クラリオン」と分けるのが普通です（本書の低・中・高の3区分と読み替えてください）。ピッコロ・クラリネットは E♭管（実音は記音より短3度上）で、軍楽と特殊効果用。アルト・クラリネットは現代でも実用度は低めです。</p>
+      </article>
+
+      <article class="card" data-fam="wood" data-search="バスクラリネット バスクラ bass clarinet 旋律 ブレンド 拡張管">
+        <div class="card-top"><h3>バス・クラリネット<span class="en">CLARINETTE BASSE</span></h3><span class="fam-chip">木管・移調</span></div>
+        <div class="range"><div class="rr"><span><b>記音</b> B♭／A管の記譜</span><span><b>実音</b> 記音の1オクターブ下</span></div>
+          <p class="note">記譜は低音部記号をビドールが推奨。</p></div>
+        <div class="blk"><h4>性格</h4><p>低音楽器と思われがちですが、美しい旋律楽器で、低音域こそ本領です。</p></div>
+        <div class="blk point"><h4>ヴォイシングの勘所</h4><div class="keyline">バスーン＋ホルンとのブレンドが絶妙です（「エリザベートの祈り」）。低音の歌い手として書いてあげてください。</div></div>
+        <p class="modern"><b>⚠️ 現代の注記：</b>現代は記音C（実音 B♭1）まで下がる拡張管が標準です。記譜は高音部・低音部記号の併用（フランス式／ドイツ式）が混在します。</p>
+      </article>
+
+      <article class="card" data-fam="wood" data-search="ペダルクラリネット コントラバス・クラリネット pedal clarinet 最低音 フォーサイス">
+        <div class="card-top"><h3>ペダル・クラリネット<span class="en">PEDAL CLARINET ／ コントラバス・クラリネット ／ フォーサイス1914で初登場</span></h3><span class="fam-chip">木管・移調</span></div>
+<figure class="inst-photo"><span class="ph"><img src="assets/contrabass-clarinet.jpg" alt="電動式コントラバス・クラリネットCLEXの写真。製作者と並ぶと人の背丈ほどある" loading="lazy"></span><figcaption><b>現代の電動式コントラバス・クラリネット「CLEX」</b> — 写っているのは歴史的なペダル・クラリネットそのものではなく、その末裔にあたる現代楽器。人と並ぶと大きさが分かる。<span class="credit">Photo: Achim Hohlfeld, CC BY-SA, via Wikimedia Commons</span></figcaption></figure>
+        <div class="blk"><h4>性格</h4><p>クラリネット属の最低音側を担う大型楽器。バス・クラリネットよりさらに下を受け持ち、木管の最底辺を支えます。</p></div>
+        <div class="blk point"><h4>ヴォイシングの勘所</h4><div class="keyline">低音の「歌」ではなく土台として扱うのが基本。書く前に、その編成に実物があるか確認が要る特殊楽器です。</div></div>
+        <p class="srcnote">出典：フォーサイス『Orchestration』（1914）。</p>
+      </article>
+
+      <article class="card" data-fam="wood" data-search="バスーン ファゴット fagotto 融合 補強 チェロ 跳躍 スラー">
+        <div class="card-top"><h3>バスーン<span class="en">FAGOTTO</span></h3><span class="fam-chip">木管</span></div>
+<figure class="inst-photo"><span class="ph"><img src="assets/bassoon.jpg" alt="バスーンの写真。長い木製の管体" loading="lazy"></span><figcaption><b>バスーン</b><span class="credit">Photo: Mezzofortist / Eddau, CC BY-SA 3.0, via Wikimedia Commons</span></figcaption></figure>
+        <div class="range"><div class="rr"><span><b>記音＝実音</b> B♭1–B♭4（37半音）</span></div>
+          <p class="note">f では全域良好。ソロ曲では D5 まで、ワーグナーは E5 まで使用（チェロ・ビオラの斉奏で支えた例）。</p></div>
+        <div class="blk"><h4>性格</h4><p>最低5度は堂々として金管と張れるほど豊か（低音 B♭ はバス・トロンボーンの代役にもなれますが、息切れに注意）。中音域が最良で、一部はホルンに近い音色。高音は甘美な音と悪い音が混在します。</p></div>
+        <div class="blk"><h4>できること</h4>
+          <div class="speed"><span>運舌 <i>低音 ♩=126／中高音 ♩=138 の例</i></span></div>
+          <ul><li>1〜2オクターブの跳躍は驚くほど軽妙</li><li>スラーは上行を好む</li></ul></div>
+        <div class="blk danger"><h4>危ない所</h4><ul>
+          <li>p での最低部の B♮ と D はアタック困難。E♭〜G は高めで音も良くない</li>
+          <li><b>高音の A♭ は非常に悪い</b>（技術では直せない）。最高の D は予備音（グレース）なしでは出せない</li>
+          <li>G♭, E♭, D, C#, C♮ から始まる下行スラー音型は効果が悪い（切奏なら可）</li>
+          <li>長い困難な持続は避ける（唇が混乱する）。バッテリーは中音Cより下では効果が悪い</li></ul></div>
+        <div class="blk point"><h4>ヴォイシングの勘所</h4><div class="keyline">万能の融合役。木管・金管・弦すべてのグループと溶け合い、存在を気づかれずに弦の音量を補強できます。疑わしい音もチェロとの斉奏で美しくなります。フルートと2オクターブ離れて重ねると最も豊かな音質（モーツァルト）。持続和音の本当の低音は、ホルンよりバスーンに任せるのが確かです。</div></div>
+        <p class="modern"><b>⚠️ 現代の注記：</b>現代は A1 までが標準域です。ビドールの「B♭より下は書くな」は当時の楽器事情で、今は低音Aも普通に書けます。</p>
+      </article>
+
+      <article class="card" data-fam="wood" data-search="コントラバスーン コントラファゴット ペダル 低音 持続">
+        <div class="card-top"><h3>コントラ・バスーン<span class="en">CONTRE-BASSON</span></h3><span class="fam-chip">木管</span></div>
+<div class="photo-row"><figure class="inst-photo"><span class="ph"><img src="assets/contrabassoon.jpg" alt="コントラ・バスーンの写真" loading="lazy"></span><figcaption><b>コントラ・バスーン</b><span class="credit">Photo: Mezzofortist, CC BY-SA 3.0, via Wikimedia Commons</span></figcaption></figure><figure class="inst-photo"><span class="ph"><img src="assets/bassoon-comparison.jpg" alt="バスーン（左）とコントラ・バスーン（右）を並べた比較写真" loading="lazy"></span><figcaption><b>大きさ比べ</b> — 左がバスーン、右がコントラ・バスーン。管を折り返してこの高さになる。<span class="credit">Photo: Sotakeit, Public domain, via Wikimedia Commons</span></figcaption></figure></div>
+        <div class="range"><div class="rr"><span><b>記音</b> バスーンに準ずる</span><span><b>実音</b> 記音の1オクターブ下</span></div>
+          <p class="note">最良は最低音の7度以内。上へ行くほど弱く鼻声になり、やがて消えます。</p></div>
+        <div class="blk"><h4>性格</h4><p>深いペダル（土台の持続低音）のための楽器。強い肺が要ります。サン＝サーンス交響曲第3番の深い音色が好例。</p></div>
+        <div class="blk danger"><h4>危ない所</h4><ul>
+          <li>détaché（切り離した奏法）は避け、ゆったり使います</li>
+          <li><b>低音の持続は Moderato で2小節が限度</b> → 休息の設計が必須</li>
+          <li>ベートーヴェン第9の速い高音パッセージは真似ない（「彼が聾だったからできた無茶」）</li></ul></div>
+        <div class="blk point"><h4>ヴォイシングの勘所</h4><div class="keyline">速さではなく深さで使う。短い休息をこまめに入れて、土台として置く。</div></div>
+        <p class="modern"><b>⚠️ 現代の注記：</b>現代のヘッケル式は実音 B♭0（長いベルでは A0）まで下り、上は C4 あたりまで。本書の「下限C」は当時の事情です。</p>
+      </article>
+
+      <article class="card" data-fam="wood" data-search="サリュソフォン sarrusophone 廃止 置換">
+        <div class="card-top"><h3>サリュソフォン<span class="en">SARRUSOPHONE</span></h3><span class="fam-chip">木管・歴史的楽器</span></div>
+<figure class="inst-photo"><span class="ph"><img src="assets/sarrusophone.jpg" alt="サリュソフォンの写真。金属製の大きな管体がU字に折り返されている" loading="lazy"></span><figcaption><b>サリュソフォン</b> — ラプラタ大学所蔵。出典は「変ホ長調のバス」と記す（分類は未確定）。<span class="credit">Museo de Instrumentos Musicales Dr. Emilio Azzarini, Universidad Nacional de La Plata, CC BY 3.0</span></figcaption></figure>
+        <div class="blk"><h4>性格（1904年当時）</h4><p>コントラバス（C管）はコントラ・バスーンの対抗馬で、発音と低音の強さでは優位でした。バスーンと同じ運指・トレモロが可能で、低音でもスタッカートが速い（♩=112–116）楽器です。</p></div>
+        <div class="blk"><h4>フォーサイス1914では</h4><p>「バスーンの金属版」として紹介され、売りは<b>音量</b>。木製のバスーン属では届かない音圧を、金属管で出す発想の楽器でした。</p></div>
+        <p class="modern"><b>⚠️ 現代の注記：</b>現代では完全に廃れた楽器です。古いスコアで出会ったら、コントラ・バスーン（またはコントラバス・クラリネット等）への置換が前提になります。</p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============ BRASS ============ -->
+  <section class="fam" id="brass" style="--fc:var(--butter); --fc-bg:var(--butter-bg);">
+    <div class="fam-head"><h2>金管楽器</h2><span class="tag" style="background:var(--butter-bg); color:var(--butter);">唇で倍音を選ぶ楽器たち</span>
+      <p>金管はみんな「倍音列の中から唇で音を選ぶ」仕組み。だから高くなるほど音と音の間が狭くなり、唇のわずかなミスが音程事故になります。</p></div>
+
+    <div class="principle">
+      <h3>金管の原理（最初にこれだけ）</h3>
+      <ul>
+        <li>実際に使えるのは概ね<b>第2倍音から上</b>。基音（第1音）まで下れるのはテューバ類の大口径だけ</li>
+        <li><b>第7・11・13・14倍音は、自然倍音としては音程がずれています</b>（11は特に）。ピストン／スライドで管長を変えて半音階を埋める</li>
+        <li>どんな名手でも実用は<b>3オクターブ半まで</b></li>
+        <li>小口径（ホルン、トランペット）は第12〜16倍音以上まで届くが、倍音が高いほど唇の労作が大きい</li>
+      </ul>
+    </div>
+
+    <div class="grid">
+
+      <article class="card" data-fam="brass" data-search="ホルン horn 塞音 弱音器 cuivre sordini 高音 低音 担当 バスーン">
+        <div class="card-top"><h3>ホルン<span class="en">COR ／ F管が標準</span></h3><span class="fam-chip">金管</span></div>
+<figure class="inst-photo"><span class="ph"><img src="assets/horn.jpg" alt="ホルンの写真。円く巻いた管と大きなベル" loading="lazy"></span><figcaption><b>ホルン</b><span class="credit">Photo: BenP, CC BY 2.5, via Wikimedia Commons</span></figcaption></figure>
+        <div class="range"><div class="rr"><span><b>実音域</b> 38半音（ほぼバスーンと等しい）</span></div>
+          <p class="note">塞音（手で塞ぐ音）の音程は塞ぎ方で変わります。旧式のゆるい塞音は記譜音より半音低く響き、<b>現代の強い塞音は半音高く響く</b>（奏者は半音低く読む）——フォーサイス1914の結論で、両方の説が場合分けで正しいと分かりました。ビドール付録の「半音下がる」はゆるい塞音の場合です。</p></div>
+        <div class="blk"><h4>性格</h4><p>どの楽器とも溶ける楽器。クラリネットとの二重奏は絶品、チェロ＋コントラバスと混ぜるとトロンボーン的な鋭さも出ます。4部ホルンは木管アンサンブルに加わると音量が半分以上増します。</p></div>
+        <div class="blk"><h4>できること（色彩2種）</h4><ul>
+          <li><b>Con sordini</b>（弱音器）＝ビロードのような pp。開放音の反響のような響き</li>
+          <li><b>Cuivré</b>（+印、手で半塞）＝金属的な音。どの強さでも可。ただし第3倍音より下では出ない。開放に戻す時は Ouvert と書く</li>
+          <li>運舌は単・複・三切とも可能で、高音域ではフルートに拮抗</li>
+          <li>トレモロは唇のみ（ピストンは細長い管では間に合わない）。ただし小さい音程のトレモロはピストン操作も実用的</li></ul>
+          <div class="speed"><span>息の目安（中音・♩=120） <i>f で11拍／mf で14拍／p で20拍</i></span></div></div>
+        <div class="blk danger"><h4>危ない所</h4><ul>
+          <li><b>唇は高音用か低音用かを選ばなければなりません</b>。高音を吹いた直後の低音（その逆も）は良い音にならない</li>
+          <li>第9〜10倍音を超える速い切奏は避ける。第8・9倍音以上の長持続は、圧力＝空気消費が激しく危険</li>
+          <li>用語の混同に注意：gestopft を弱音器の意味で使わない</li></ul></div>
+        <div class="blk point"><h4>ヴォイシングの勘所</h4><div class="keyline">第1・第3ホルン＝高音担当、第2・第4ホルン＝低音担当と、最初から書き分けるのが最大の原則。そして4部の最下声は最も息を食い最も鳴らないので、持続和音の本当の低音はバスーンに任せる方が経済的で確かです。弱音器つきホルンは、ディミヌエンドの終結に最適。</div></div>
+        <p class="modern"><b>⚠️ 古典スコアの罠：</b>旧式の低音部記号のホルン記譜は「記音より完全4度上」が実音です（現代の低音部記号は1オクターブ下が実音）。古い譜を読む時に事故りやすい所です。</p>
+      </article>
+
+      <article class="card" data-fam="brass" data-search="トランペット trumpet 高貴 劇的 弱音器 疲労">
+        <div class="card-top"><h3>トランペット<span class="en">TROMPETTE</span></h3><span class="fam-chip">金管</span></div>
+<figure class="inst-photo"><span class="ph"><img src="assets/trumpet.jpg" alt="トランペットの写真" loading="lazy"></span><figcaption><b>トランペット</b><span class="credit">Photo: Amada44, CC BY-SA 3.0, via Wikimedia Commons</span></figcaption></figure>
+        <div class="range"><div class="rr"><span><b>記音（現代標準）</b> F#3–C6</span><span><b>実音</b> B♭管＝長2度下／C管＝記音どおり</span></div>
+          <p class="note">ナチュラル・トランペットの実用下限は低音E。半音下の E♭ は今でも不安で、指揮者は第1トロンボーンに代奏させるのが普通でした（シューマン『マンフレッド』）。</p></div>
+        <div class="blk"><h4>性格</h4><p>力・高貴さ・劇的表現でコルネットに勝ります。弱音器はワーグナー以降、標準の色彩です（f で吹かせる指定も多い）。</p></div>
+        <div class="blk"><h4>できること</h4>
+          <div class="speed"><span>運舌上限 <i>♩=120〜144</i></span><span>息（p） <i>低音8〜9小節／中音12〜14小節、f で半減</i></span></div>
+          <ul><li>運舌は単・複・三切ともホルンより容易</li><li>トレモロはホルンと逆で、<b>ピストン使用が必須</b>（唇だけでは不可能）</li></ul></div>
+        <div class="blk danger"><h4>危ない所</h4><ul>
+          <li>最高速の持続は疲労で発音が重くなる → 長く続けない</li>
+          <li>バス・トランペットは実在するのはC管のみ。低音で第3倍音まで下げるのは避け、高音はFを超えない</li></ul></div>
+        <div class="blk point"><h4>ヴォイシングの勘所</h4><div class="keyline">ビドールは小トランペットの音色を「気高さを欠く」と批判し、実用域は G–G の2オクターブが本領という立場でした。現代でも、高音域の多用で音色が痩せる点は共通認識です。</div></div>
+      </article>
+
+      <article class="card" data-fam="brass" data-search="コルネット cornet 俊敏 中音域 代用">
+        <div class="card-top"><h3>コルネット<span class="en">CORNET À PISTONS ／ B♭・A管</span></h3><span class="fam-chip">金管</span></div>
+        <div class="range"><div class="rr"><span><b>記音</b> 小トランペットと同じ（低音F#〜高音C）</span></div></div>
+        <div class="blk"><h4>性格</h4><p>中音域の俊敏さは金管随一。半音階・トレモロ・回転音型はフルートやクラリネット並みです。トランペットとの違いは音色——ねばりと普遍性（コルネット）対、輝きと気高さ（トランペット）。</p></div>
+        <div class="blk danger"><h4>危ない所</h4><ul>
+          <li>最低の F# から5〜6半音は音質不良。第6倍音以上は次第に痩せる</li>
+          <li>最高音は、いきなり書かず漸進的に到達させると良い音になる</li></ul></div>
+        <p class="modern"><b>⚠️ 現代の注記：</b>現代の管弦楽ではコルネットは独立パートとして残る（仏・露系作品）一方、B♭トランペットで代用されることも多い楽器です。弱音器の音は「最も非音楽的」とまで評されたので、効果の確認を。</p>
+      </article>
+
+      <article class="card" data-fam="brass" data-search="トロンボーン trombone ポジション レガート sostenuto バストロンボーン ペダル トリスタン">
+        <div class="card-top"><h3>トロンボーン<span class="en">TROMBONE ／ テノール2＋バス1が標準</span></h3><span class="fam-chip">金管</span></div>
+<figure class="inst-photo small"><span class="ph"><img src="assets/trombone.jpg" alt="トロンボーンの画像。スライドとベル" loading="lazy"></span><figcaption><b>トロンボーン</b> — 入手できた画像が小さいため、小さめの表示。<span class="credit">Photo: Josef Pich, CC BY-SA 4.0, via Wikimedia Commons</span></figcaption></figure>
+        <div class="range"><div class="rr"><span><b>テノール</b> 35音・7ポジション</span><span><b>良い音域</b> 低音G〜B♭の帯（第8倍音帯）</span></div>
+          <p class="note">バス・トロンボーンはF管（テノールの完全4度下）。</p></div>
+        <div class="blk"><h4>性格</h4><p>トロンボーン群のオクターブ・ユニゾン＋cuivré のクレッシェンドほど劇的なものはありません。一方で息は、f では驚くほど消費し音ごとに呼吸する場面も。p の持続は対照的に長く、Moderato で8小節は疲労なしに持って「煙のように」消えます。</p></div>
+        <div class="blk"><h4>できること</h4><ul>
+          <li>トレモロは唇のみ、倍音7〜9の全音関係のみ</li>
+          <li>スライド・グリッサンドはダンスホールの効果で、交響曲にはほぼ使われない</li></ul></div>
+        <div class="blk danger"><h4>危ない所</h4><ul>
+          <li><b>第7ポジションは「できる限り敬遠」</b>。その固有音（低音EとB）は楽器最悪の音。ペダル音は実質ポジション1〜2の B♭ のみ</li>
+          <li>良い音域の下は音程の確かさを欠く。第8〜10倍音を吹いた直後に低音G・F・Eへ降りるのは苦行（ホルンと同じ唇の専門化）</li>
+          <li><b>本当のレガートは同ポジション・同倍音内だけ</b>。それ以外は sostenuto と指定して「最善のレガート」を求めるのが作法。スラー終わりの音が切れそうな所にはアクセントを（ワーグナーの慣行）</li>
+          <li>バス・トロンボーンは発音が緩やかでペダルは実質不可能。大家は E♭ より下を滅多に使わない</li></ul></div>
+        <div class="blk point"><h4>ヴォイシングの勘所</h4><div class="keyline">最低部の数音は「全曲に数回の特別な音」として使う——『トリスタン』で低音 B♮ は全曲で1回だけ、持続低音は E♭ 止まりで常に p でした。バス・トロンボーンは低音Bまで見事な音が出るのが、テューバとの違いです。</div></div>
+        <p class="modern"><b>📌 追記（フォーサイス1914）：</b>バス・トロンボーンには、親指バルブで追加管を切り替える機構が既に書かれていました——現代の F アタッチメントの原型です。フォーサイスは「将来のトロンボーンはスライド主体＋補助バルブになる」と予測し、その通りになりました。</p>
+        <p class="modern"><b>⚠️ 現代の注記：</b>現代は B♭/F管（アタッチメント付き）テノールが標準で、実用域は大幅に広がっています。アルト・トロンボーンは衰退し、コントラバス・トロンボーンはワーグナーのリング用の特殊楽器です。</p>
+      </article>
+
+      <article class="card" data-fam="brass" data-search="テューバ tuba サクソルン フリューゲルホルン ワーグナーテューバ 低音">
+        <div class="card-top"><h3>テューバ<span class="en">TUBA（バス・サクソルン）</span></h3><span class="fam-chip">金管</span></div>
+<figure class="inst-photo"><span class="ph"><img src="assets/tuba.jpg" alt="テューバの写真。上向きの大きなベル" loading="lazy"></span><figcaption><b>テューバ</b><span class="credit">Photo: Žiga, CC0, via Wikimedia Commons</span></figcaption></figure>
+        <div class="range"><div class="rr"><span><b>記譜</b> C調基準（奏者が移調して読む）</span><span><b>本領</b> C–C の2オクターブ</span></div></div>
+        <div class="blk"><h4>性格</h4><p>円錐管のサクソルン族の一員で、音色が均質。C–C の2オクターブは驚くべき音色と張りがあります。運舌は意外に軽快（音階 ♩=104、跳躍 ♩=84 の例）。</p></div>
+        <div class="blk danger"><h4>危ない所</h4><ul>
+          <li><b>一番弱いのは最低音域</b>。管弦楽では Sol を越えて下げるのは無謀</li>
+          <li>テューバに低音Fを書くのは無暴（C管に存在しない）。弱音器を付けると半音上がって実質使用不可になる癖もある</li>
+          <li>コントラバス・テューバ（B♭）は最も響くが音域は最も狭い（低音Gまで明瞭）</li></ul></div>
+        <div class="blk point"><h4>ヴォイシングの勘所</h4><div class="keyline">対比で覚える：バス・トロンボーンは低音Bまで見事な音、テューバはGまで。最低音域に頼らず、C–C の帯で土台を作る。</div></div>
+        <div class="blk"><h4>注意（フォーサイス1914）</h4><p>トロンボーンの和音にテューバを混ぜると、テューバは構造的に<b>一段強く鳴ってしまいます</b>。バランスが崩れる時は、テューバを外す・音域をずらすなど、代替配置の工夫が要ります。</p></div>
+        <p class="modern"><b>⚠️ 現代の注記：</b>現代のテューバは F／E♭管が主流で音域も拡張されていますが、「最低部の数音は弱く p 向き」という構造は今も同じです。同族のフリューゲルホルン（B♭）は甘く詩的、ワーグナー・テューバはこの一族の複製です。</p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============ PERCUSSION ============ -->
+  <section class="fam" id="perc" style="--fc:var(--rose); --fc-bg:var(--rose-bg);">
+    <div class="fam-head"><h2>打楽器</h2><span class="tag" style="background:var(--rose-bg); color:var(--rose);">「止める／残す」を書くのが礼儀</span>
+      <p>打楽器で一番大事なのは、音そのものより「余韻をどうするか」と「替える時間があるか」。この2つを譜面に書くかどうかで、現場の事故が決まります。</p></div>
+    <div class="grid">
+
+      <article class="card" data-fam="perc" data-search="ティンパニー timpani 調律 ロール 撥 ペダル">
+        <div class="card-top"><h3>ティンパニー<span class="en">TIMBALES</span></h3><span class="fam-chip">打楽器</span></div>
+<div class="photo-row"><figure class="inst-photo"><span class="ph"><img src="assets/timpani.jpg" alt="現代のペダル式ティンパニーの写真" loading="lazy"></span><figcaption><b>現代のペダル式ティンパニー</b><span class="credit">Photo: Moreau1, Public domain, via Wikimedia Commons</span></figcaption></figure><figure class="inst-photo"><span class="ph"><img src="assets/timpani-met.jpg" alt="歴史資料のティンパニー（ケトルドラム）の白黒写真" loading="lazy"></span><figcaption><b>歴史資料のティンパニー</b> — 脚付きのケトルドラム。<span class="credit">The Metropolitan Museum of Art, CC0</span></figcaption></figure></div>
+        <div class="range"><div class="rr"><span><b>1台の音域</b> 完全5度ほど</span><span><b>安全圏（全体）</b> 低音F〜高音F</span></div>
+          <p class="note">大：F–C、小：B♭–F、中：G–D または A–E（国による）。3台あれば各4半音の守備で全半音階をカバーできます。</p></div>
+        <div class="blk"><h4>性格</h4><p>音は「ハープの和音のように空へ消えゆく振動」が本質。最低音は最も重く余韻が長く、中音域はチェロのピチカートのように良い音（Ré が最上）。大音量の f では音高が埋もれてリズム楽器になります。</p></div>
+        <div class="blk"><h4>できること</h4><ul>
+          <li>ロールは tr. かトレモロ線で書く（線の数はテンポで変える）</li>
+          <li>クレッシェンド・ロール中に太鼓を替えても耳では判別できない（継ぎ目なしの ff 到達が可能）</li>
+          <li>2台同時打ちは可。同時2音のロールには奏者2人が必要</li>
+          <li>撥は皮製が通常（f も p も）、海綿製は特別に弱く甘い効果。打点は中心と縁の中間（縁は鼻声で乾く）</li></ul></div>
+        <div class="blk danger"><h4>危ない所</h4><ul>
+          <li>高音 F# は貧弱（ベートーヴェンは1オクターブ下と重ねてのみ使用）。低音Eは pp でのみ音価を持つ「憂鬱な破れ太鼓」の音。<b>ベルリオーズやワーグナーの例外は借りない</b></li>
+          <li><b>調律変更の余裕は、ビドール「1音で約1小節」よりフォーサイス「全音の変更でも最低2〜3小節（Moderato）」が安全</b>。大家は長3度を超える変更を避け、必要なら段階的に導く。調律の組合せは作曲者が予め設計する</li>
+          <li>複数小節のロールはスラーで結ばないと、奏者は最初の小節だけと誤解する。終わりの音が「分節されるのか、ロールの延長か」を明確に</li>
+          <li>軽いリズムに低音 F, F#, G を書くのは下手（余韻が長すぎる）</li></ul></div>
+        <div class="blk point"><h4>ヴォイシングの勘所</h4><div class="keyline">ティンパニーが本当のバスとして機能するのは、音高が耳に残って疑いが生じない時だけ。調律設計と「余裕のある変更」までが作曲者の仕事です。</div></div>
+        <figure class="score-fig">
+          <img src="assets/timpani-elgar.jpg" alt="ティンパニーの音域図とエルガー『エニグマ変奏曲』の実例譜を示したフォーサイス原典のページ" loading="lazy">
+          <figcaption><b>実例で見る（フォーサイス1914）</b> — 3台のティンパニーの音域と、エルガー『エニグマ変奏曲』の実例譜。調律の組み合わせをどう設計するかが見える。</figcaption>
+        </figure>
+        <p class="modern"><b>📌 追記（フォーサイス1914）：</b>ペダル式ティンパニーは1914年時点で既に存在していました。ただし音が鈍くなる（"tubbier"）という留保つきで、ビドールの「機械式への美的反対」とは違う、実務的な距離感です。</p>
+        <p class="modern"><b>⚠️ 現代の注記：</b>現代はペダル式が標準で調律変更は格段に速く、グリッサンドも可能です。標準セットは4台（32／29／26／23インチ等）。それでも「変更には余裕と設計が要る」という原則は今も有効です。</p>
+      </article>
+
+      <article class="card" data-fam="perc" data-search="小太鼓 スネア 中太鼓 タンバリン トライアングル カスタネット 小物">
+        <div class="card-top"><h3>小太鼓・タンバリン・トライアングル ほか<span class="en">PETITES PERCUSSIONS</span></h3><span class="fam-chip">打楽器</span></div>
+<div class="photo-grid"><figure class="inst-photo"><span class="ph"><img src="assets/snare.jpg" alt="小太鼓の写真" loading="lazy"></span><figcaption><b>小太鼓</b><span class="credit">Photo: Englishteacher68, CC BY-SA 4.0, via Wikimedia Commons</span></figcaption></figure><figure class="inst-photo"><span class="ph"><img src="assets/snare-met.jpg" alt="ロープで膜を張った歴史的な太鼓の白黒写真" loading="lazy"></span><figcaption><b>歴史資料の太鼓</b> — ロープで膜を張る古い構造。<span class="credit">The Metropolitan Museum of Art, CC0</span></figcaption></figure><figure class="inst-photo"><span class="ph"><img src="assets/triangle-met.jpg" alt="トライアングルの歴史資料の写真" loading="lazy"></span><figcaption><b>トライアングル（歴史資料）</b><span class="credit">The Metropolitan Museum of Art, CC0</span></figcaption></figure><figure class="inst-photo"><span class="ph"><img src="assets/tambourine-met.jpg" alt="タンバリンの歴史資料の写真" loading="lazy"></span><figcaption><b>タンバリン（歴史資料）</b><span class="credit">The Metropolitan Museum of Art, CC0</span></figcaption></figure></div>
+        <div class="blk"><h4>小太鼓（Tambour militaire）</h4><p>無音程の「響き」で、どの調とも喧嘩しません。奏法は単打（稀）、fla（2本の速い連打）、誇張打（coup de charge）、ラ打ち（3〜10連打）、持続ロール。膜を布で覆うと不吉で痛ましい音になります。中太鼓（Caisse roulante）はスネアなし・胴が長く鈍い音で、グルックとワーグナーが愛用。</p></div>
+        <div class="blk"><h4>タンバリン</h4><p>奏法は3つ——手の甲で打つ／振る（鈴のトレモロ）／親指で擦る（短い擦り打ち＋鈴）。1線譜で書きます。</p></div>
+        <div class="blk"><h4>トライアングル</h4><p>装飾音つきの打法が好まれます。<b>装飾群は奇数（3、5）が優秀で、4は不自然</b>（打つ方向の都合）。pp では上端を打ちます。どんな pp の込み入った音の中でも聞こえてきて、単独でリズムを担える楽器です。</p></div>
+        <div class="blk"><h4>カスタネット</h4><p>木製・鉄製の対。あらゆるリズムが可能で、スペイン的色彩。複数を交錯させて最大強度へ積む用法があります（『サムソンとデリラ』）。</p></div>
+      </article>
+
+      <article class="card" data-fam="perc" data-search="シンバル cymbales 吊りシンバル 金粉 止める 余韻 大太鼓 タムタム">
+        <div class="card-top"><h3>シンバル・大太鼓・タムタム<span class="en">CYMBALES / GROSSE CAISSE / TAM-TAM</span></h3><span class="fam-chip">打楽器</span></div>
+<div class="photo-row"><figure class="inst-photo"><span class="ph"><img src="assets/clash-cymbals.jpg" alt="合わせシンバルの写真" loading="lazy"></span><figcaption><b>合わせシンバル</b><span class="credit">Photo: Andrewa, CC BY-SA 3.0, via Wikimedia Commons</span></figcaption></figure><figure class="inst-photo"><span class="ph"><img src="assets/bass-drum.jpg" alt="大太鼓の写真" loading="lazy"></span><figcaption><b>大太鼓</b><span class="credit">Photo: Yooperz, CC BY-SA 4.0, via Wikimedia Commons</span></figcaption></figure></div>
+        <div class="blk"><h4>シンバル</h4><p>合わせシンバルと吊りシンバル（片方を撥で打つ）の2系統。ロールは f では両打ちの高速交互、p〜cresc. では吊りシンバルを撥で擦ります（p↔f が完全に均等）。軽く打った吊りシンバルは「オーケストラの上に金粉が立ち昇る」効果。</p></div>
+        <div class="blk"><h4>大太鼓</h4><p>丸く重い音、フェルト撥。柄の中ほどを持って打つと雷のようなロール。<b>ティンパニー撥で打てば、ティンパニーより低いトレモロ</b>が得られます。シンバルとの pp は神秘的で高貴。</p></div>
+        <div class="blk"><h4>タムタム</h4><p>無音程ですが周囲の和音に同化しやすい楽器です。打楽器の「高さ」感覚は シンバル ＞ タムタム ＞ 大太鼓。</p></div>
+        <div class="blk danger"><h4>危ない所</h4><ul>
+          <li><b>シンバルは記譜で「止めるのか、余韻を残すのか」を必ず区別する</b></li>
+          <li>大太鼓と同時の時はシンバルが前に出すぎるので配慮を</li>
+          <li><b>タムタムは和音が変わったら振動を急いで止める</b>（ピアノのペダルを踏みっぱなしにするのと同じ事故になる）</li></ul></div>
+      </article>
+
+      <article class="card" data-fam="perc" data-search="チェレスタ グロッケンシュピール 木琴 鐘 クロタル 古式シンバル 鍵盤打楽器">
+        <div class="card-top"><h3>鍵盤打楽器・鐘<span class="en">CELESTA / GLOCKENSPIEL / XYLOPHONE / CLOCHES</span></h3><span class="fam-chip">打楽器</span></div>
+<div class="photo-grid"><figure class="inst-photo"><span class="ph"><img src="assets/celesta.jpg" alt="Schiedmayer製チェレスタの写真。小さなアップライトピアノのような姿" loading="lazy"></span><figcaption><b>チェレスタ</b> — Schiedmayer製、ベルリン楽器博物館所蔵。<span class="credit">Photo: Museumsinsulaner, Public domain, via Wikimedia Commons</span></figcaption></figure><figure class="inst-photo"><span class="ph"><img src="assets/glockenspiel.jpg" alt="グロッケンシュピールの写真。金属の音板が並ぶ" loading="lazy"></span><figcaption><b>グロッケンシュピール</b><span class="credit">Photo: flamurai, Public domain, via Wikimedia Commons</span></figcaption></figure><figure class="inst-photo"><span class="ph"><img src="assets/glockenspiel-keyboard-met.jpg" alt="鍵盤付きグロッケンシュピールの歴史資料の白黒写真" loading="lazy"></span><figcaption><b>鍵盤付きグロッケンシュピール（歴史資料）</b><span class="credit">The Metropolitan Museum of Art, CC0</span></figcaption></figure><figure class="inst-photo"><span class="ph"><img src="assets/xylophone.jpg" alt="木琴の写真。木の音板とマレット" loading="lazy"></span><figcaption><b>木琴（シロフォン）</b><span class="credit">Photo: Roumpf / Olivier Lemoine, CC BY-SA 3.0, via Wikimedia Commons</span></figcaption></figure><figure class="inst-photo"><span class="ph"><img src="assets/piano-met.jpg" alt="歴史資料のグランドピアノの写真。装飾的な脚と譜面台" loading="lazy"></span><figcaption><b>ピアノ（歴史資料のグランドピアノ）</b> — 本文で、鐘の代用に低音弦を使う工夫が出てくる楽器。<span class="credit">The Metropolitan Museum of Art, CC0</span></figcaption></figure></div>
+        <div class="blk"><h4>チェレスタ</h4><p><b>実音は記音の1オクターブ上</b>。4オクターブ（本書）。純で爽やかな詩情の音で、強い f は出ません。機構は<b>鋼板を叩いて木製共鳴器で鳴らす</b>仕組みで、調律は狂いにくい楽器です。</p></div>
+        <div class="blk"><h4>グロッケンシュピール</h4><p><b>実音は記音の2オクターブ上</b>（フォーサイス1914と現代標準が一致）。ビドール本書の「1オクターブ上」は古い慣行で、ここで訂正します。中音域が最良、余韻が拡がる時間を残して書きます。</p></div>
+        <div class="blk"><h4>木琴</h4><p>3オクターブ、最良は C–G の範囲、実音は記音の1オクターブ上。</p></div>
+        <div class="blk"><h4>古式シンバル（クロタル）</h4><p>直径15〜20cm、銀のような音色で音高が高い楽器（ベルリオーズ『ロメオ』『トロイ人』）。ロールとトレモロは避けます。</p></div>
+        <div class="blk"><h4>鐘</h4><p>本物の鐘は巨大すぎて実用外（Do の鐘は22,900kg）。代用＝半球のティンブル鐘、ピアノ低音弦＋タムタム pp 等の工夫が前提。歌劇の鐘は Sol より低くしない（ゲファールト）。</p></div>
+        <p class="modern"><b>⚠️ 訂正（フォーサイス1914）：</b>ビドールはチェレスタの機構を「音叉を叩く」と書きましたが、これは<b>誤り</b>です。音叉式は別楽器<b>ダルシトーン</b>（次のカード）のことで、フォーサイス本人が「混同するな」と明記しています。チェレスタは現代は4〜5.5オクターブのモデルがあり（Schiedmayer製が標準）。クロタルは現代では音程のある打楽器として常用されます。</p>
+      </article>
+
+      <article class="card" data-fam="perc" data-search="ダルシトーン dulcitone 音叉 鍵盤打楽器 チェレスタ 混同 フォーサイス">
+        <div class="card-top"><h3>ダルシトーン<span class="en">DULCITONE ／ フォーサイス1914で初登場</span></h3><span class="fam-chip">打楽器・鍵盤</span></div>
+        <div class="blk"><h4>性格</h4><p><b>音叉を叩く</b>鍵盤打楽器——チェレスタと間違えられがちですが、発音体がまったく違います。フォーサイスは「チェレスタと混同するな」とわざわざ明記しました。ビドールがチェレスタの説明で書いた「音叉」は、本来こちらを指していたと見られます。</p></div>
+        <div class="blk point"><h4>覚え方</h4><div class="keyline">音叉＝ダルシトーン、鋼板＝チェレスタ。この1行で、ビドール以来の混同は終わりにできます。</div></div>
+        <p class="srcnote">出典：フォーサイス『Orchestration』（1914）。</p>
+      </article>
+
+    </div>
+  </section>
+
+<!-- ============ OTHER: SAX / HARP / ORGAN ============ -->
+<section class="fam" id="other" style="--fc:var(--plum); --fc-bg:var(--plum-bg);">
+<div class="fam-head"><h2>サクソフォン・ハープ・オルガン</h2><span class="tag" style="background:var(--plum-bg); color:var(--plum);">客演と、響きを預かる楽器たち</span>
+<p>スコアでは打楽器の次に置かれる3つの仲間です。どれも「響きが残る・広がる」性質があるので、書く側は余白の設計が要ります。</p></div>
+<div class="grid">
+
+<article class="card" data-fam="other" data-search="サクソフォン サックス saxophone アルト テノール バリトン ソプラノ 客演">
+<div class="card-top"><h3>サクソフォン族<span class="en">SAXOPHONES</span></h3><span class="fam-chip">サックス</span></div>
+<div class="range"><div class="rr"><span><b>ソプラノ</b> B♭管</span><span><b>アルト</b> E♭管</span><span><b>テノール</b> B♭管</span><span><b>バリトン</b> E♭管</span></div>
+<p class="note">音域はだいたいオーボエと同等（低音 B♭ を含む）。バリトンの上限は E♭、アルトとテノールは F まで。運指はオーボエと同じで、オーボエで可能なトリル・トレモロは全て可能です。</p></div>
+<div class="blk"><h4>性格</h4><p>スラーの楽句が最も適します。四重奏はオルガンのような錯覚を生みます。<b>アルトが一族の最良</b>で、均質で美しい低音を持ち、音量はクラリネット4〜5本分に対抗します。息は中音域で Moderato 4拍子・10小節まで。</p></div>
+<div class="blk danger"><h4>危ない所</h4><ul>
+<li>ソプラノとテノールは最低音が弱いので慎重に。アルトとバリトンは最低音が優秀</li>
+<li><b>全種共通：最低6度の範囲を pp で吹かせるのは避ける</b></li>
+<li>アルトの最高の5〜6音（テノールは4〜5音）は名手用で、だんだん細くなる</li></ul></div>
+<div class="blk point"><h4>ヴォイシングの勘所</h4><div class="keyline">ビドールの留保は「音が少し荒く、近くの楽器と釣り合わない」（ビゼーは例外的に完全）。主役にするならアルトを中心に据えるのが無難です。</div></div>
+<p class="modern"><b>⚠️ 現代の注記：</b>現代ではアルト・サックスを中心に、管弦楽の客演楽器として定着しています。実用域もアルティッシモで拡張されています。</p>
+</article>
+
+<article class="card" data-fam="other" data-search="ハープ harp ペダル ハーモニックス グリッサンド 共鳴 ダンパー 4音">
+<div class="card-top"><h3>ハープ<span class="en">HARPE ／ 47弦</span></h3><span class="fam-chip">ハープ</span></div>
+<div class="photo-row"><figure class="inst-photo"><span class="ph"><img src="assets/pedal-harp.jpg" alt="Salvi製コンサート・ペダルハープの写真" loading="lazy"></span><figcaption><b>ペダルハープ</b> — Salvi製のコンサート・ペダルハープ。<span class="credit">Photo: WinfriedSchneider, CC BY-SA 3.0, via Wikimedia Commons</span></figcaption></figure><figure class="inst-photo"><span class="ph"><img src="assets/harp-met.jpg" alt="ハープの歴史資料の写真" loading="lazy"></span><figcaption><b>ハープ（歴史資料）</b><span class="credit">The Metropolitan Museum of Art, CC0</span></figcaption></figure></div>
+<div class="range"><div class="rr"><span><b>音域</b> C♭1–G♯7（47音）</span><span><b>仕組み</b> 7つのペダル×3段が全オクターブに同時作用</span></div>
+<p class="note">全音階が基本で、ペダルで半音階化します。共鳴地図：最低3音は少しうつろ。低音 Fa から Si までは f でも p でもふっくら共鳴。高音のオクターブは響きが落ちますが pp で優秀。最後の音は乾いて細い。</p></div>
+<div class="blk"><h4>できること</h4><ul>
+<li><b>異名同音の利用が鍵</b>：別弦の変位で F♮ と F# を同時に鳴らせる（例：E弦をE#にしてF♮を得る）。同じ音を2本の弦で交互に弾く超高速反復も可能</li>
+<li>和音の調律（accord）を譜頭に示せば臨時記号を省ける</li>
+<li>ハーモニックスは第2倍音のみ。記音は実音の1オクターブ下＋○印。左手は近接音程なら2〜4音同時可、右手は1音のみ</li>
+<li>エトゥフェ（共鳴を生まれてすぐ止める音色）はピチカート的な錯覚、ギターのようなスタッカート</li>
+<li>グリッサンドは、ペダルで和音に調律しておけば指を滑らせるだけで鳴る</li></ul></div>
+<div class="blk danger"><h4>危ない所</h4><ul>
+<li><b>ハープにはダンパーがありません</b>。共鳴が伝播し消える時間を残し、混濁を避け、協和音と全音階を中心に書く。「人気のない大聖堂のオルガン」のように扱う</li>
+<li><b>奏者は第5指を使わない → 片手の和音は最大4音</b>（マイヤーベールの5音和音は手落ちの実例）</li>
+<li>速い曲では単純化し、左手はオクターブか単音だけに（でないと低音が唸って濁る）。同一手での和音の繰り返しは避ける</li>
+<li>ハーモニックスは f では使えない。片手だけのトレモロは悪い（両手で p なら非常に良い）</li>
+<li>音階・アルペジオはどの調でも同じ運指。ただし #系より ♭系の綴り（C♭, G♭, D♭）を選ぶ</li></ul></div>
+<div class="blk point"><h4>ヴォイシングの勘所</h4><div class="keyline">両手の間隔は、広げすぎも近づけすぎも悪く均衡が要ります。片手でつまんだ弦をすぐ他方の手でつかまない——響きの余白までが楽譜の仕事です。</div></div>
+</article>
+
+<article class="card" data-fam="other" data-search="オルガン orgue ストップ Fonds Mutations Anches 建築的 登録">
+<div class="card-top"><h3>オルガン<span class="en">ORGUE</span></h3><span class="fam-chip">オルガン</span></div>
+<div class="blk"><h4>性格（ストップの3族）</h4><ul>
+<li><b>Fonds</b>（基音群）：オーケストラの弦群に相当。8フィートが音楽の普通形</li>
+<li><b>Mutations</b>：倍音を再構成する群。バッハの Organo Pleno は Fonds＋Mutations で、手鍵盤のリードは含まない</li>
+<li><b>Anches</b>（リード）：バッハ時代は専らソロ主題用で、ペダルに集約</li></ul></div>
+<div class="blk"><h4>できること</h4><p>音は無限に持続します（肺の制約なし）。コンビネーション・ペダルで演奏を止めずに音色変更ができるので、継ぎ目で登録変更できるように設計できます。</p></div>
+<div class="blk danger"><h4>危ない所</h4><p>表現は「建築的」でなければならない——クレッシェンドは設計図のように漸進的・幾何学的に。神経質な表情付けは楽器をアコーディオンに堕落させます。</p></div>
+<div class="blk point"><h4>ヴォイシングの勘所</h4><div class="keyline">ベルリオーズの「オルガンとオーケストラは皇帝と法王（支配し合う）」説は、スウェル・ボックスの発達で過去のもの。今は均衡を保てる前提で書けます。</div></div>
+</article>
+
+</div>
+</section>
+
+  <!-- ============ THEORY FOUNDATIONS (integrated into the notebook) ============ -->
+  <section class="fam" id="theory" style="--fc:var(--plum); --fc-bg:var(--plum-bg);">
+    <div class="fam-head"><h2>理論の土台</h2><span class="tag" style="background:var(--plum-bg); color:var(--plum);">楽典・和声学・対位法 — 原典4冊</span>
+      <p>管弦楽法の3冊は楽器の本です。その土台には、楽典・和声・対位法の原典4冊——フックス(1725)、リムスキー和声学(1886／仏語版1910)、サヴァール、ゲールケンス(1914)——を置きました。編曲の最中に引くものではなく、<strong>「なぜそう書くのか」を腰を据えて読む章</strong>として、楽典→和声学→対位法→「禁則は、絶対か」の順に積み上げてあります。ヴォイシングの「なぜ」は、たいていここに根があります。</p></div>
+
+    <nav class="route" aria-label="理論の学習の順番">
+      <a href="#gakuten" style="--rc:var(--sky);"><b><span class="n">1</span>楽典</b><p>記譜法と用語の定義集。移調の読み替えまで。</p></a>
+      <a href="#harmony" style="--rc:var(--sage);"><b><span class="n">2</span>和声学</b><p>連結・重複・終止・非和声音。4声の書き方の規則集。</p></a>
+      <a href="#counterpoint" style="--rc:var(--butter);"><b><span class="n">3</span>対位法</b><p>四つの根本規則と種対位法。師弟の対話で進む訓練。</p></a>
+      <a href="#prohibitions" style="--rc:var(--plum);"><b><span class="n">4</span>禁則は、絶対か</b><p>平行5度・8度はなぜ禁じられたのか。原典と現代の説明を分けて読む。</p></a>
+    </nav>
+
+    <div class="tsub" id="gakuten" style="--fc:var(--sky); --fc-bg:var(--sky-bg);">
+      <div class="tsub-head"><h3>1. 楽典</h3><span class="yr">言葉と書き方をそろえる</span>
+        <p>楽典は「音楽の文法書」というより、記譜法と用語の<strong>正確な定義集</strong>です。ここでは2冊を役割分担で使います。ゲールケンス＝用語と浄書の辞書、サヴァール＝調・音程・移調の実務手続き。</p></div>
+
+    <article class="book">
+      <h3>ゲールケンス『記譜法と音楽用語』<span class="en">KARL W. GEHRKENS “MUSIC NOTATION AND TERMINOLOGY”</span></h3>
+      <div class="biblio"><b>この本は何者か：</b> Karl W. Gehrkens（オーバリン音楽院）著、1914年刊。Project Gutenberg #19499 で全文が公開されている、アメリカの教科書です。「楽典」というより<strong>記譜法と音楽用語の正確な定義集</strong>で、楽譜を読む・書く時の「正しい書き方」の基準書として使います。</div>
+      <div class="gain"><b>ここで身につくこと</b>用語の意味を辞書として引く引き方と、付点・休符・略記号など「書き方の是非」の判定基準。全20章＋付録5の地図が分かれば、必要な章だけ拾い読みできます。</div>
+      <div class="blk"><h4>章の地図（全20章＋付録5）</h4>
+        <div class="chips">
+          <span>1 <i>正しい記譜法の原則</i></span><span>2–3 <i>音楽記号の定義</i></span><span>4–5 <i>略記号・サイン類</i></span><span>6 <i>装飾音</i></span><span>7–8 <i>音階</i></span><span>9 <i>補助語と語尾</i></span><span>10 <i>小節</i></span><span>11–12 <i>テンポ</i></span><span>13 <i>強弱法</i></span><span>14–15 <i>形式と様式の用語</i></span><span>16 <i>声楽の用語</i></span><span>17 <i>リズム・旋律・和声・音程</i></span><span>18 <i>和音・カデンツ</i></span><span>19–20 <i>雑多な用語</i></span><span>付録A–E <i>記譜法の歴史／楽器／音響学／用語改革／ベートーヴェン『ソナタ Op.31-3』の分析</i></span>
+        </div></div>
+      <div class="blk"><h4>記譜法の原則（編曲・浄書で効く所）</h4><ul>
+        <li><b>休符</b>は原則として五線の第3スペースに置く（同じ五線に2声部を書く時は上下にずらす）。休符には付点は付くが、タイでは結ばない</li>
+        <li><b>付点</b>は、音符が線上にあっても必ず「間（スペース）」の中に置く。次の音が高い時は線の上の間、低い時は下の間</li>
+        <li><b>シャープ</b>は「音を上げる記号」ではなく「その五線の位置が半音高い音を表すと決める記号」——F♯は「Fを上げたもの」ではない、という定義の置き方がこの本の特徴</li>
+        <li><b>ハ音記号（Cクレフ）</b>の用途は1914年時点で2つに縮小：①チェロ・ヴィオラなど広音域の楽器で加線を避ける、②テノール声部の記譜（こちらもト音記号＋オクターブ下の実音へ移行中）</li>
+        <li>音部記号や変化記号の「書き方」自体（シャープの斜線の傾き、フラットの描き順）まで規定する実務書です</li>
+      </ul></div>
+      <p class="srcnote">限界：1914年のアメリカの教科書なので、現代音楽の特殊記号など現代の記譜慣行は範囲外です。フランスのサヴァールと対で使います。用語の個別定義は全文を引く方式で、ここには写していません。</p>
+    </article>
+
+    <article class="book">
+      <h3>サヴァール『音楽の原理と移調法』<span class="en">AUGUSTE SAVARD “PRINCIPES DE LA MUSIQUE ET MÉTHODE DE TRANSPOSITION”</span></h3>
+      <div class="biblio"><b>この本は何者か：</b> Auguste Savard（パリ音楽院の和声学教授）著『Principes de la musique et méthode de transposition』第8版（フランス語、199ページ）。フランスの公教育プログラム（中等教育の公式課程）に準拠した、学校の楽典です。巻末には公式プログラムとの対応表があり、同じ著者の和声学教科書と対になる入門書でもあります。</div>
+      <div class="gain"><b>ここで身につくこと</b>問答形式で暗唱する調号・音程の基礎と、この本の名物である<strong>移調法</strong>——音部記号と調号の読み替えで移調する古典技法。これは移調楽器の読譜の思考法そのものです。</div>
+      <div class="blk"><h4>本の骨格</h4><ul>
+        <li><b>初歩（全21課）</b>：問答形式（カテキズム：D.＝質問、R.＝答え）で、音名・五線・音部記号・音価・調号の順序（シャープは5度ずつ上行、フラットは5度ずつ下行＝四度上行）まで、暗唱できる形で教える</li>
+        <li><b>発展編 第1部（音高）</b>：音階の構造、記譜法、声楽用と器楽用の音部記号体系、音程の数え方と判定法、調性（長音階の生成と調の連鎖）、旋法と短音階の諸形、平行調</li>
+        <li><b>発展編 第1部・第VI章「移調」</b>：移調の方法論（下記）</li>
+        <li><b>発展編 第2部（持続・リズム）</b>：拍子、シンコペーションと反拍、テンポ（絶対的持続）</li>
+        <li><b>付録</b>：表現とニュアンス、装飾音、反復記号・省略記号</li>
+      </ul></div>
+      <figure class="orig narrow">
+        <img src="assets/savard-key-signatures.jpg" alt="サヴァール『音楽の原理』第17課・第18課のページ。フラットの調号の問答と、シャープとフラットの順序の課" loading="lazy">
+        <figcaption><b>原典のページ（第17–18課）</b> — 「ファの音階を作るのに必要な変化記号は？」という問答でフラットの調を1つずつ増やしていき、第18課で「シャープとフラットの順序」に入る。D.（質問）と R.（答え）の往復が、フランスの学校の楽典の姿です。</figcaption>
+      </figure>
+      <div class="blk"><h4>移調法の核 — 音部記号の読み替え</h4>
+        <p>移調の古典技法は<strong>音部記号の読み替え</strong>です。譜面の音部記号と調号を心の中で差し替えると、そのまま移調した音が読めます。章内には「各音程への移調のための音部記号変更表」が収録されています。</p>
+        <p>これは移調楽器の読譜と直結します。古い総譜でハ音記号系の記譜を読む時や、in B♭／in A のパートを実音で追う時の思考法そのものです。また音部記号体系の章（声楽用／器楽用）は、ヴィオラ・チェロのハ音記号や古い記譜の読み替えの土台として、編曲作業に効きます。</p></div>
+      <div class="note-box"><b>未確認：</b>第8版の刊行年は、扉の文字読み取りからは確定できませんでした（版の表記のみ確認）。年は未確認として扱います。</div>
+      <div class="qa" style="--fc:var(--sky); --fc-bg:var(--sky-bg);">
+        <h3>サヴァール風・問答で小テスト</h3>
+        <p class="sub">原典の問答形式（D.＝質問、R.＝答え）にならった確認問題です。答えは開いて確認してください。</p>
+        <details><summary>シャープの調号は、どういう順番で増えていく？</summary><p class="ans"><b>R.</b> 5度ずつ上行する順です。逆にフラットは5度ずつ下行（＝四度上行）の順に増えます（サヴァール初歩の課）。</p></details>
+        <details><summary>ゲールケンスによれば、付点はどこに置く？</summary><p class="ans"><b>R.</b> 音符が五線の線上にあっても、付点は必ず「間（スペース）」の中に置きます。次の音が高い時は線の上の間、低い時は下の間です（第1章・記譜法の原則）。</p></details>
+        <details><summary>移調を「音部記号の読み替え」で行うとは、どういうこと？</summary><p class="ans"><b>R.</b> 譜面の音符そのものは動かさず、音部記号と調号を心の中で別のものに差し替えて読むと、移調した音がそのまま読める、という古典技法です（サヴァール発展編・第VI章）。</p></details>
+      </div>
+    </article>
+    </div>
+
+    <div class="tsub" id="harmony" style="--fc:var(--sage); --fc-bg:var(--sage-bg);">
+      <div class="tsub-head"><h3>2. 和声学</h3><span class="yr">和音のつなぎ方の規則集</span>
+        <p>4声（ソプラノ・アルト・テノール・バス）を基準に、和音をどうつなぎ、どの音を重ね、どう終わらせるか。平行5度・8度の禁止も、ここでは「連結の規則からの帰結」として出てきます。</p></div>
+
+    <article class="book">
+      <h3>リムスキー＝コルサコフ『実践和声学手引』<span class="en">N. RIMSKY-KORSAKOV “TRAITÉ D'HARMONIE” — 露語原典1886／仏語版1910</span></h3>
+      <div class="biblio"><b>この本は何者か：</b> リムスキー＝コルサコフ著『実践和声学手引』（露語原典1886年）のフランス語版『Traité d'harmonie』（Leduc、1910年、120ページ）。§番号付きの規則集＋課題（コラールの和声付けなど）で進む、厳格な教育用体系です。著者は『管弦楽法原理』と同じリムスキーです。</div>
+      <div class="gain"><b>ここで身につくこと</b>連結の2方式、重複（倍加）の原則、終止の基本式、そして経過音・刺繍音・掛留という非和声音の規則。編曲のヴォイシング・チェックにそのまま使える規則が集まっています。</div>
+      <div class="blk"><h4>本の骨格（全5章＋結論、§1–96前後）</h4>
+        <div class="chips">
+          <span>第I章 <i>予備概念と単一調内の和音連結・終止</i></span><span>第II章 <i>コラールの和声付け、属七と転回形、九の和音、反復進行、自由な用法</i></span><span>第III章 <i>転調（近親調・第2類・遠隔調、半音階的転調、ペダル）</i></span><span>第IV章 <i>旋律的装飾（経過音・刺繍音・掛留）</i></span><span>第V章 <i>エンハーモニックと突然の転調</i></span>
+        </div></div>
+      <div class="blk"><h4>声部の動きと連結（§9–12）</h4>
+        <p>声部の動きは3種——平行（direct）、反行（contrary）、斜行（oblique）。同じ種の音程が続く平行進行は「並行」と呼びます。連結は2種あります。</p>
+        <div class="rules4">
+          <div><b>和声的連結</b>共通音を保持してつなぐ方式。</div>
+          <div><b>旋律的連結</b>全声部が動いてつなぐ方式。</div>
+        </div>
+        <ul>
+          <li>4度・5度関係の和音は、どちらの連結も可</li>
+          <li>2度関係は共通音が無いので常に旋律的連結（上3声は平行に動き、バスと反行）</li>
+          <li>3度関係は、旋律的連結だと密接配置⇔開離配置が入れ替わる</li>
+        </ul></div>
+      <div class="blk"><h4>重複（倍加）の規則</h4><ul>
+        <li>基本位置の三和音を4声にする時は<strong>根音を重複</strong>するのが原則（学習初期はこれだけを使う）（§10）</li>
+        <li>転回形（六の和音）では根音か根音の5度を重複（§16–17）。IV度の六の和音は根音、V度の六の和音は5度を重複（§19）など、度数ごとの指定がある</li>
+        <li>配置は密接（上3声が3度・4度間隔）と開離（5度・6度間隔）。自由に行き来できる</li>
+      </ul>
+        <p>この「根音優先、転回形では根音か5度」という原則は、リムスキー『管弦楽法原理』の「和音は基本4声＋重複は上声部のオクターブ」という配置原理と地続きです。</p></div>
+      <div class="blk"><h4>終止の基本式（§20–24）</h4>
+        <div class="formula"><span class="lbl">第1種の終止形</span><span class="ch">I</span><span class="arw">→</span><span class="ch">IV</span><span class="arw">→</span><span class="ch">V</span><span class="arw">→</span><span class="ch">I</span></div>
+        <div class="formula"><span class="lbl">第2種の終止形</span><span class="ch">IV</span><span class="arw">→</span><span class="ch">I の四六</span><span class="arw">→</span><span class="ch">V</span><span class="arw">→</span><span class="ch">I</span></div>
+        <ul>
+          <li>四六の和音は経過的にも使える（同じ度数の基本位置と六の和音の間に置く）</li>
+          <li>半終止（Vで止まる形）も定義されている。偽終止（cadence rompue）は§30</li>
+        </ul></div>
+      <figure class="orig">
+        <img src="assets/rimsky-harmony-chorale.jpg" alt="リムスキー『実践和声学』仏語版29ページ。コラールの和声付けの譜例が3段並び、下に§35の規則文" loading="lazy">
+        <figcaption><b>原典のページ（仏語版 p.29）</b> — コラールの和声付けの譜例と、§35「和声的長調における短い下属和音とII度の六の和音」。規則文と譜例課題が一体になった、§番号方式の教科書らしい1ページです。</figcaption>
+      </figure>
+      <div class="blk"><h4>非和声音 — 編曲の「飾り」の規則（第IV章）</h4><ul>
+        <li><b>経過音</b>：弱拍に置き、和声音の間を順次進行で埋める。3度間隔なら1つ、4度なら2つ入れられる（§64–65）。半音階的経過音も体系化（§66–67）</li>
+        <li><b>刺繍音（broderie）</b>：同じ和声音の間に挟む上下の隣接音。弱拍に置く（§68）</li>
+        <li><b>掛留（retard／suspension）</b>：前の和音から音を残して遅らせ、解決する。<strong>解決先の音が他の声部に既にある時は掛留を作らない</strong>（§70）。上行掛留は短2度の方が長2度より満足度が高く、導音→主音が代表（§71）</li>
+        <li>装飾を使う時の回避事項（§74）と自由様式の装飾法（§75–76）まで規則化されている</li>
+      </ul>
+        <p>掛留の「解決音の先取り禁止」は、編曲の声部運びのチェックにそのまま使えます。</p></div>
+      <div class="blk"><h4>転調（第III章）の要点だけ</h4><ul>
+        <li>転調は漸進的／突然の2種。近親調は「第1類の隣接調」6つ（主和音が元の調の中にある調）</li>
+        <li>共通和音を使って移るが、<strong>移り先の主和音そのものを共通和音に使わない</strong>（§49）</li>
+        <li>短調から下属調へは相対長調を経由する等の実務手順（§50）。ペダル（バス／上声部）は§62–63</li>
+      </ul></div>
+      <div class="note-box"><b>平行5度・8度について（§12）：</b>この本では、同じ旋律位置（同じ和音構成音を上に置く形）で2つの三和音を続けてはいけない、という連結の規則から帰結として、<b>平行5度・平行8度（反行によるものも含む）と平行ユニゾンは厳禁</b>とされます。増音程への進行と、増2度の旋律的動きも禁止対象です。「なぜ禁じられるのか」の掘り下げは第4節へ。</div>
+      <p class="srcnote">限界：コラール課題の個別の解法や自由用法の細部、エンハーモニック転調（第V章）の手順は、ここでは地図のみです。1910年の仏語版は露語原典（1886）の翻訳で、用語は仏語教育圏のものです。</p>
+    </article>
+    </div>
+
+    <div class="tsub" id="counterpoint" style="--fc:var(--butter); --fc-bg:var(--butter-bg);">
+      <div class="tsub-head"><h3>3. 対位法</h3><span class="yr">声部の動かし方を鍛える</span>
+        <p>定旋律に対して対位声部を書く訓練を、段階（種）を踏んで積み上げる1725年の古典。平行5度・8度禁止の最古級の根拠である「四つの根本規則」は、ここから来ます。</p></div>
+
+    <article class="book">
+      <h3>フックス『Gradus ad Parnassum』<span class="en">JOHANN JOSEPH FUX “GRADUS AD PARNASSUM” (1725)</span></h3>
+      <div class="biblio"><b>この本は何者か：</b> Johann Joseph Fux 著、1725年ウィーン刊のラテン語の教科書。書名は「パルナッソス山（芸術の頂）への階段」。パレストリーナ様式の対位法を段階式に教える本で、ハイドン、モーツァルト、ベートーヴェンが学んだとされる古典です。第1部は思弁編（音程・協和音の理論）、第2部は実践編で、師<strong>アロイジウス</strong>（＝パレストリーナの化身。序文でフックス自身が明かします）と弟子<strong>ヨゼフス</strong>（＝フックス自身）の対話形式で進みます。</div>
+      <div class="gain"><b>ここで身につくこと</b>協和音の分類、四つの根本規則、そして定旋律に対位を重ねる「種（スペキエス）対位法」の5段階。声部の独立を保つ動かし方の型が身につきます。</div>
+      <figure class="orig narrow">
+        <img src="assets/fux-book1-opening.jpg" alt="フックス『Gradus ad Parnassum』第1部第1章の冒頭ページ。装飾頭文字Mとラテン語本文" loading="lazy">
+        <figcaption><b>原典のページ（第1部 第1章）</b> — 「Musica（音楽）とは総称である」という定義から始まる思弁編の冒頭。装飾頭文字と旧字体のラテン語が、1725年のウィーンの本らしい風格です。</figcaption>
+      </figure>
+      <div class="blk"><h4>第1部（思弁編）の骨格</h4><ul>
+        <li>音程は数比（プロポーション）から説き起こす。オクターブは「全ての音程の母」と位置づけられる</li>
+        <li>3つの運動：順行（rectus）・反行（contrarius）・斜行（obliquus）</li>
+      </ul></div>
+      <table class="cmp"><thead><tr><th>分類</th><th>音程</th></tr></thead><tbody>
+        <tr><th>完全協和音</th><td>ユニゾン・完全5度・オクターブ</td></tr>
+        <tr><th>不完全協和音</th><td>長短3度・長短6度</td></tr>
+        <tr><th>不協和音</th><td>2度・4度（低音に対して）・7度・増減音程</td></tr>
+      </tbody></table>
+      <div class="blk"><h4>四つの根本規則（Regulae cardinales）</h4>
+        <div class="rules4">
+          <div><b>規則1</b>完全協和音 → 完全協和音：<span class="ng">反行か斜行でのみ</span>進む</div>
+          <div><b>規則2</b>完全協和音 → 不完全協和音：3種の運動すべて<span class="ok">可</span></div>
+          <div><b>規則3</b>不完全協和音 → 完全協和音：<span class="ng">反行か斜行でのみ</span>進む</div>
+          <div><b>規則4</b>不完全協和音 → 不完全協和音：3種の運動すべて<span class="ok">可</span></div>
+        </div>
+        <p style="margin-top:10px;">斜行は全ての場合に合法です。フックス曰く「三種の運動の知識と正しい用法に、律法と預言者（＝全て）がかかっている」。<strong>平行5度・8度禁止は、この規則1の言い換え</strong>です（完全→完全へ順行で進むことが、すなわち連続完全音程）。規則3は「隠れた平行」（順行で完全協和音に到着すること）も禁じます。規則3は「隠れた5度・8度」の検出にも使えます。</p></div>
+      <div class="blk"><h4>第2部（実践編）：種（スペキエス）対位法の5段階</h4>
+        <p>定旋律（cantus firmus）に対して、段階を踏んで対位声部を書く訓練です。2声→3声→4声と声部数を増やして同じ種を繰り返し、その後、フーガ、転回可能対位法（二重対位法）へ進みます。</p>
+        <div class="steps">
+          <div><b>第1種</b>音対音（全音符同士）。始まりは完全協和音。終わりは、定旋律が下声なら長6度、上声なら短3度を置く決まり</div>
+          <div><b>第2種</b>2音対1音（2分音符）</div>
+          <div><b>第3種</b>4音対1音（4分音符、経過音の扱い）</div>
+          <div><b>第4種</b>シンコペーション（掛留＝サスペンション。結ばれた不協和音の準備と解決）</div>
+          <div><b>第5種</b>華麗対位法（floridus。ここまでの混合・装飾）</div>
+        </div></div>
+      <figure class="orig narrow">
+        <img src="assets/fux-species-dialogue.jpg" alt="フックス『Gradus ad Parnassum』86ページ。3声の音対音対位法の講義で、譜例とヨゼフスとアロイジウスの対話" loading="lazy">
+        <figcaption><b>原典のページ（p.86、3声の第1種）</b> — 終止直前で完全→完全へ順行せざるを得ない場面を、師アロイジウスが「他にどうしようもない」必然の例外として認めるくだり。対話形式だからこそ、規則と例外の話し合いがそのまま残っています。</figcaption>
+      </figure>
+      <div class="blk"><h4>フックス自身の「例外」の置き方</h4><ul>
+        <li>3声書法では内声同士など、規則の厳密さが「重い理由（ponderosae rationes）」で緩む場面を本文が認める。終止直前で完全→完全の順行が「他にどうしようもない」場合は許容（必然の例外）</li>
+        <li>内声同士の4度は不完全協和音の役目を果たすものとして扱い、規則の適用が変わる</li>
+        <li>師は「この種（スペキエス）の難しさゆえに、自由な作曲では避けるべきことも、ここでは必然に譲る所が多い」と明言する——禁則は訓練の様式内の法であり、フックス自身その枠を自覚していた</li>
+      </ul></div>
+      <p class="srcnote">限界：フーガ編と二重対位法の詳細手順、旋法ごとの定旋律課題の個別解法は、ここでは地図のみです。</p>
+    </article>
+    </div>
+
+    <div class="tsub" id="prohibitions" style="--fc:var(--plum); --fc-bg:var(--plum-bg);">
+      <div class="tsub-head"><h3>4. 禁則は、絶対か</h3><span class="yr">原典の規則と、現代の説明を分けて読む</span>
+        <p>平行5度・8度は、なぜ禁じられてきたのか。ここでは<strong>原典側の規則</strong>（フックス四規則＋リムスキーの厳禁）と、<strong>現代の説明</strong>（声部の独立性・様式限定・対例）を混ぜずに並べます。</p></div>
+
+    <div class="split2">
+      <div class="col old">
+        <h4>原典側の規則</h4>
+        <ul>
+          <li><b>フックス（1725）</b>：四つの根本規則の規則1——完全協和音から完全協和音へは反行か斜行でのみ進む。平行5度・8度禁止はこの言い換え。規則3は「隠れた平行」も禁じる</li>
+          <li><b>リムスキー（§12）</b>：同じ旋律位置で2つの三和音を続けてはいけないという連結の規則から、平行5度・平行8度（反行によるものも含む）と平行ユニゾンは<b>厳禁</b>と帰結する</li>
+          <li>ただし両者とも、置き場所は「演習・訓練の規則」です。リムスキーの表現は「生徒には厳禁（défendues à l'élève）」。フックスも3声書法での必然の例外を本文で認めている</li>
+        </ul>
+      </div>
+      <div class="col new">
+        <h4>現代の説明</h4>
+        <p><b>守っているのは響きの良否ではなく、声部の独立性です。</b></p>
+        <ul>
+          <li>完全8度は、上の音の倍音が下の音の倍音列に全て含まれるため、2声が1本に融合し「4声が3声に減った」のと同じになる</li>
+          <li>完全5度は部分的に融合する（オルガンのミクスチュア・ストップが5度を重ねて明るさとして聞こえるのが証拠）</li>
+          <li>問題は「声部が何本聞こえるか」。単独の5度・8度は無問題で、禁じられるのは<strong>同じ声部対で連続</strong>すること（融合が持続して固定するから）</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="fusion">
+      <h4>図解：2つの声部が1本に「融合」する</h4>
+      <p>完全8度で2声が同じ方向に動くと、上の声部の倍音は下の声部の倍音列の中にすっぽり収まってしまい、耳には「2本の旋律」ではなく「太くなった1本」に聞こえます。禁則が守ろうとしているのは、この聞き分けです。</p>
+      <svg viewBox="0 0 720 210" role="img" aria-label="独立した2声部と、完全8度で融合する2声部の比較図">
+        <text x="10" y="24" font-size="14" font-weight="700" fill="var(--ink)" font-family="'M PLUS Rounded 1c',sans-serif">独立した動き（反行・斜行など）</text>
+        <line x1="10" y1="90" x2="330" y2="90" stroke="var(--line2)" stroke-width="1.5"/>
+        <line x1="10" y1="130" x2="330" y2="130" stroke="var(--line2)" stroke-width="1.5"/>
+        <polyline points="20,70 110,55 200,72 300,50" fill="none" stroke="var(--sky)" stroke-width="3.5" stroke-linecap="round"/>
+        <polyline points="20,130 110,148 200,128 300,150" fill="none" stroke="var(--rose)" stroke-width="3.5" stroke-linecap="round"/>
+        <text x="20" y="180" font-size="12.5" fill="var(--ink2)">2本の線として聞き分けられる</text>
+        <text x="390" y="24" font-size="14" font-weight="700" fill="var(--ink)" font-family="'M PLUS Rounded 1c',sans-serif">完全8度の平行（融合する）</text>
+        <line x1="390" y1="90" x2="710" y2="90" stroke="var(--line2)" stroke-width="1.5"/>
+        <line x1="390" y1="130" x2="710" y2="130" stroke="var(--line2)" stroke-width="1.5"/>
+        <polyline points="400,62 490,48 580,64 690,44" fill="none" stroke="var(--plum)" stroke-width="9" stroke-linecap="round" opacity="0.35"/>
+        <polyline points="400,62 490,48 580,64 690,44" fill="none" stroke="var(--sky)" stroke-width="3" stroke-linecap="round"/>
+        <polyline points="400,102 490,88 580,104 690,84" fill="none" stroke="var(--rose)" stroke-width="3" stroke-linecap="round"/>
+        <text x="400" y="180" font-size="12.5" fill="var(--ink2)">間隔が固定され、太い1本に聞こえる</text>
+      </svg>
+      <p class="cap">模式図です。左＝声部が別々に動く場合、右＝完全8度の間隔を保ったまま平行移動する場合（紫の帯は「融合して聞こえる」イメージ）。</p>
+    </div>
+
+    <article class="book" style="--fc:var(--plum);">
+      <h3>絶対ではない理由 — 6つの視点<span class="en">現代の説明（2026-11-10 収集ノートより）</span></h3>
+      <div class="blk"><h4>様式と歴史の側から</h4><ul>
+        <li><b>様式限定の規則</b>：禁則の管轄はおよそ15〜19世紀のヨーロッパ対位法（共通時代）。フックス（1725）が集大成し、ハイドン・モーツァルト・ベートーヴェンが学んだ。禁止を初めて唱えたのは1300年頃のヨハンネス・デ・グロケオとされる</li>
+        <li><b>昔は標準だった</b>：9世紀以降の中世オルガヌムは平行4度・5度が基本技法（旋律を太く荘厳にするのが目的）。禁止は、対位法がオルガヌムと自分を区別するために生まれた様式的・教育的な線引き、という説明もある</li>
+        <li><b>大家にも例外</b>：オケゲム、ジョスカン、バッハ、モーツァルトにも例外が実在する。「音楽は芸術であって精密科学ではなく、正当な例外のない規則はない」。減5度→完全5度の「モーツァルト5度」のような公認の例外もある</li>
+      </ul></div>
+      <div class="blk"><h4>使い方の側から</h4><ul>
+        <li><b>オーケストラの重複は別物</b>：旋律をオクターブで重ねるのは融合が目的そのものなので、違反に数えない。禁則は「独立させたい声部同士」の話</li>
+        <li><b>意図的に使う音楽</b>：ドビュッシーの平行和音（プラニング、『沈める寺』）は和音を機能ではなく色として扱い、オルガヌム風の古風さも狙った。先行例にムソルグスキー、サティの4度和音、プッチーニ『ラ・ボエーム』第2幕序奏、ストラヴィンスキー『春の祭典』の原始的な響き。ロックのパワーコードは平行5度の連続そのもの（太い1本が目的）。民族音楽や日本の伝統音楽にも自然に現れる</li>
+        <li><b>調律起源説（一説として）</b>：中全音律の時代、平行5度では「空虚な5度」のうなりが強調され不快だったため、という説。平均律が標準の現代では理由の合意が取りにくくなった、という指摘もある。一説として扱う</li>
+      </ul></div>
+      <div class="gain" style="background:var(--plum-bg);"><b style="color:var(--plum);">この手帖での扱い</b>だから実習では「禁則」と断定せず、<strong>「独立させたい声部の間では避ける（共通時代の様式）」</strong>という形で点検します。融合させたい所（オケのオクターブ重ねなど）は対象外です。</div>
+      <p class="srcnote">現代の説明の主な出典（2026-11-10検索）：<a href="https://www.acoustics-music-theory.com/essays/two-voices-that-stop-being-two/">Two voices that stop being two（acoustics-music-theory.com）</a>／<a href="https://www.schoolofcomposition.com/whats-wrong-with-parallel-fifths/">School of Composition “What is Wrong with Parallel Fifths?”</a>／<a href="https://en.wikipedia.org/wiki/Consecutive_fifths">Wikipedia “Consecutive fifths”</a>／<a href="https://fiveable.me/ap-music-theory/key-terms/parallel-fifths">Fiveable AP Music Theory</a>／<a href="https://toha.jp/word/%E5%B9%B3%E8%A1%8C5%E5%BA%A6">toha.jp「平行5度」</a>／<a href="https://www.songtive.com/blog/what-are-parallel-fifths-in-counterpoint-and-why-avoid-them/">Songtive ブログ</a>。原典側の規則はフックス／リムスキーの抽出に基づき、出典を分けて表示しています。</p>
+    </article>
+    <div class="learn-back">
+      <span class="note">この章の根拠は、巻末「ヴォイシング・チェック」20項目のうち理論系の4項目（平行5度・8度／隠れた平行／重複／掛留）です。読み終わったら巻末で点検できます。</span>
+    </div>
+    </div>
+  </section>
+
+  <!-- ============ RIMSKY ============ -->
+  <section class="fam" id="rimsky" style="--fc:var(--sky); --fc-bg:var(--sky-bg);">
+    <div class="fam-head"><h2>リムスキーの原理</h2><span class="tag" style="background:var(--sky-bg); color:var(--sky);">楽器より先に、声部の運び</span>
+      <p>リムスキー＝コルサコフ『管弦楽法原理』（1913）の核は、楽器の知識ではなく「声部（パートの線）の正しい扱い」です。響きが悪い原因は、楽器選びより声部の運びにある——という立場で読んでください。</p></div>
+
+    <div class="axiom" style="margin-top:16px;">
+      <span class="ax-label">公理</span>
+      <p>良い管弦楽法 ＝ 声部の正しい扱い</p>
+      <p class="ax-sub">和音の並べ方、重ね方、旋律の置き場。この3つが決まれば、響きの大半は決まります。</p>
+    </div>
+
+    <div class="grid">
+      <article class="card" data-fam="other" data-search="リムスキー 和音 4声 テノール 開離 配置 倍音列 中音域">
+        <div class="card-top"><h3>和音は基本4声<span class="en">RIMSKY — CHORDS</span></h3><span class="fam-chip">原理</span></div>
+        <div class="blk"><ul>
+          <li>声を増やす時は、<b>上声部のオクターブ重ね</b>で。バスの重ねは下側だけ</li>
+          <li><b>開離配置でテノールは重ねない</b></li>
+          <li>フォルテで<b>中音域を空けない</b>。並べ方は倍音列のとおり——下は開いて、上は密に</li>
+        </ul></div>
+        <div class="blk point"><h4>書き方の勘所</h4><div class="keyline">「何声で書くか」より先に「どの声を重ねるか」を決める。重ねの既定値は上声部です。</div></div>
+      </article>
+
+      <article class="card" data-fam="other" data-search="リムスキー ホルン 強さ 半分 釣り合い 金管 バランス">
+        <div class="card-top"><h3>ホルンは半分の強さ<span class="en">RIMSKY — BALANCE</span></h3><span class="fam-chip">原理</span></div>
+        <div class="blk"><p>ホルンはフォルテで、他の金管の<b>約半分の強さ</b>しか出ません。釣り合わせる方法は2つ——</p>
+        <ul>
+          <li>ホルンの強弱記号を<b>1段強く書く</b></li>
+          <li>または<b>ホルン2本で1本分</b>として重ねる</li>
+        </ul></div>
+        <div class="blk point"><h4>書き方の勘所</h4><div class="keyline">同じ f と書いても同じ音量にはならない。楽器ごとの「効きの差」を先に織り込むのがバランス設計です。</div></div>
+      </article>
+
+      <article class="card" data-fam="other" data-search="リムスキー 最大表現音域 旋律 重ね オクターブ 中心 divisi">
+        <div class="card-top"><h3>最大表現音域と旋律の重ね<span class="en">RIMSKY — MELODY</span></h3><span class="fam-chip">原理</span></div>
+        <div class="blk"><ul>
+          <li>各楽器には<b>「最大表現音域」</b>——一番表現が効く音域——がある。主旋律はそこへ置く</li>
+          <li>ただし<b>ピッコロとコントラバスーンには無い</b>（効果の楽器、土台の楽器だから）</li>
+          <li>旋律が極端な高音なら<b>下のオクターブ</b>、極端な低音なら<b>上のオクターブ</b>でも重ねて、響きの中心へ寄せる</li>
+          <li><b>同種 divisi 同士のオクターブ重ねは避ける</b></li>
+        </ul></div>
+        <div class="blk point"><h4>書き方の勘所</h4><div class="keyline">旋律は「出せる音域」ではなく「一番効く音域」で書く。端に寄ったら、オクターブ重ねで中心へ戻す。</div></div>
+      </article>
+
+      <article class="card" data-fam="other" data-search="リムスキー 編成 人数 弦 大編成 16 14 12 10 8">
+        <div class="card-top"><h3>編成の人数（弦）<span class="en">RIMSKY — FORCES</span></h3><span class="fam-chip">原理</span></div>
+        <div class="blk"><p>大編成の標準とされる弦の人数配分です（第1ヴァイオリンからコントラバスへ）。</p>
+          <div class="staff-table">
+            <span>16 <i>第1Vn</i></span><span>14 <i>第2Vn</i></span><span>12 <i>ヴィオラ</i></span><span>10 <i>チェロ</i></span><span>8 <i>コントラバス</i></span>
+          </div>
+          <p style="margin-top:8px;">上から順に少しずつ減る階段状の配分が基準。管とのバランスを考える時の出発点になります。中編成・小編成の人数は下の「音量バランス」②に全表があります。</p></div>
+      </article>
+    </div>
+    <p class="srcnote">出典：リムスキー＝コルサコフ『管弦楽法原理』（1913、英訳・本文巻）。楽譜例は別巻のため、この手帖では本文の原理のみを扱っています。</p>
+  </section>
+
+  <!-- ============ BALANCE ============ -->
+  <section class="fam" id="balance" style="--fc:var(--butter); --fc-bg:var(--butter-bg);">
+    <div class="fam-head"><h2>音量バランス</h2><span class="tag" style="background:var(--butter-bg); color:var(--butter);">同じ f でも、同じ音量にはならない</span>
+      <p>原典3冊（ビドール／フォーサイス／リムスキー）の相対表現だけで組み立てた章です。現代の実測値（音圧レベル等）は入れていません——「どの楽器が、どれに対してどれくらい」という関係だけを扱います。</p></div>
+
+    <div class="tsub" style="margin-top:20px;">
+      <div class="tsub-head"><h3>① 相対の強さ</h3><span class="yr">フォルテでの釣り合い</span></div>
+      <article class="tcard">
+        <h4>金管の中の力関係（リムスキー）</h4>
+        <p>トランペット・トロンボーン・テューバはほぼ互角。ホルンだけが、フォルテで他の金管の<b>約半分</b>です。</p>
+        <div class="balbar" role="img" aria-label="フォルテでの相対の強さ：トランペット、トロンボーン、テューバを100とするとホルンは約50">
+          <div class="rowb"><b>トランペット</b><span class="track"><i style="width:100%"></i></span><span class="val">基準</span></div>
+          <div class="rowb"><b>トロンボーン</b><span class="track"><i style="width:100%"></i></span><span class="val">ほぼ互角</span></div>
+          <div class="rowb"><b>テューバ</b><span class="track"><i style="width:100%"></i></span><span class="val">ほぼ互角 ※</span></div>
+          <div class="rowb"><b>ホルン</b><span class="track"><i class="horn" style="width:50%"></i></span><span class="val">約 1/2</span></div>
+        </div>
+        <p style="margin-top:10px;">均衡の取り方は2つ：ホルンの強弱記号を<b>1段強く書く</b>／トランペット・トロンボーン1本に<b>ホルン2本</b>で当てる。※テューバは互角のはずが、トロンボーン3本との和音では構造的に「一段上の強さ」で鳴ります（フォーサイス）——下の③も参照。</p>
+        <ul style="margin-top:8px;">
+          <li><b>4部ホルンを木管アンサンブルに加えると、音量が半分以上増す</b>（ビドール）</li>
+          <li>コルネットは金管で唯一「姿を消せる」楽器。音量はクラリネットの少し上程度で、pp では歌手の声の均衡も乱さない（フォーサイス）</li>
+          <li>アルト・サクソフォンの音量は、クラリネット4〜5本分に対抗する（フォーサイス）</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="tsub">
+      <div class="tsub-head"><h3>② 編成サイズで変わる効き方</h3><span class="yr">リムスキーの人数表</span>
+        <p>同じ f と書いても、編成が小さくなれば弦は先に細ります。リムスキーは<b>中編成を基準に書くのが無難</b>としています。</p></div>
+      <table class="sizes">
+        <thead><tr><th scope="col">弦のパート</th><th scope="col">大編成</th><th scope="col">中編成</th><th scope="col">小編成</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">第1ヴァイオリン</th><td>16</td><td>12</td><td>8</td></tr>
+          <tr><th scope="row">第2ヴァイオリン</th><td>14</td><td>10</td><td>6</td></tr>
+          <tr><th scope="row">ヴィオラ</th><td>12</td><td>8</td><td>4</td></tr>
+          <tr><th scope="row">チェロ</th><td>10</td><td>6</td><td>3</td></tr>
+          <tr><th scope="row">コントラバス</th><td>8–10</td><td>4–6</td><td>2–3</td></tr>
+        </tbody>
+      </table>
+      <article class="tcard">
+        <ul>
+          <li><b>第1ヴァイオリンが8未満だと、弦と管の均衡が崩壊する</b>（リムスキー）</li>
+          <li>木管は2管・3管・4管で、金管のクラスと対応させるのが編成設計の考え方（リムスキー）</li>
+          <li>コントラバスの音量調整は、フランスでは弱音器を使わず、Solo／Due Soli の<b>人数指定</b>で行う慣行だった（ビドール）</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="tsub">
+      <div class="tsub-head"><h3>③ 呑む楽器・消える楽器</h3><span class="yr">フォーサイス中心の注意集</span></div>
+      <div class="grid" style="margin-top:14px;">
+        <article class="tcard" style="margin-top:0;">
+          <h4>呑む側</h4>
+          <ul>
+            <li><b>ティンパニー</b>：バス・ドラム＋シンバルと並んで「オーケストラ全体を最も簡単に呑む楽器」。金管が mp／mf の時でも、ティンパニーは <b>p で書く</b>。強弱は入りを全部明記し、cresc.／dim. は出発点と到達点を必ず書く</li>
+            <li><b>テューバ</b>：トロンボーン3本との和音では一段強く鳴る。p の和音ではテューバを外してトランペットを添える等の代替配置が要る</li>
+            <li><b>コントラバス</b>：フルートの低音域をぼかして覆う。伴奏からバスを抜く慣行があるほど</li>
+          </ul>
+        </article>
+        <article class="tcard" style="margin-top:0;">
+          <h4>消える側</h4>
+          <ul>
+            <li><b>フルート低音域</b>：覆われやすい。特にコントラバスにぼかされる（上記と表裏）</li>
+            <li><b>バスーン</b>：背景楽器として理想的だが、覆われると個性が消える。軽いスタッカートでは「出し抜かれ」やすい。持続時間と強さは反比例する（ビドール、Bourdeau の実測表）</li>
+            <li><b>サイド・ドラム</b>：屋外でドラム群に対抗すると音量で負ける。楽器の欠陥ではなくバランスの問題</li>
+            <li><b>ホルンの持続和音の最下声</b>：最も息を食い、最も鳴らない。本当の低音はバスーンに任せる（ビドール）</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+
+    <div class="tsub">
+      <div class="tsub-head"><h3>④ 小さい音の書き方</h3><span class="yr">音量を「落とす」仕掛け</span></div>
+      <article class="tcard">
+        <ul>
+          <li><b>divisi を4分割以上にすると音量が落ちる</b>——pp の仕掛けとして使える。3分割は割り切れず均衡が難しい（リムスキー）</li>
+          <li><b>弓トレモロは、レガートや指トレモロより音量が小さい</b>。クレッシェンドしても通常の f には届かない（フォーサイス。ビドールへの名指し反論）</li>
+          <li>実務ルールのまとめ：ホルンは1段強く書く／ティンパニーは p で書く／ティンパニーの増減は出発点と到達点を書く／テューバ入りの和音は一段差を先に織り込む。この4つは巻末のヴォイシング・チェックとも接続しています</li>
+        </ul>
+        <p class="srcnote">出典：リムスキー『管弦楽法原理』(1913)／フォーサイス『Orchestration』(1914)／ビドール『近代管弦楽法』(1904)。すべて原典の相対表現で、現代の実測値は含みません。</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ COMPARE ============ -->
+  <section class="fam" id="compare" style="--fc:var(--accent); --fc-bg:var(--rose-bg);">
+    <div class="fam-head"><h2>3人の先生の見比べ</h2><span class="tag" style="background:var(--rose-bg); color:var(--rose);">同じテーマ、違う答え</span>
+      <p>ビドール（1904・仏）／リムスキー＝コルサコフ（1913・露）／フォーサイス（1914・英）。わずか10年の間に書かれた3冊でも、答えが割れる所があります。迷ったら「現代の標準」印のある側へ。</p></div>
+
+    <div class="figrow">
+      <figure class="figcard score-fig">
+        <img src="assets/range-chart-brass.jpg" alt="フォーサイス『Orchestration』冒頭の楽器一覧にある金管楽器の音域表。五線で音域が示されている原典のページ" loading="lazy">
+        <figcaption><b>1914年の音域表（金管）</b> — 左が楽器名、真ん中が五線で示した音域、右が音部記号。フォーサイスは本の冒頭で、まず全楽器の音域を「見える形」に置いた。</figcaption>
+      </figure>
+      <figure class="figcard score-fig">
+        <img src="assets/wagner-brass-score.jpg" alt="ワーグナー『リエンツィ』と『パルジファル』の金管総譜例を示したフォーサイス原典のページ" loading="lazy">
+        <figcaption><b>金管の土台の置き方（ワーグナー）</b> — 『リエンツィ』『パルジファル』の総譜例。テューバとバス・トロンボーンを金管の土台に置く書き方を、実例で示している。</figcaption>
+      </figure>
+    </div>
+
+    <table class="cmp">
+      <thead><tr><th scope="col">テーマ</th><th scope="col">ビドール（1904）</th><th scope="col">フォーサイス（1914）</th><th scope="col">リムスキー（1913）／備考</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">グロッケンの記譜</th>
+          <td data-who="ビドール">実音は記音の1オクターブ上</td>
+          <td data-who="フォーサイス">実音は記音の2オクターブ上<span class="now">現代の標準</span></td>
+          <td data-who="備考">フォーサイスと現代標準が一致。ビドール説は古い慣行として訂正済み</td></tr>
+        <tr><th scope="row">ティンパニーの調律変更</th>
+          <td data-who="ビドール">1音の変更に約1小節</td>
+          <td data-who="フォーサイス">全音の変更でも最低2〜3小節（Moderato）<span class="now">安全側</span></td>
+          <td data-who="備考">実務ではフォーサイスの余裕で設計するのが無難</td></tr>
+        <tr><th scope="row">機械式ティンパニー</th>
+          <td data-who="ビドール">美学的に反対</td>
+          <td data-who="フォーサイス">ペダル式は1914年時点で存在。ただし音が鈍る（"tubbier"）という留保つきで用途を限定</td>
+          <td data-who="備考">現代はペダル式が標準。音色の留保は今も聞く価値あり</td></tr>
+        <tr><th scope="row">ホルンの塞音</th>
+          <td data-who="ビドール">付録：記譜音より半音低く響く</td>
+          <td data-who="フォーサイス">強く塞げば半音上がる（奏者は半音低く読む）<span class="now">現代の標準</span></td>
+          <td data-who="備考">旧式のゆるい塞音は下がり、現代の強い塞音は上がる。両説とも場合分けで正しい</td></tr>
+        <tr><th scope="row">チェレスタの機構</th>
+          <td data-who="ビドール">音叉を叩く</td>
+          <td data-who="フォーサイス">鋼板＋木製共鳴器<span class="now">正しい</span></td>
+          <td data-who="備考">音叉式は別楽器ダルシトーンのこと。ビドールの記述は誤り</td></tr>
+        <tr><th scope="row">本の性格</th>
+          <td data-who="ビドール">1843年（ベルリオーズ）以降の変更点カタログ</td>
+          <td data-who="フォーサイス">楽器ごとの実務仕様＋名曲の実例譜</td>
+          <td data-who="リムスキー">声部の扱いの原理（次のセクション）</td></tr>
+      </tbody>
+    </table>
+    <p class="srcnote">出典：ビドール『近代管弦楽法』（1904）／フォーサイス『Orchestration』（1914）／リムスキー＝コルサコフ『管弦楽法原理』（1913、英訳・本文巻）。画像2点はフォーサイス1914原典からの切り出し（パブリックドメイン）。</p>
+  </section>
+
+<!-- ============ CHANGES ============ -->
+<section class="fam" id="changes" style="--fc:var(--rose); --fc-bg:var(--rose-bg);">
+<div class="fam-head"><h2>1904年から変わったこと</h2><span class="tag" style="background:var(--rose-bg); color:var(--rose);">⚠️ まとめ</span>
+<p>ビドールの記述のうち、2026年の標準と照合して「今は違う」ことが分かった点の一覧です。古いスコアを読む時・今の編曲を書く時の、早見表として使ってください。</p></div>
+<ul class="changes">
+<li><b>サリュソフォン</b>：現役の楽器 → <b>完全に廃止</b>。コントラ・バスーン等へ置換が前提</li>
+<li><b>ピッコロの最低音</b>：<span class="from">C</span> → <b>D が標準</b></li>
+<li><b>グロッケンシュピールの実音</b>：<span class="from">記音の1オクターブ上</span> → <b>2オクターブ上</b></li>
+<li><b>バスーンの下限</b>：<span class="from">B♭まで（それ以下は書くな）</span> → <b>低音Aまで標準</b></li>
+<li><b>コントラ・バスーンの下限</b>：<span class="from">C</span> → <b>実音 B♭0（A0の機種も）</b></li>
+<li><b>ハープの上限</b>：<span class="from">G♭</span> → <b>G♯7</b>（範囲は C♭1–G♯7）</li>
+<li><b>チェロの高音部記号</b>：<span class="from">1オクターブ下読み</span> → <b>実音で書く</b></li>
+<li><b>トロンボーン</b>：<span class="from">ストレート管が前提</span> → <b>Fアタッチメント付きテノールが標準</b>、実用域は拡大</li>
+<li><b>クラリネットの音色区分</b>：<span class="from">低・中・高</span> → <b>低音＝シャルモー、中音＝クラリオン</b>と分ける用語が普通に</li>
+<li><b>サクソフォン</b>：<span class="from">釣り合いに留保つき</span> → <b>管弦楽の客演として定着</b></li>
+<li><b>フルート族</b>：<span class="from">アルト／バス・フルートは珍品</span> → <b>実用楽器として定着</b></li>
+<li><b>ティンパニー</b>：<span class="from">手締め・機械式</span> → <b>ペダル式が標準、4台セット</b>。ただし調律設計の原則は不変</li>
+<li><b>バス・クラリネット</b>：<span class="from">通常の低音拡張なし</span> → <b>記音C（実音 B♭1）までの拡張管が標準</b></li>
+<li><b>コントラバス</b>：<span class="from">5弦は普及しつつある段階</span> → <b>5弦／C延長管で C1 までが大編成の標準</b></li>
+<li><b>チェレスタ</b>：<span class="from">4オクターブ</span> → <b>4〜5.5オクターブのモデル（Schiedmayer製が標準）</b></li>
+<li><b>チェレスタの機構</b>：<span class="from">音叉を叩く（ビドールの記述）</span> → <b>鋼板＋木製共鳴器</b>。音叉式は別楽器ダルシトーン（フォーサイス1914で訂正）</li>
+<li><b>ホルンの塞音</b>：<span class="from">半音低く響く（ビドール付録）</span> → <b>強い塞音では半音上がる</b>。ゆるい塞音は下がる——両説は場合分けで成立（フォーサイス1914）</li>
+<li><b>クラリネットのシェイク</b>：<span class="from">不可能な組み合わせの一覧表</span> → <b>1914年時点で時代遅れ</b>。ほぼ全域可能、苦手は6つだけ（フォーサイス1914）</li>
+<li><b>ティンパニーの調律変更</b>：<span class="from">1音≒1小節（ビドール）</span> → <b>全音でも最低2〜3小節</b>が安全（フォーサイス1914）。ペダル式は当時既に存在</li>
+<li><b>クロタル（古式シンバル）</b>：<span class="from">特殊な色彩</span> → <b>音程のある打楽器として常用</b></li>
+</ul>
+</section>
+
+<!-- ============ FIELD (RAGONNE) ============ -->
+<section class="fam" id="field" style="--fc:var(--plum); --fc-bg:var(--plum-bg);">
+<div class="fam-head"><h2>オーケストラという現場——ルール・用語・対立</h2><span class="tag" style="background:var(--plum-bg); color:var(--plum);">ラゴンヌの調査より</span>
+<p>ここまでの章が「楽器と音の置き方」だったのに対して、この章は「人が集まって演奏する現場そのもの」の話です。座席の決め方、現場のことば、揉めやすい所——どれも一つの正解があるわけではなく、多くの団体で見られる形を、根拠の強さと一緒に並べました。</p></div>
+
+<div class="field-source">
+<p><b>この章の素性</b>　素材はラゴンヌの調査ページ「オケのルール・用語・団内コミュニケーションと対立｜プロアマ・日本と海外」（野ション研究収穫箱、Locator：LAGONNE_ORCHESTRA_CULTURE_RESEARCH_20261110_V1）。収集は Parallel Deep Research と X の生の声（496件・抜粋94件）による <b>research_only の素材集</b>で、証拠状態は <b>SECONDARY</b>、ほりりん監査は<b>未監査</b>です。全文と出典の対応は原典のページ側にあります。この章では主要な表を抜き出し、格付け（<span class="grade g-fact">事実</span> 一次照合済み／<span class="grade g-common">通説</span>／<span class="grade g-voice">体験談</span> Xの生の声／<span class="grade g-unconf">未確認</span>）を落とさずに表示しています。</p>
+</div>
+
+<div class="tsub" id="field-points">
+<div class="tsub-head"><h3>まず押さえる点</h3><p>この章全体の中心になる見取り図です。「〜が決まり」とは書かず、団体差がある所はそのまま残してあります。</p></div>
+<article class="tcard">
+<ol class="points">
+<li><b>ルールは「国」より「その団体」で決まる。</b>座席配置（対向配置／アメリカ式と呼ばれる形）、ピッチ、コンマスへの起立などは慣習で、団体・指揮者・曲で変わります。国名のラベルで一般化しないのが出発点です。〔ディープリサーチの中心結論。Tonhalle公式（スイスは442Hz）と Rockford 響（440Hzの解説）で照合〕 <span class="grade g-fact">事実</span></li>
+<li><b>「音楽上の権限」と「雇用・運営上の権限」は別物。</b>指揮者は解釈・テンポ・リハーサルの配分を握りますが、雇用・懲戒・予算は別のルートです。例：ウィーン・フィルは楽員総会が最高機関、LSO（ロンドン交響楽団）は選挙で選ばれた奏者理事＋外部理事＋マネージングディレクターの理事会で運営されます。〔両団体の公式サイトで照合〕 <span class="grade g-fact">事実</span></li>
+<li><b>日本のオケ語は、ドイツ語由来と業界ことばが混在している。</b>ゲネプロ（Generalprobe＝総稽古）と G.P.（Generalpause＝全員休止）は別物です。プルト、表・裏、トップ／トップサイド、乗り番／降り番、トラ、といった言葉が現場で使われます。〔COSMUSICA（奏者による解説）で照合。語源の細部は未確定〕 <span class="grade g-fact">事実</span> <span class="grade g-unconf">語源は未確認を含む</span></li>
+<li><b>アマチュア団体の団費は「月額だけ」では比べられない。</b>例：オケアン京都は月2,000円＋演奏会参加費は都度・休団費3,000円。加古川フィルは月3,000円／半年18,000円／年35,000円で、無届で3か月欠席すると退団扱いとされます。〔両団体の規約で照合〕 <span class="grade g-fact">事実</span></li>
+<li><b>アマチュアの揉め事でよく語られる型は「選曲・席（1st／2nd、プルト順、降り番）・出席率・お金（団費／トラ謝礼）・人間関係（派閥／古株）」。</b>弦と管の温度差（学生では「文化系ノリ vs 吹奏楽部ノリ」と語られる）もよく出てきます。ただし頻度の統計はないので、これは事実ではなく「よく語られる型」として置きます。〔Xの体験談多数〕 <span class="grade g-voice">体験談</span></li>
+<li><b>プロの対立は、労使問題として表に出ることがある。</b>例：デトロイト響の27週スト（2011）、ミネソタ管の15か月超のロックアウト（2012〜14）、日本フィル争議（1972年財団解散→1984年和解、新日本フィルへの分裂）、大阪シンフォニカーの首席降格を中央労働委員会が不当労働行為と認定した例（2010）。〔ICSOM、League of American Orchestras、日本フィル公式沿革、中労委データベースで照合〕 <span class="grade g-fact">事実</span></li>
+<li><b>ジェンダーと採用。</b>ウィーン・フィルが初の女性正式団員を認めたのは1997年2月（ハープのアンナ・レルケシュ）。衝立（ブラインド）オーディションは Goldin &amp; Rouse（2000）で女性の採用確率を上げる証拠とされますが、著者自身が推定の誤差の大きさと逆向きの効果にも触れています。〔LA Times 1997年記事、American Economic Review 論文要旨で照合〕 <span class="grade g-fact">事実</span></li>
+</ol>
+</article>
+</div>
+
+<div class="tsub" id="field-seats">
+<div class="tsub-head"><h3>座席と役割</h3><p>弦の「プルト」を中心に、現場の席と役割の呼び方です。首席の仕事の範囲や譜めくりの担当は団体で違うため、一般形として読んでください。</p></div>
+<table class="cmp">
+<thead><tr><th scope="col">項目</th><th scope="col">内容</th><th scope="col">確度</th></tr></thead>
+<tbody>
+<tr><th scope="row">座席配置</th><td data-who="内容">「アメリカ式（1st／2ndが下手側に並ぶ）」と「ドイツ式／対向配置（1stが下手・2ndが上手）」は通称です。ドイツのオケでも隣接配置はありますし、日本でも対向配置はあります——国別の固定ルールではありません</td><td data-who="確度"><span class="grade g-common">通説</span></td></tr>
+<tr><th scope="row">プルト</th><td data-who="内容">弦は2人で1台の譜面台を共有します。前から第1プルト、第2プルト…（「いちプル・にプル」）</td><td data-who="確度"><span class="grade g-fact">事実</span> COSMUSICA</td></tr>
+<tr><th scope="row">表・裏</th><td data-who="内容">客席側＝表、舞台奥側＝裏。指揮者の左手側パートは右が表、右手側パートは左が表になります。div.（分奏）では表が上・裏が下を受け持つことが多いとされます</td><td data-who="確度"><span class="grade g-fact">事実</span> COSMUSICA</td></tr>
+<tr><th scope="row">譜めくり</th><td data-who="内容">裏（inside player）がめくり、表は弾き続ける形が多くの団体で見られます。難所や div. では例外を事前に決めておくのが実務です——全団体の規則ではありません</td><td data-who="確度"><span class="grade g-common">通説</span></td></tr>
+<tr><th scope="row">トップ／トップサイド</th><td data-who="内容">第1プルトの表＝トップ（首席）、その隣＝トップサイド。1stヴァイオリンのトップがコンサートマスターです</td><td data-who="確度"><span class="grade g-fact">事実</span> COSMUSICA</td></tr>
+<tr><th scope="row">コンサートマスター</th><td data-who="内容">英では leader、米では concertmaster と呼ばれます。1stを率い、ソロ、チューニングの統率、弦のボウイング調整、指揮者と団員の橋渡しを担います。ただし雇用上の権限があるとは限りません</td><td data-who="確度"><span class="grade g-common">通説</span></td></tr>
+<tr><th scope="row">首席・パートリーダー</th><td data-who="内容">演奏上のリーダーと事務上の連絡係が別人のことがあります。例：加古川フィルは事務上の「パートリーダー」と、曲ごとに互選する「パートトップ」を分けています</td><td data-who="確度"><span class="grade g-fact">事実</span> 加古川フィル規約</td></tr>
+<tr><th scope="row">ライブラリアン</th><td data-who="内容">楽譜の版の手配、カット、div. の割振り、書き込み・ボウイングの転記、配布・返却を担います</td><td data-who="確度"><span class="grade g-fact">事実</span> Racine響マニュアル＋X</td></tr>
+<tr><th scope="row">インスペクター／パーソネル・マネージャー</th><td data-who="内容">出欠、人員手配、連絡の担当。日本の「インペク」と海外の役職は一対一には対応しません</td><td data-who="確度"><span class="grade g-common">通説</span></td></tr>
+<tr><th scope="row">ステージマネージャー（ステマネ）</th><td data-who="内容">舞台配置、出捌け（出入り）、進行を担います</td><td data-who="確度"><span class="grade g-fact">事実</span> COSMUSICA</td></tr>
+</tbody>
+</table>
+
+<article class="tcard">
+<h4>チューニングとピッチ——団体の指定に従う</h4>
+<p>一般的な形は、コンマスが合図し、首席オーボエが A（ラ）を出し、管と弦をグループに分けて合わせる、というものです。順番やコンマスが立つかどうかは団体の慣習で変わります。オーボエが A を出す理由として、倍音が豊かで通る音だから（Tonhalle）、昔のガット弦より安定していたから（Rockford）といった説明があります。今は奏者がチューナーで確認している、と Tonhalle は書いています。 <span class="grade g-common">通説</span></p>
+<p style="margin-top:8px;"><b>ピッチは団体の指定に従います。例：スイスの Tonhalle は 442Hz</b>（同団体の公式説明では「スイスでは442Hz、1939年ロンドン会議の440Hzより少し高い」）。一方で「日本のプロオケは442Hzが一般的」は、解説サイト等でよく言われる<b>通説止まり</b>で、団体ごとの公式なピッチ一覧はこの調査では見つかっていません。「442Hzが世界標準」という説明（日テレ『リバーサルオーケストラ』豆知識）も Tonhalle の記述と食い違うため、そのままは採用しません。「独墺は444〜446」「カラヤン時代のベルリン・フィルは446」も二次情報の伝聞で、一次資料は未確認です。 <span class="grade g-fact">事実</span> Tonhalle公式 <span class="grade g-common">通説</span> 日本442Hz <span class="grade g-unconf">未確認</span> 独墺・カラヤン説</p>
+<p style="margin-top:8px;">ピアノ協奏曲の場合は、調律を変えられないピアノの A をもらって合わせます。〔Rockford、日テレ解説〕</p>
+<p class="srcnote">Xの生の声（体験談として分けて置きます）：アマチュアではチューニングが“儀式化”して、ずれたまま終わる例もある（@va_ooya）。吹奏楽出身者には、オケのチューニングは「面倒なしきたり」に見える（@ZunBia39687）。</p>
+</article>
+
+<div class="split2">
+<div class="col old"><h4>リハーサルの作法（例示）</h4><ul>
+<li><b>例：Portsmouth響ハンドブック</b>——開始時刻には準備を済ませて着席している。鉛筆を持参する。電子機器は消音。セクション内の音楽的な質問は首席を通す。ボウイングは弦の首席がコンマスと調整し、書き込んで配る <span class="grade g-fact">事実</span></li>
+<li><b>例：Racine響マニュアル</b>——無断欠席には罰則があり、ドレスリハーサル（総稽古）を欠席すると降板の可能性があります <span class="grade g-fact">事実</span></li>
+<li>質問は小節番号・練習番号で短く。個人的なメモと全体の指示を書き分け、書き込みは鉛筆で（レンタル譜は特に） <span class="grade g-common">通説</span></li>
+</ul><p class="srcnote">Xの声：書き込みは必須（解釈の統一）で、ボウイングは演奏会ごとに違うこともある（@ryomadayo_wao）。リハでボウイングを変えた瞬間に全員の意図がそろった（@soukanomatsu）。劇伴の現場では「ボウイングは適当で」と回ってくることもある（@TsukamotoVc）。</p></div>
+<div class="col new"><h4>本番の作法・トラと団費</h4><ul>
+<li>入場順、チューニングの合図、コンマスや指揮者に起立するか、ソリストやセクションへの拍手、退場順、服装は<b>すべて団体の指示に従います</b>。「コンマスに起立」は世界共通ではありません</li>
+<li>服装も団体や公演ごとに指定されます（例：Racine響はクラシック、ポップス、クリスマス・ポップスで服装を分けている）</li>
+<li><b>トラ（エキストラ）・団費の例</b>：オケアン京都＝月2,000円（同一世帯2人目から1,000円、学生と25歳以下は割引）、演奏会参加費は都度、休団費3,000円。加古川フィル＝月3,000円／半年18,000円／年35,000円（未成年は月1,500円）、無届3か月以上欠席で退団扱い、入団にはパート責任者の了承が必要、「一人一役」のスタッフ制度 <span class="grade g-fact">事実</span> 両団体規約</li>
+</ul><p class="srcnote">Xの声（相場は地域・団体差が大きい）：アマのトラ謝礼は中部近辺で1回5千円程度、1万円以上に驚いた（@AppassSys）。5千円の予定が1万円包まれていた（@pontering）。エキストラを禁止し謝礼も出さない方針の団体もある（@sai_kisaragi）。</p></div>
+</div>
+</div>
+
+<div class="tsub" id="field-terms">
+<div class="tsub-head"><h3>用語集（主要なもの）</h3><p>現場のことばから主要なものを選びました。全文は原典のページ（Locator：LAGONNE_ORCHESTRA_CULTURE_RESEARCH_20261110_V1）にあります。語源は一次の初出が確認できていないものが多く、「〜とされる」にとどめてあります。</p></div>
+<table class="cmp">
+<thead><tr><th scope="col">語</th><th scope="col">意味</th><th scope="col">由来・使用域</th><th scope="col">確度</th></tr></thead>
+<tbody>
+<tr><th scope="row">ゲネプロ／ゲネ</th><td data-who="意味">本番前の総稽古。転じて本番前最後のリハーサル。「ゲネ本」＝ゲネ＋本番</td><td data-who="由来・使用域">独 Generalprobe の日本式略。プロ・アマ・舞台全般</td><td data-who="確度"><span class="grade g-fact">事実</span></td></tr>
+<tr><th scope="row">GP（ゲーペー）</th><td data-who="意味">ゲネプロの略。現場ではドイツ語読みが多いとされます</td><td data-who="由来・使用域">Generalprobe の頭文字。スケジュール上の言葉</td><td data-who="確度"><span class="grade g-fact">事実</span></td></tr>
+<tr><th scope="row">G.P.（ゲネラルパウゼ）</th><td data-who="意味">楽譜上の全員休止</td><td data-who="由来・使用域">独 Generalpause。楽譜・リハで使う。ゲネプロとは別物</td><td data-who="確度"><span class="grade g-fact">事実</span></td></tr>
+<tr><th scope="row">トラ</th><td data-who="意味">臨時に雇う奏者（増員または代役）</td><td data-who="由来・使用域">「エキストラ」の略と説明されることが多いとされますが、成立史は未確認。日本のプロ・アマ。「トラに入る」</td><td data-who="確度"><span class="grade g-common">意味は通説</span> <span class="grade g-unconf">語源は未確認</span></td></tr>
+<tr><th scope="row">乗り番／降り番</th><td data-who="意味">その曲や公演に出る／出ない（乗る・降りる）</td><td data-who="由来・使用域">「舞台に乗る・降りる」とする説があるとされます。「乗り板」説も X 上にあります。管打で曲ごとに入れ替わります。降り番は欠席や罰ではありません</td><td data-who="確度"><span class="grade g-common">意味は通説</span> <span class="grade g-unconf">語源は未確認</span></td></tr>
+<tr><th scope="row">前プロ／中プロ／メイン</th><td data-who="意味">演奏会の1曲目／中間（協奏曲が多い）／メイン曲</td><td data-who="由来・使用域">前・中＋プログラム、main。日本の略語</td><td data-who="確度"><span class="grade g-common">通説</span></td></tr>
+<tr><th scope="row">プルト</th><td data-who="意味">弦の譜面台、その2人組の単位（いちプル・にプル）</td><td data-who="由来・使用域">独 Pult。英語では desk。「第2プルト」は2台目の譜面台で、2ndヴァイオリンのことではありません</td><td data-who="確度"><span class="grade g-fact">事実</span></td></tr>
+<tr><th scope="row">表／裏</th><td data-who="意味">プルトの客席側／舞台奥側</td><td data-who="由来・使用域">日本語の空間ラベル。上下関係ではありません</td><td data-who="確度"><span class="grade g-fact">事実</span></td></tr>
+<tr><th scope="row">トップ／トップサイド</th><td data-who="意味">首席（1プル表）／その隣</td><td data-who="由来・使用域">英語由来の和製用法とされます。団体で職務は異なります</td><td data-who="確度"><span class="grade g-fact">事実</span></td></tr>
+<tr><th scope="row">div.（ディヴィ）</th><td data-who="意味">パートの分奏（にディヴィ・さんディヴィ）</td><td data-who="由来・使用域">伊 divisi。3つ以上に分かれる場合は分け方を事前に確認します</td><td data-who="確度"><span class="grade g-fact">事実</span></td></tr>
+<tr><th scope="row">インペク</th><td data-who="意味">インスペクター（出欠・人員手配の担当）</td><td data-who="由来・使用域">英 inspector。海外の personnel manager とは一対一対応しません</td><td data-who="確度"><span class="grade g-common">通説</span></td></tr>
+<tr><th scope="row">ステマネ</th><td data-who="意味">ステージマネージャー</td><td data-who="由来・使用域">略語。舞台全般</td><td data-who="確度"><span class="grade g-fact">事実</span></td></tr>
+<tr><th scope="row">出捌け（ではけ）</th><td data-who="意味">舞台への出入り</td><td data-who="由来・使用域">舞台用語。「はけて〜」</td><td data-who="確度"><span class="grade g-fact">事実</span></td></tr>
+<tr><th scope="row">おはようございます</th><td data-who="意味">夜でもその日最初の挨拶</td><td data-who="由来・使用域">歌舞伎の「お早いお着き」が由来とする説があるとされます。業界全般</td><td data-who="確度"><span class="grade g-common">由来は通説</span></td></tr>
+<tr><th scope="row">ドイツ音名（ツェー・デー・エー…）</th><td data-who="意味">C＝ツェー、D＝デー、E＝エー、A＝アー、H＝ハー（英語の B♮）、B＝ベー（英語の B♭）</td><td data-who="由来・使用域">ドイツ語の音名。「エー」は英語の A ではなく E です。混同に注意</td><td data-who="確度"><span class="grade g-fact">事実</span> 音名対応</td></tr>
+<tr><th scope="row">Leader（英）</th><td data-who="意味">コンサートマスター</td><td data-who="由来・使用域">英国での呼称。「section leader」はパートの長</td><td data-who="確度"><span class="grade g-common">通説</span></td></tr>
+<tr><th scope="row">Principal / Tutti</th><td data-who="意味">首席／一般団員（総奏）</td><td data-who="由来・使用域">英、伊 tutti。文脈で意味が変わります</td><td data-who="確度"><span class="grade g-common">通説</span></td></tr>
+<tr><th scope="row">Dep</th><td data-who="意味">代役（deputy）</td><td data-who="由来・使用域">英国。劇場・フリーの仕事で使います。承認ルールがあります</td><td data-who="確度"><span class="grade g-fact">事実</span> 英MUガイダンス</td></tr>
+<tr><th scope="row">Fixer / Contractor</th><td data-who="意味">奏者を手配する人</td><td data-who="由来・使用域">英／米。録音やフリーの仕事</td><td data-who="確度"><span class="grade g-fact">事実</span> 英MU</td></tr>
+<tr><th scope="row">Sub / sub list</th><td data-who="意味">代奏者／代奏者リスト</td><td data-who="由来・使用域">米。リストに載っても仕事が保証されるわけではありません</td><td data-who="確度"><span class="grade g-fact">事実</span> Racine響の定義</td></tr>
+<tr><th scope="row">Desk / inside・outside</th><td data-who="意味">プルト／裏・表</td><td data-who="由来・使用域">英。inside が譜めくりをすることが多いとされます</td><td data-who="確度"><span class="grade g-common">通説</span></td></tr>
+<tr><th scope="row">Service / call</th><td data-who="意味">リハーサルや本番の契約上の単位</td><td data-who="由来・使用域">雇用用語。契約ごとに長さが違います</td><td data-who="確度"><span class="grade g-common">通説</span></td></tr>
+<tr><th scope="row">Trial / probation / tenure</th><td data-who="意味">試用／試用期間／終身在籍権</td><td data-who="由来・使用域">雇用用語。国によって法的な意味が違います</td><td data-who="確度"><span class="grade g-fact">事実</span> NAASガイドライン、WNO契約</td></tr>
+</tbody>
+</table>
+<p class="srcnote">出典：COSMUSICA（奏者による解説）を中心に、英MU（Musicians' Union）のガイダンス、Racine響マニュアル、NAASガイドライン等で照合したもの。用語の語源は弱い所が残ります——トラ＝エキストラ略、乗り番＝舞台に乗る、といった説明はいずれも一次の初出が未確認です。</p>
+</div>
+
+<div class="tsub" id="field-conflict">
+<div class="tsub-head"><h3>対立の型</h3><p>揉め事を「誰が悪いか」ではなく型で見るための一覧です。Xの体験談が中心の型は、その偏り（目立つ話・不満の話に寄る）も含めて読んでください。頻度データはありません。</p></div>
+<table class="cmp">
+<thead><tr><th scope="col">型</th><th scope="col">典型的な構図</th><th scope="col">根拠の種類</th></tr></thead>
+<tbody>
+<tr><th scope="row">指揮者 vs 奏者</th><td data-who="典型的な構図">解釈の押し付け、初歩的すぎる要求、怒鳴る、話が長い。プロでは「初歩的な要求をする指揮者は嫌われる」と昔から言われるとされます（@kozawa）。「怒るのは論外」という指揮者側の規範の声もあります（@mogimogimogigi）</td><td data-who="根拠"><span class="grade g-voice">体験談</span> X多数＋歴史的逸話</td></tr>
+<tr><th scope="row">コンマス＝緩衝材</th><td data-who="典型的な構図">団員の不満を察して指揮者にそれとなく伝える。必要なら直言する。コンマス役がいない団体はノイズが放置されるとされます（@Haatainen）</td><td data-who="根拠"><span class="grade g-voice">体験談</span> X（プロ・アマ）＋ディープリサーチ</td></tr>
+<tr><th scope="row">弦 vs 管</th><td data-who="典型的な構図">音量、ピッチ（弦は下がり管は上がる、と語られる）、文化の違い（文化系 vs 吹奏楽部）。調査側は「性格の違いではなく、音響と聞こえ方の違い」と注意しています。対立を嫌って辞めた人、和気あいあいな団体という反例もあります</td><td data-who="根拠"><span class="grade g-voice">体験談</span> X</td></tr>
+<tr><th scope="row">パート内の序列</th><td data-who="典型的な構図">1st／2ndの割り振り、首席と一般団員、実力か出席率か。普段降り番の人が代奏し不満が溜まる例（@KarlJaspers1738）</td><td data-who="根拠"><span class="grade g-voice">体験談</span> X（アマ）＋規約（加古川のパートトップ互選）</td></tr>
+<tr><th scope="row">出席率</th><td data-who="典型的な構図">弦の出席率の悪さ、上手い人ほど直前に来る、出席率でのマウント。「来てもらえる工夫が先」という反対意見もあります（@esbasgfesfb）</td><td data-who="根拠"><span class="grade g-voice">体験談</span> X（アマ）多数</td></tr>
+<tr><th scope="row">選曲</th><td data-who="典型的な構図">管打の出番（トロンボーン・テューバがない曲）、古典か派手な名曲か。揉めずに決まる団体もある、という反例も報告されています</td><td data-who="根拠"><span class="grade g-voice">体験談</span> X（アマ）</td></tr>
+<tr><th scope="row">お金</th><td data-who="典型的な構図">団費、トラ謝礼の相場、依頼書の有無。プロ側でも待遇の提示はまちまちとされます（@ta1_oboe）</td><td data-who="根拠"><span class="grade g-fact">事実</span> 規約＋ <span class="grade g-voice">体験談</span> X</td></tr>
+<tr><th scope="row">派閥・古株</th><td data-who="典型的な構図">閉鎖的な空気、分裂、燃え尽きて退団。「近所のアマチュア団体は3つに分裂」（@rapalaF13）。統計はありません</td><td data-who="根拠"><span class="grade g-voice">体験談</span> X</td></tr>
+<tr><th scope="row">運営主体 vs 団員</th><td data-who="典型的な構図">市の関与する運営者が選曲もプルト順も決める、という伝聞1件</td><td data-who="根拠"><span class="grade g-voice">体験談</span> X（伝聞1件・弱い証拠）</td></tr>
+<tr><th scope="row">労使</th><td data-who="典型的な構図">賃金・年金・シーズン短縮、ロックアウト、組合員への不利益取扱い。下の実例表を参照</td><td data-who="根拠"><span class="grade g-fact">事実</span> 一次資料（ICSOM、中労委、公式沿革）</td></tr>
+</tbody>
+</table>
+
+<article class="tcard">
+<h4>楽員の自治——「プレイヤー・パワー」の形は団体で違う</h4>
+<ul>
+<li><b>ウィーン・フィル</b> <span class="grade g-fact">事実・公式</span>：楽員総会が最高機関で、12人の選出委員に多くを委任します。規約改正には4／5の賛成が必要。ウィーン国立歌劇場管弦楽団に入り、3年間実績を示してから、ようやく入会を申請できます</li>
+<li><b>LSO</b> <span class="grade g-fact">事実・公式</span>：1904年に「楽員が形づくったオケ」として生まれ、今も自主運営。理事会は選挙で選ばれた奏者理事、外部理事、マネージングディレクターで構成され、オーケストラ委員会と財務委員会に分かれています</li>
+<li><b>ベルリン・フィル</b>：楽員の参加は財団の枠組みの中にあります。公式ページの照合はタイムアウトで未完了です <span class="grade g-unconf">未確認</span></li>
+<li><b>日本</b>：楽員会や楽団員委員会は、団体によって権限がまったく違います。労働組合とも別のことがあります</li>
+</ul>
+</article>
+
+<table class="cmp">
+<thead><tr><th scope="col">労使・紛争の実例</th><th scope="col">要点</th><th scope="col">出典</th></tr></thead>
+<tbody>
+<tr><th scope="row">デトロイト響 2011</th><td data-who="要点">27週のストの末、2011年4月8日に4年契約を批准。司書を交渉単位に残し、年金を維持し、多層賃金を拒否。夏休みは9週→4週に削減。「金でも権力でもなく敬意の問題」は楽員側の見解です</td><td data-who="出典">ICSOM会報（一次・当事者側）</td></tr>
+<tr><th scope="row">ミネソタ管 2012〜14</th><td data-who="要点">15か月超のロックアウトが2014年1月に終結。給与・福利は約15%減（後の2年で減少幅は約10%に）。音楽監督ヴァンスカは辞任</td><td data-who="出典">League of American Orchestras（Star Tribune記事の引用）</td></tr>
+<tr><th scope="row">日本フィル争議</th><td data-who="要点">1972年6月30日に財団解散許可。楽員の約2／3が残って提訴し、小澤征爾らは新日本フィルを結成。1984年3月16日に和解。過程で1983年に日本音楽家ユニオンが結成されました</td><td data-who="出典">日本フィル公式沿革（解散と和解の日付）、Wikipedia（分裂比率・ユニオン結成）</td></tr>
+<tr><th scope="row">大阪シンフォニカー 2007〜10</th><td data-who="要点">首席打楽器奏者を一般奏者へ2段階降格したことを、大阪府労委が不当労働行為と認定。中労委は2010年7月21日に再審査申立てを棄却。降格で月収は約3割減。理由とされたリハーサル遅刻などは形式的には就業規則違反だが、処分は均衡を欠くと判断されました</td><td data-who="出典">中労委命令データベース（一次）</td></tr>
+</tbody>
+</table>
+<p class="srcnote">この表は照合済みの実例だけに絞りました。フィラデルフィア管の破産再建（2011〜12、ストではない）、シカゴ響（2019）、ボルチモア響（2019）等は素材側で本文未照合・報道経由のため、ここには載せていません。ハラスメント・ジェンダーについては冒頭の第7点も参照：NAAS（2021）の提言（最初から最後まで衝立を使う、テニュア審査の透明化、相談役の設置）は公式の提言ですが非拘束で、米国の全団体が実施しているという証拠ではありません。</p>
+</div>
+
+<div class="tsub" id="field-proama">
+<div class="tsub-head"><h3>プロとアマの違い</h3><p>違いは演奏の質の上下ではなく、経済関係と組織形態の違い、というのが調査側の注意です。</p></div>
+<table class="cmp">
+<thead><tr><th scope="col">観点</th><th scope="col">プロ</th><th scope="col">アマチュア</th></tr></thead>
+<tbody>
+<tr><th scope="row">お金の向き</th><td data-who="プロ">楽団から奏者へ報酬が出ます（雇用、出演契約、トラ謝礼）</td><td data-who="アマチュア">奏者が団費を払い、ボランティアで運営します</td></tr>
+<tr><th scope="row">出欠</th><td data-who="プロ">引き受けた公演は契約上の義務。休みや代奏は規定で管理されます</td><td data-who="アマチュア">規約上の義務（例：無届3か月で退団扱い）や、本番に乗る条件で管理されます</td></tr>
+<tr><th scope="row">入団</th><td data-who="プロ">オーディション、試用（トライアル）、テニュア。招待オーディションや特別契約楽員の制度もあります（X：@ta1_oboe）</td><td data-who="アマチュア">見学、体験、パート責任者の了承、オーディション（管だけある、もよくあります）</td></tr>
+<tr><th scope="row">リーダー</th><td data-who="プロ">雇用上の役職（首席、コンマス）</td><td data-who="アマチュア">互選や総会で選びます。曲ごとに互選のパートトップ（加古川）、選曲委員会（京都）</td></tr>
+<tr><th scope="row">降り番</th><td data-who="プロ">副業や休養の時間にもなります。待機義務がある団体もあります（X）</td><td data-who="アマチュア">管打で誰を降ろすかが揉める種になりやすいと語られます</td></tr>
+<tr><th scope="row">練習量</th><td data-who="プロ">少ない例が多いとされます（例：リハ2回＋当日ゲネ→本番。劇伴案件のXより）</td><td data-who="アマチュア">長い期間をかけます。出席がそろわないことが課題になりやすいです</td></tr>
+<tr><th scope="row">揉めごとの出口</th><td data-who="プロ">楽員会、組合、労働委員会、裁判</td><td data-who="アマチュア">役員会、総会、退団、分裂</td></tr>
+<tr><th scope="row">人の構成</th><td data-who="プロ">―</td><td data-who="アマチュア">弦は不慣れな人もいて管は歴戦の勇士、弦はトラが多い、と語られることがあります（X・複数） <span class="grade g-voice">体験談</span></td></tr>
+</tbody>
+</table>
+<p class="srcnote">※ 調査側の注意：「プロ／アマ」は経済関係と組織形態の違いであり、演奏の質の上下ではありません。</p>
+</div>
+
+<div class="tsub" id="field-world">
+<div class="tsub-head"><h3>日本と海外（短く）</h3><p>国で一括りにせず、仕組みの違いとしてだけ置きます。</p></div>
+<article class="tcard">
+<ul>
+<li><b>日本</b>：ドイツ語由来のリハーサル用語と和製の業界語が多い。アマチュア文化が厚いとされます（一説に全国約1,500団体＝日テレ豆知識、<span class="grade g-unconf">未検証</span>）。日本オーケストラ連盟は加盟楽団一覧を公開しています（正確な団体数はこの調査では未確定。日テレ豆知識は「登録プロオケ37」と記載）</li>
+<li><b>米国</b>：AFMとICSOMがあり、ストやロックアウトが目に見えやすい形で表に出ます。sub list、テニュアの仕組みがあります</li>
+<li><b>英国</b>：leader、dep、fixer、自主運営の団体（LSO）。MU（Musicians' Union）が合意文書やガイダンスを公開しています</li>
+<li><b>ドイツ・オーストリア</b>：Konzertmeister、Stimmführer、Pult、Generalprobe といった言葉の本場。公的雇用が多いとする X 投稿はありますが一次資料は未確認です。ウィーンの「歌劇場→フィル」の二段構えは特殊なので、一般化しません <span class="grade g-unconf">未確認</span> 公的雇用の一般論</li>
+</ul>
+<p style="margin-top:8px;"><b>ステレオタイプへの注意</b>（調査側）：「日本は上下関係、欧州は民主的」という見方は、ウィーンの女性排除の歴史や、日本の労働法上の保護、アマチュア団体の総会自治を見落としています。</p>
+</article>
+<article class="tcard">
+<h4>この章でまだ弱い所（開いたまま置く）</h4>
+<ul>
+<li><b>ピッチの国別表は作れません。</b>一次資料で確認できたのは「スイス442（Tonhalle）」と「440の解説（Rockford）」だけです。「日本442」は二次情報の通説にとどまります</li>
+<li><b>用語の語源は弱い。</b>トラ、乗り番、業界の倒語の起源は、いずれも一次の初出が未確認です</li>
+<li><b>アマチュアの揉め事の型には頻度データがありません。</b>Xの体験談は目立つ話・不満の話に偏ります。「弦と管は必ず対立する」とは言えません（和気あいあいとした反例もあります）</li>
+<li><b>収集の偏り</b>：X検索は直近1か月の投稿が多く（2026年10〜11月）、プロ奏者本人の発信は少なめで、アマ・学生の声が多い構成です。オペラ・バレエのピット特有の慣習、ユースオケ、ピリオド楽器オケ、アジア他地域の事情はこの素材では触れられていません</li>
+</ul>
+<p class="srcnote">出典：ラゴンヌ調査ページ（野ション研究収穫箱、Locator：LAGONNE_ORCHESTRA_CULTURE_RESEARCH_20261110_V1）——Parallel Deep Research＋X生の声496件・抜粋94件による research_only 素材集、証拠状態 SECONDARY、ほりりん監査は未監査。個別の出典（Tonhalle公式、Rockford響、COSMUSICA、オケアン京都／加古川フィル規約、ICSOM、League of American Orchestras、日本フィル公式沿革、中労委データベース、LA Times、Goldin &amp; Rouse 2000ほか）は表中に併記しました。</p>
+</article>
+</div>
+</section>
+
+  <!-- ============ CHECKLIST ============ -->
+  <section class="check-sec" id="check">
+    <h2>ヴォイシング・チェック（20項目）</h2>
+    <p class="sub">ビドール全篇から事故になりやすい所を抜いた10項目に、リムスキーの原理から6項目、さらにフックスの対位法とリムスキーの和声学から4項目を足した仕上げの点検表です。タップすると印がつきます（この画面の中だけの印で、保存はされません）。</p>
+    <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+    <p class="progress-txt" id="barTxt">0 / 20 項目を確認済み</p>
+    <div class="checks" id="checks">
+      <button class="check"><span class="box">✓</span><span class="txt">ホルンは奇数＝高音、偶数＝低音で書き分けたか<span class="why">唇は高音用か低音用かを選ばないといけない楽器。高音の直後の低音は良い音にならない。</span></span></button>
+      <button class="check"><span class="box">✓</span><span class="txt">持続和音の本当の低音を、バスーンに任せたか<span class="why">4部ホルンの最下声は、最も息を食って最も鳴らない。低音はバスーンの方が経済的で確か。</span></span></button>
+      <button class="check"><span class="box">✓</span><span class="txt">オーボエに一番良い音域を使い、侵略的な低音を避けたか<span class="why">音色が際立ちすぎる楽器。持続音・和音・第2プランでは「常によく聞こえる」前提で書く。</span></span></button>
+      <button class="check"><span class="box">✓</span><span class="txt">チェロとコントラバスを対にしたか<span class="why">チェロだけでは低音不足、バスだけでは鈍くて音程が不正確。対で初めて澄んだ基音になる。</span></span></button>
+      <button class="check"><span class="box">✓</span><span class="txt">バスーンの疑わしい音を、チェロの斉奏で支えたか<span class="why">バスーンとチェロの斉奏は、悪い音を美しくする定番の助け合い。</span></span></button>
+      <button class="check"><span class="box">✓</span><span class="txt">ティンパニーの調律変更に、小節の余裕があるか<span class="why">1音の変更に約1小節。大家は長3度を超える変更を避け、必要なら段階的に導いた。</span></span></button>
+      <button class="check"><span class="box">✓</span><span class="txt">シンバルとタムタムの「止める／残す」を書いたか<span class="why">書かないと奏者は判断に迷う。タムタムは和音が変わったら振動を止めるのが約束。</span></span></button>
+      <button class="check"><span class="box">✓</span><span class="txt">ハープの片手和音は4音以内か、共鳴の余白があるか<span class="why">奏者は第5指を使わない。ダンパーがないので、響きが消える時間を残す。</span></span></button>
+      <button class="check"><span class="box">✓</span><span class="txt">弦の完全5度重音と、ビオラの伸び限度を守ったか<span class="why">完全5度の重音は音程が狂いやすい。ビオラは同一弦で完全4度、2弦でオクターブまで。</span></span></button>
+      <button class="check"><span class="box">✓</span><span class="txt">トロンボーン最低部の音を「全曲に数回」の特別な音にしたか<span class="why">『トリスタン』の低音B♮は全曲で1回だけ。最低部の数音は切り札として使う。</span></span></button>
+      <button class="check"><span class="box">✓</span><span class="txt">和音の中音域が空いていないか（リムスキー）<span class="why">フォルテでは特に。並べ方は倍音列のとおり、下は開いて上は密に。</span></span></button>
+      <button class="check"><span class="box">✓</span><span class="txt">テノールをむやみに重ねていないか（リムスキー）<span class="why">和音は基本4声。開離配置のテノールは重ねないのが原則。重ねるなら上声部のオクターブ。</span></span></button>
+      <button class="check"><span class="box">✓</span><span class="txt">バスが他の声部に混ざっていないか（リムスキー）<span class="why">バスの重ねは下側だけ。和音の土台は独立させる。</span></span></button>
+      <button class="check"><span class="box">✓</span><span class="txt">ホルンの強弱を、他の金管より1段強く書いたか（リムスキー）<span class="why">ホルンはフォルテで他の金管の約半分の強さ。記号を1段上げるか、ホルン2本で釣り合わせる。</span></span></button>
+      <button class="check"><span class="box">✓</span><span class="txt">旋律が各楽器の「最大表現音域」に入っているか（リムスキー）<span class="why">一番表現が効く音域に主旋律を置く。ピッコロとコントラバスーンにはこの音域が無い。</span></span></button>
+      <button class="check"><span class="box">✓</span><span class="txt">極端な高音・低音の旋律に、中心寄りのオクターブ重ねをしたか（リムスキー）<span class="why">極端な高音は下のオクターブ、極端な低音は上のオクターブでも重ねて、響きの中心へ寄せる。</span></span></button>
+      <button class="check"><span class="box">✓</span><span class="txt">独立させたい声部の間で、平行5度・8度になっていないか<span class="why">共通時代の様式の規則です。重ねて太くするのが目的なら対象外——詳しくは「理論の土台」の章の『禁則は、絶対か』にまとめました。</span></span></button>
+      <button class="check"><span class="box">✓</span><span class="txt">不完全音程から完全音程へ、順行（平行移動）で着地していないか（隠れた平行）<span class="why">フックスの規則③。平行そのものだけでなく、同じ向きに動いて完全音程へ着く動きも、独立させたい声部では避ける。</span></span></button>
+      <button class="check"><span class="box">✓</span><span class="txt">和音の重複は根音が優先になっているか。転回形では根音か5度を重複しているか<span class="why">リムスキー和声学の原則。六の和音では根音か根音の5度が重複の候補で、度数ごとの指定もある。</span></span></button>
+      <button class="check"><span class="box">✓</span><span class="txt">掛留（サスペンション）の解決音を、他のパートが先取りしていないか<span class="why">解決する音が他の声部に既にある時は、掛留そのものを作らないのがリムスキーの規則。</span></span></button>
+    </div>
+    <div class="check-actions">
+      <button class="btn primary" id="copyCheck">点検結果を文章でコピー</button>
+      <button class="btn" id="resetCheck">印を全部はずす</button>
+      <span class="copied" id="copied" role="status"></span>
+    </div>
+  </section>
+
+<!-- ============ ASK ============ -->
+<section class="fam" id="ask" style="--fc:var(--accent); --fc-bg:var(--rose-bg);">
+<div class="fam-head"><h2>楽譜チェックの頼み方</h2>
+<p>楽譜（スコアの画像・PDF・MusicXMLなど）を渡す時に、下の文を一緒に添えると、この手帖の基準でヴォイシングを点検できます。点検は「音域オーバー／移調の実音ミス／危ない音の使用／息と休止の不足／重音の可否」の順に見ます。</p></div>
+<div class="askbox">
+<p style="font-size:14.5px; color:var(--ink2);">コピーして、楽譜と一緒に送ってください。</p>
+<pre id="askText">この楽譜を、管弦楽法てちょう（ビドール『近代管弦楽法』＋リムスキーの原理＋フォーサイスの実務仕様＋現代の注記）の基準でヴォイシング・チェックしてください。
+
+見る順番：
+1. 音域オーバーと移調楽器の実音ミス（フルート／ピッコロ／クラリネット／ホルン／コントラバスなど）
+2. 「危ない所」に触れている音・奏法（バスーンの高音A♭、トロンボーン第7ポジション、弦の完全5度重音など）
+3. ホルンの高音／低音の書き分けと、持続和音の低音の置き場
+4. 息の持続と休止の不足（コントラ・バスーン、ティンパニーの調律変更、ハープの共鳴の余白）
+5. チェックリスト20項目に照らした総評
+
+事実（楽器の仕様）と意見（響きの好み）は分けて書いてください。</pre>
+<div class="check-actions" style="margin-top:0;">
+<button class="btn primary" id="copyAsk">この文をコピー</button>
+<span class="copied" id="copiedAsk" role="status"></span>
+</div>
+</div>
+</section>
+
+<footer>
+<p>出典：Ch.-M.ビドール（ヴィドール）『近代管弦楽法』塚谷晃弘訳、全音楽譜出版社（1962）／原著 <i>Technique de l'orchestre moderne</i>（1904）。ベルリオーズ『楽器法』（1843）への補遺として書かれた書物です。第2期の追加出典：Cecil Forsyth『Orchestration』（1914年初版、パブリックドメイン。楽譜・表の画像は同書からの切り出し）／Nikolay Rimsky-Korsakov『管弦楽法原理 <i>Principles of Orchestration</i>』（1913、英訳・本文巻）。理論の土台の追加出典：J. J. Fux『Gradus ad Parnassum』（1725）／Rimsky-Korsakov『実践和声学手引』（1886、仏語版1910）／Savart『音楽の原理と移調法』（フランス、第8版）／Gehrkens『Music Notation and Terminology』（1914、Project Gutenberg #19499）。「禁則は、絶対か」の現代の説明は2026-11-10のWeb検索による現代資料で、原典の規則とは分けて表示しています。</p>
+<p>楽器写真（34点）は、しれーりんが収集し、メタりんが出典・ライセンス台帳（2026-11-10照合）と突き合わせて組み込んだものです。原盤と台帳は Drive「管弦楽法_写真・音源_20261110」フォルダに保管。各写真の撮影者・所蔵者とライセンスは、写真下のクレジット行に表示しています。写真はページ表示用に縮小しています。原盤は出典ページで確認できます。非商用限定（CC BY-NC-SA）のダルシトーン写真は今回組み込んでいないため、ダルシトーンのカードは文章のみです。Wikimedia Commons側の403で保存できなかった希少楽器の写真（オフィクレイド、サクソルン各声部、ヴィオラ・ダモーレ等）も未収録です。</p>
+<p>音名は原著のドレミ表記（Do=C, Ré=D, Mi=E, Fa=F, Sol=G, La=A, Si=B）から、必要に応じて英米式（C, D, E…）に置き換えてあります。⚠️印は2026年時点の現代標準との照合による注記です。速度の数字は本書に載る実測・実例の目安で、絶対の上限ではありません。</p>
+<p>この手帖は編曲の作業用の要約です。迷った時は、楽器カードの「危ない所」と「ヴォイシング・チェック」から先に見るのがおすすめです。</p>
+</footer>
+</div>
+
+<script>
+(function(){
+var cards = Array.prototype.slice.call(document.querySelectorAll('.card'));
+var q = document.getElementById('q');
+var famSelect = document.getElementById('famSelect');
+var jumpSelect = document.getElementById('jumpSelect');
+var count = document.getElementById('count');
+var empty = document.getElementById('empty');
+var fam = 'all';
+
+function apply(){
+var term = (q.value || '').trim().toLowerCase();
+var shown = 0;
+cards.forEach(function(c){
+var okFam = (fam === 'all' || c.getAttribute('data-fam') === fam);
+var hay = (c.textContent + ' ' + (c.getAttribute('data-search') || '')).toLowerCase();
+var okQ = (!term || hay.indexOf(term)!== -1);
+var show = okFam && okQ;
+c.classList.toggle('hide',!show);
+if (show) shown++;
+});
+document.querySelectorAll('section.fam').forEach(function(s){
+if (s.id === 'changes' || s.id === 'ask' || s.id === 'compare' || s.id === 'theory' || s.id === 'balance' || s.id === 'field') return;
+if (!s.querySelector('.card')) return;
+var any = s.querySelector('.card:not(.hide)');
+s.style.display = any? '': 'none';
+});
+count.textContent = '楽器カード ' + shown + ' 件を表示中（全 ' + cards.length + ' 件）';
+empty.classList.toggle('show', shown === 0);
+}
+q.addEventListener('input', apply);
+if (famSelect){
+famSelect.addEventListener('change', function(){
+fam = famSelect.value || 'all';
+apply();
+});
+}
+if (jumpSelect){
+jumpSelect.addEventListener('change', function(){
+var target = jumpSelect.value;
+if (!target) return;
+var el = document.querySelector(target);
+if (el){
+var host = (el.tagName === 'SECTION') ? el : (el.closest ? el.closest('section.fam') : null);
+var hidden = (el.style && el.style.display === 'none') || (host && host.style.display === 'none');
+if (!hidden && host && host.querySelector && host.querySelector('.card') && !host.querySelector('.card:not(.hide)')) hidden = true;
+if (hidden){
+q.value = '';
+fam = 'all';
+if (famSelect) famSelect.value = 'all';
+apply();
+}
+var doScroll = function(){ el.scrollIntoView({behavior:'smooth', block:'start'}); };
+if (window.requestAnimationFrame) requestAnimationFrame(doScroll); else doScroll();
+try { history.replaceState(null,'',target); } catch(e){}
+}
+setTimeout(function(){ jumpSelect.selectedIndex = 0; }, 450);
+});
+}
+apply();
+
+/* checklist */
+var checks = Array.prototype.slice.call(document.querySelectorAll('#checks .check'));
+var bar = document.getElementById('bar');
+var barTxt = document.getElementById('barTxt');
+var copied = document.getElementById('copied');
+function refresh(){
+var done = checks.filter(function(c){ return c.classList.contains('done');}).length;
+bar.style.width = (done / checks.length * 100) + '%';
+barTxt.textContent = done + ' / ' + checks.length + ' 項目を確認済み' + (checks.length > 0 && done === checks.length ? ' — 全部そろいました。おつかれさまです♪' : '');
+}
+checks.forEach(function(c){ c.addEventListener('click', function(){ c.classList.toggle('done'); copied.textContent=''; refresh();});});
+document.getElementById('resetCheck').addEventListener('click', function(){
+checks.forEach(function(c){ c.classList.remove('done');});
+copied.textContent = '';
+refresh();
+});
+function copyText(text, el){
+function done(){ el.textContent = 'コピーしました ✓'; setTimeout(function(){ el.textContent='';}, 2600);}
+if (navigator.clipboard && navigator.clipboard.writeText){
+navigator.clipboard.writeText(text).then(done).catch(function(){ fallback();});
+} else { fallback();}
+function fallback(){
+var ta = document.createElement('textarea');
+ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+document.body.appendChild(ta); ta.select();
+try { document.execCommand('copy'); done();} catch(e){ el.textContent = 'コピーできませんでした。長押しで選択してください。';}
+document.body.removeChild(ta);
+}
+}
+document.getElementById('copyCheck').addEventListener('click', function(){
+var lines = [''];
+checks.forEach(function(c, i){
+var t = c.querySelector('.txt').childNodes[0].textContent.trim();
+lines.push((c.classList.contains('done')? '✓ ': '・ ') + (i + 1) + '. ' + t);
+});
+copyText(lines.join('\n'), copied);
+});
+var copiedAsk = document.getElementById('copiedAsk');
+document.getElementById('copyAsk').addEventListener('click', function(){
+copyText(document.getElementById('askText').textContent, copiedAsk);
+});
+refresh();
+})();
+</script>
+</body>
+</html>

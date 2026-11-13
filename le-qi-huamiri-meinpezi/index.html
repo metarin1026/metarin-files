@@ -1,0 +1,2141 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>楽器ファミリー・メインページ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet" />
+    <style>
+      :root{
+        --bg:#FFF8F0; --bg2:#FFF1E3; --card:#FFFFFF; --card2:#FFF6EC;
+        --ink:#3A2E28; --ink2:#6B5B52; --ink3:#9A887C;
+        --line:#F0DDCC; --line2:#E6CDB4;
+        --rose:#D96C57; --rose-bg:#FDECE8;
+        --sage:#5F8F6B; --sage-bg:#EAF3EC;
+        --butter:#B07E1E; --butter-bg:#FBF0D3;
+        --sky:#4A7CA5; --sky-bg:#E8F0F7;
+        --plum:#8A5A7A; --plum-bg:#F6EAF2;
+        --warn-bg:#FFF3D6; --warn-line:#E9C46A; --warn-ink:#7A5A12;
+        --accent:#C65D3F; --accent-ink:#fff;
+        --shadow:0 2px 10px rgba(90,55,30,.07), 0 10px 28px rgba(90,55,30,.05);
+        --radius:18px;
+        --svg-line:#B99B7E; --svg-ink:#3A2E28; --svg-sub:#8A7462;
+      }
+      @media (prefers-color-scheme: dark){
+        :root{
+          --bg:#211B17; --bg2:#2A221C; --card:#2E2721; --card2:#332B24;
+          --ink:#F3E8DC; --ink2:#CDBBA9; --ink3:#9C8A78;
+          --line:#453A30; --line2:#57493C;
+          --rose:#E89A8A; --rose-bg:#3D2A26;
+          --sage:#9CC4A6; --sage-bg:#27352A;
+          --butter:#E3C27A; --butter-bg:#3A3220;
+          --sky:#9CC0DE; --sky-bg:#26333F;
+          --plum:#D3A3C4; --plum-bg:#382A34;
+          --warn-bg:#3A3018; --warn-line:#8A6D2F; --warn-ink:#E8CD8A;
+          --accent:#D96C57; --accent-ink:#fff;
+          --shadow:0 2px 10px rgba(0,0,0,.3), 0 10px 28px rgba(0,0,0,.25);
+          --svg-line:#6E5B49; --svg-ink:#F3E8DC; --svg-sub:#B49F8A;
+        }
+      }
+      html{box-sizing:border-box; scroll-behavior:smooth; scroll-padding-top:72px;}
+      *,*::before,*::after{box-sizing:inherit;}
+      body{margin:0; background:var(--bg); color:var(--ink); font-family:"Noto Sans JP",system-ui,sans-serif; font-size:16px; line-height:1.75; -webkit-font-smoothing:antialiased;}
+      h1,h2,h3,h4,p,ul,ol,figure{margin:0;}
+      ul,ol{padding:0; list-style:none;}
+      a{color:var(--accent);}
+      button{font:inherit; cursor:pointer;}
+      img{max-width:100%; display:block;}
+      .wrap{max-width:1120px; margin:0 auto; padding:0 18px 72px;}
+
+      /* ---- top banner ---- */
+      .top-banner{margin:18px 0 0; border-radius:18px; overflow:hidden; box-shadow:var(--shadow); line-height:0;}
+      .top-banner img{width:100%; height:auto; display:block;}
+
+      /* ---- intro ---- */
+      .intro{padding:22px 0 4px;}
+      .intro .kicker{display:inline-block; background:var(--rose-bg); color:var(--rose); font-family:"M PLUS Rounded 1c",sans-serif; font-weight:700; font-size:13px; letter-spacing:.04em; padding:5px 12px; border-radius:999px;}
+      .intro h1{font-family:"M PLUS Rounded 1c",sans-serif; font-weight:800; font-size:clamp(28px,5.6vw,42px); line-height:1.3; margin:14px 0 10px;}
+      .intro .lead{font-size:16px; color:var(--ink2); max-width:48em;}
+      .intro .lead strong{color:var(--ink);}
+      .src-note{margin-top:12px; font-size:13.5px; color:var(--ink3);}
+
+      /* ---- tabs (thin sticky bar) ---- */
+      .tabbar{position:sticky; top:0; z-index:30; background:color-mix(in srgb, var(--bg) 94%, transparent); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); padding:9px 0 8px; margin-top:16px; border-bottom:1px solid var(--line);}
+      .tabs{display:flex; flex-wrap:nowrap; gap:8px; overflow-x:auto; overflow-y:hidden; padding:2px; scrollbar-width:none; -webkit-overflow-scrolling:touch;}
+      .tabs::-webkit-scrollbar{display:none;}
+      .tab{flex:0 0 auto; white-space:nowrap; border:1.5px solid var(--line2); background:var(--card); color:var(--ink2); border-radius:999px; padding:7px 18px; font-family:"M PLUS Rounded 1c",sans-serif; font-weight:700; font-size:15px; line-height:1.3;}
+      .tab[aria-selected="true"]{background:var(--accent); border-color:var(--accent); color:var(--accent-ink);}
+      .tab:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+      .tab .en{font-size:11px; font-weight:500; opacity:.75; margin-left:5px; letter-spacing:.03em;}
+
+      /* ---- panels & sections ---- */
+      .panel{padding-top:26px;}
+      .panel[hidden]{display:none;}
+      .fam-head{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:6px;}
+      .fam-head h2{font-family:"M PLUS Rounded 1c",sans-serif; font-weight:800; font-size:clamp(24px,4.4vw,32px); line-height:1.3;}
+      .fam-head .tag{font-size:12.5px; font-weight:700; padding:3px 10px; border-radius:999px;}
+      .tag-strings{background:var(--rose-bg); color:var(--rose);}
+      .tag-wood{background:var(--sage-bg); color:var(--sage);}
+      .tag-brass{background:var(--butter-bg); color:var(--butter);}
+      .tag-harp{background:var(--plum-bg); color:var(--plum);}
+      .fam-lead{color:var(--ink2); max-width:50em; margin-bottom:20px;}
+      h3.sec{font-family:"M PLUS Rounded 1c",sans-serif; font-weight:700; font-size:19px; margin:30px 0 12px; display:flex; align-items:center; gap:9px;}
+      h3.sec::before{content:""; width:9px; height:9px; border-radius:3px; background:var(--accent); flex:none;}
+      h4.sub{font-family:"M PLUS Rounded 1c",sans-serif; font-weight:700; font-size:15.5px; margin:0 0 6px;}
+      p.body{color:var(--ink2); max-width:52em;}
+      p.body strong, li strong{color:var(--ink);}
+
+      .card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:20px 22px;}
+      .grid2{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+      .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
+      @media (max-width:760px){ .grid2,.grid3{grid-template-columns:1fr;} }
+      .mech-card h4{font-family:"M PLUS Rounded 1c",sans-serif; font-size:16px; margin-bottom:6px;}
+      .mech-card p{font-size:14.5px; color:var(--ink2);}
+      .flow{display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-top:4px;}
+      .flow .step{background:var(--card2); border:1px solid var(--line); border-radius:12px; padding:8px 13px; font-size:14px; font-weight:500;}
+      .flow .arrow{color:var(--ink3); font-weight:700;}
+
+      /* ---- figures ---- */
+      .fig{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:20px 22px 16px;}
+      .fig + .fig{margin-top:14px;}
+      .fig h4{font-family:"M PLUS Rounded 1c",sans-serif; font-weight:700; font-size:16.5px; margin-bottom:4px;}
+      .fig .cap{font-size:13.5px; color:var(--ink2); margin-top:10px;}
+      .fig svg{width:100%; height:auto;}
+      .fig .cols{display:grid; grid-template-columns:1.5fr 1fr; gap:18px; align-items:start;}
+      @media (max-width:760px){ .fig .cols{grid-template-columns:1fr;} }
+      svg text{font-family:"Noto Sans JP",sans-serif; fill:var(--svg-ink);}
+      svg .sub{fill:var(--svg-sub);}
+      svg .leader{stroke:var(--svg-line); stroke-width:1.2; fill:none;}
+      svg .shape{stroke:var(--svg-line); stroke-width:1.6; fill:var(--card2);}
+      svg .accent-shape{fill:var(--rose-bg); stroke:var(--rose); stroke-width:1.4;}
+      svg .sage-shape{fill:var(--sage-bg); stroke:var(--sage); stroke-width:1.4;}
+      svg .warn-shape{fill:var(--warn-bg); stroke:var(--warn-line); stroke-width:1.4;}
+
+      /* ---- tables ---- */
+      .tblwrap{overflow-x:auto; border:1px solid var(--line); border-radius:var(--radius); background:var(--card); box-shadow:var(--shadow);}
+      table{border-collapse:collapse; width:100%; min-width:560px; font-size:14.5px;}
+      th,td{padding:10px 14px; text-align:left; vertical-align:top; border-bottom:1px solid var(--line);}
+      thead th{font-family:"M PLUS Rounded 1c",sans-serif; font-size:13.5px; background:var(--card2); border-bottom:1.5px solid var(--line2); white-space:nowrap;}
+      tbody tr:last-child td{border-bottom:0;}
+      @media (max-width:640px){
+        table{min-width:0; font-size:13px;}
+        th,td{padding:8px 9px;}
+      }
+      .mark-o{color:var(--sage); font-weight:700;}
+      .mark-t{color:var(--butter); font-weight:700;}
+
+      /* ---- range charts ---- */
+      .chartbox{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:18px 20px 12px;}
+      .chartbox svg{width:100%; height:auto;}
+      .legend{display:flex; flex-wrap:wrap; gap:14px; font-size:13px; color:var(--ink2); margin-top:8px;}
+      .legend .sw{display:inline-block; width:14px; height:9px; border-radius:3px; margin-right:5px; vertical-align:0;}
+      .chart-note{font-size:13px; color:var(--ink3); margin-top:6px;}
+
+      /* ---- notes (勘所) ---- */
+      .notes{display:grid; gap:10px;}
+      .note{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px 17px; box-shadow:var(--shadow); font-size:15px;}
+      .note p{color:var(--ink2);}
+      .note p strong{color:var(--ink);}
+      .note .who{display:inline-block; font-size:12px; font-weight:700; padding:2px 9px; border-radius:999px; background:var(--sky-bg); color:var(--sky); margin-bottom:5px;}
+      .note .who.modern{background:var(--butter-bg); color:var(--butter);}
+      .tag-study{background:var(--sky-bg); color:var(--sky);}
+
+      /* ---- photos ---- */
+      .photos{display:grid; grid-template-columns:repeat(auto-fill,minmax(215px,1fr)); gap:14px;}
+      .photos figure{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow);}
+      .photos img{width:100%; height:230px; object-fit:cover; background:var(--bg2);}
+      .photos figcaption{padding:10px 13px 12px; font-size:12.5px; color:var(--ink2); line-height:1.6;}
+      .photos figcaption b{display:block; font-size:13.5px; color:var(--ink); font-family:"M PLUS Rounded 1c",sans-serif;}
+
+      /* ---- listen / audio ---- */
+      .listen-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+      @media (max-width:760px){ .listen-grid{grid-template-columns:1fr;} }
+      .listen-card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:16px 18px 14px;}
+      .listen-card h4{font-family:"M PLUS Rounded 1c",sans-serif; font-weight:700; font-size:16px; line-height:1.4;}
+      .listen-card .desc{font-size:14px; color:var(--ink2); margin-top:4px; line-height:1.65;}
+      .listen-card audio{width:100%; margin-top:10px; display:block;}
+      .listen-card .credit{font-size:12.5px; color:var(--ink3); line-height:1.6; margin-top:8px;}
+      .listen-card .credit a{color:var(--ink2);}
+      .listen-note{font-size:13.5px; color:var(--ink2); margin-top:10px;}
+      .listen-note strong{color:var(--ink);}
+
+      /* ---- simulator link (harp tab) ---- */
+      .sim-card{background:var(--plum-bg); border:1px solid var(--line2); border-radius:var(--radius); box-shadow:var(--shadow); padding:20px 22px;}
+      .sim-card h4{font-family:"M PLUS Rounded 1c",sans-serif; font-weight:800; font-size:18px; line-height:1.4;}
+      .sim-card p{font-size:14.5px; color:var(--ink2); margin-top:6px; max-width:52em;}
+      .sim-card p strong{color:var(--ink);}
+      .sim-actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:14px;}
+      .sim-btn{display:inline-block; border:0; background:var(--accent); color:var(--accent-ink); text-decoration:none; font-family:"M PLUS Rounded 1c",sans-serif; font-weight:700; font-size:15px; padding:9px 20px; border-radius:999px;}
+      .sim-btn.sub{background:var(--card); color:var(--accent); border:1.5px solid var(--accent);}
+      .sim-btn:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+      .sim-card .credit{font-size:12.5px; color:var(--ink3); margin-top:10px;}
+
+      .techou-link{margin-top:30px; background:var(--card2); border:1px dashed var(--line2); border-radius:14px; padding:14px 18px; font-size:14.5px; color:var(--ink2);}
+      footer{margin-top:44px; border-top:1px solid var(--line); padding-top:18px; font-size:13px; color:var(--ink3); display:grid; gap:6px;}
+    </style>
+      <style>
+/* ===== 試奏台（まこりん作）をこのページに組み込むためのスタイル。元のCSSのセレクタを #sim-root 配下に限定したもの ===== */
+#sim-root {
+  --bg: #F2F4F7; --surface: #FFFFFF; --sunk: #E9EDF2; --ink: #1A2233; --muted: #566178; --line: #D3DAE3; --line-strong: #A9B3C2;
+  --accent: #27468A; --accent-ink: #FFFFFF; --accent-soft: #E3EAF8;
+  --r-root: #1A2233; --r-third: #C2432A; --r-fifth: #178070; --r-seventh: #7648B0; --r-tension: #A96F0C;
+  --ok: #178070; --care: #A96F0C; --hard: #C2432A; --out: #8A1B2C;
+  --ok-soft: #E0F1ED; --care-soft: #F7ECD6; --hard-soft: #F8E2DB; --out-soft: #F3D9DD;
+  --q0: #7CC3B4; --q1: #C9D58A; --q2: #EBC27A; --q3: #E59A8A;
+  --f-display: "Shippori Mincho B1", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --f-body: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic UI", "Noto Sans JP", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark){#sim-root:not([data-theme="light"]) {
+    --bg: #0F131B; --surface: #171D28; --sunk: #1E2532; --ink: #E6E9F0; --muted: #98A3B7; --line: #2A3343; --line-strong: #455064;
+    --accent: #8DAEF2; --accent-ink: #0F131B; --accent-soft: #1E2A44;
+    --r-root: #E6E9F0; --r-third: #FF8C6E; --r-fifth: #54CFB5; --r-seventh: #BCA0F5; --r-tension: #EFBE55;
+    --ok: #54CFB5; --care: #EFBE55; --hard: #FF8C6E; --out: #FF6F86;
+    --ok-soft: #14302B; --care-soft: #33290F; --hard-soft: #3A1D16; --out-soft: #3B1620;
+    --q0: #2F7C6E; --q1: #6F7A35; --q2: #8E6A22; --q3: #8E4436;
+    color-scheme: dark;
+  }}
+#sim-root[data-theme="dark"] {
+  --bg: #0F131B; --surface: #171D28; --sunk: #1E2532; --ink: #E6E9F0; --muted: #98A3B7; --line: #2A3343; --line-strong: #455064;
+  --accent: #8DAEF2; --accent-ink: #0F131B; --accent-soft: #1E2A44;
+  --r-root: #E6E9F0; --r-third: #FF8C6E; --r-fifth: #54CFB5; --r-seventh: #BCA0F5; --r-tension: #EFBE55;
+  --ok: #54CFB5; --care: #EFBE55; --hard: #FF8C6E; --out: #FF6F86;
+  --ok-soft: #14302B; --care-soft: #33290F; --hard-soft: #3A1D16; --out-soft: #3B1620;
+  --q0: #2F7C6E; --q1: #6F7A35; --q2: #8E6A22; --q3: #8E4436;
+  color-scheme: dark;
+}
+#sim-root *, #sim-root *::before, #sim-root *::after { box-sizing: border-box; }
+#sim-root { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.65; -webkit-text-size-adjust: 100%; }
+#sim-root .sim-wrap { max-width: 1080px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+#sim-root h1, #sim-root h2, #sim-root h3, #sim-root h4 { font-family: var(--f-display); font-weight: 700; margin: 0; text-wrap: balance; line-height: 1.35; }
+#sim-root p { margin: 0; }
+#sim-root ul, #sim-root dl, #sim-root dd { margin: 0; padding: 0; }
+#sim-root ul { list-style: none; }
+#sim-root .top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 9; background: var(--surface); border-bottom: 1px solid var(--line); }
+#sim-root .topin { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 20px; padding-block: 10px 0; }
+#sim-root .top .sim-h1 { font-size: 19px; letter-spacing: 0.04em; padding-bottom: 8px; }
+#sim-root .tabs { display: flex; gap: 2px; min-width: 0; overflow-x: auto; scrollbar-width: none; }
+#sim-root .tabs::-webkit-scrollbar { display: none; }
+#sim-root .tabs button { font: 500 14px/1.2 var(--f-body); color: var(--muted); background: none; border: 0; border-bottom: 3px solid transparent; padding: 8px 10px 9px; white-space: nowrap; cursor: pointer; }
+#sim-root .tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); font-weight: 700; }
+#sim-root .vol { display: flex; align-items: center; gap: 8px; margin-left: auto; padding-bottom: 8px; font-size: 13.5px; color: var(--muted); }
+#sim-root .vol label { font-weight: 700; color: var(--ink); white-space: nowrap; }
+#sim-root .vol input[type="range"] { width: 130px; max-width: 36vw; accent-color: var(--accent); cursor: pointer; }
+#sim-root .vol .vol-val { font-variant-numeric: tabular-nums; min-width: 3.2em; }
+#sim-root .sim-main { padding-block: 20px 56px; }
+#sim-root .lead { display: grid; gap: 4px; margin-bottom: 16px; max-width: 42em; }
+#sim-root .lead h2 { font-size: 24px; }
+#sim-root .lead p { color: var(--muted); }
+#sim-root .cols { display: grid; gap: 16px; }
+#sim-root .col-in, #sim-root .col-out { display: grid; gap: 16px; min-width: 0; align-content: start; }
+@media (min-width: 900px){#sim-root .cols { grid-template-columns: minmax(320px, 400px) minmax(0, 1fr); align-items: start; }}
+#sim-root .card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: grid; gap: 12px; min-width: 0; }
+#sim-root section.card + section.card { margin-top: 16px; }
+#sim-root .cols section.card + section.card { margin-top: 0; }
+#sim-root .card h3 { font-size: 17px; }
+#sim-root .card h4 { font-size: 14.5px; margin-top: 6px; }
+#sim-root .sub, #sim-root .cap { color: var(--muted); font-size: 13px; line-height: 1.55; }
+#sim-root .cap { font-size: 12px; }
+#sim-root .note { font-size: 13.5px; background: var(--sunk); border-radius: 8px; padding: 8px 12px; }
+#sim-root .empty { color: var(--muted); padding: 12px 0; }
+#sim-root .f { display: grid; gap: 5px; min-width: 0; }
+#sim-root .f > span { font-size: 12.5px; font-weight: 500; color: var(--muted); }
+#sim-root .f small { font-weight: 400; margin-left: 6px; }
+#sim-root .fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+#sim-root .fields .wide { grid-column: 1 / -1; }
+#sim-root .inline { display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: end; }
+#sim-root input[type="text"], #sim-root input[type="number"], #sim-root select { font: 500 16px/1.3 var(--f-body); color: var(--ink); background: var(--surface); border: 1px solid var(--line-strong); border-radius: 8px; padding: 8px 10px; width: 100%; min-width: 0; }
+#sim-root input[type="number"] { max-width: 7em; font-variant-numeric: tabular-nums; }
+#sim-root .notepick { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 4px; }
+#sim-root .notepick select { padding-inline: 6px; }
+#sim-root :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+#sim-root .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+#sim-root .chip { font: 500 13.5px/1.2 var(--f-body); color: var(--ink); background: var(--surface); border: 1px solid var(--line-strong); border-radius: 999px; padding: 7px 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; }
+#sim-root .chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 700; }
+#sim-root .chip .cnt { font-weight: 700; font-variant-numeric: tabular-nums; }
+#sim-root .chip.pg { border-radius: 8px; font-size: 15px; font-weight: 700; padding: 8px 12px; }
+#sim-root .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; background: var(--ok); }
+#sim-root .dot.lv-care { background: var(--care); }
+#sim-root .dot.lv-hard { background: var(--hard); }
+#sim-root .dot.lv-out { background: var(--out); }
+#sim-root .chip[aria-pressed="true"] .dot { outline: 1.5px solid var(--accent-ink); }
+#sim-root .btns { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+#sim-root .btn { font: 500 14px/1.2 var(--f-body); color: var(--ink); background: var(--surface); border: 1px solid var(--line-strong); border-radius: 8px; padding: 9px 14px; cursor: pointer; }
+#sim-root .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 700; }
+#sim-root .btn.quiet { border-color: transparent; color: var(--muted); text-decoration: underline; padding-inline: 4px; }
+#sim-root .btn[disabled] { opacity: 0.55; cursor: default; }
+#sim-root .filebtn { position: relative; overflow: hidden; }
+#sim-root .filebtn input { position: absolute; inset: 0; opacity: 0; cursor: pointer; font-size: 16px; }
+#sim-root details > summary { cursor: pointer; list-style: none; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
+#sim-root details > summary::-webkit-details-marker { display: none; }
+#sim-root details > summary::before { content: "＋"; color: var(--muted); font-weight: 700; width: 1em; }
+#sim-root details[open] > summary::before { content: "－"; }
+#sim-root details.line { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+#sim-root details.line[open] { display: grid; gap: 12px; }
+#sim-root .ln-name { font-weight: 700; }
+#sim-root .ln-sum { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+#sim-root .tag { font-size: 11px; font-weight: 700; color: var(--muted); border: 1px solid var(--line-strong); border-radius: 4px; padding: 0 5px; letter-spacing: 0.08em; }
+#sim-root details.more > summary, #sim-root details.help > summary { color: var(--accent); font-weight: 500; font-size: 14px; }
+#sim-root details.more[open], #sim-root details.help[open] { display: grid; gap: 10px; }
+#sim-root details.help p { font-size: 13.5px; font-variant-numeric: tabular-nums; }
+#sim-root details.fold > summary h3 { display: inline; }
+#sim-root .tg-row { display: grid; grid-template-columns: 2.6em 1fr; gap: 8px; align-items: start; }
+#sim-root .tg-fam { font-size: 12.5px; font-weight: 700; color: var(--muted); padding-top: 7px; }
+#sim-root .badge { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 700; border-radius: 4px; padding: 1px 7px; background: var(--ok-soft); white-space: nowrap; }
+#sim-root .badge i { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); }
+#sim-root .badge.lv-care { background: var(--care-soft); }
+#sim-root .badge.lv-care i { background: var(--care); border-radius: 1px; transform: rotate(45deg); }
+#sim-root .badge.lv-hard { background: var(--hard-soft); }
+#sim-root .badge.lv-hard i { background: var(--hard); border-radius: 1px; }
+#sim-root .badge.lv-out { background: var(--out-soft); }
+#sim-root .badge.lv-out i { background: var(--out); border-radius: 0; clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+#sim-root .badge.lv-idea { background: var(--accent-soft); }
+#sim-root .badge.lv-idea i { background: var(--accent); }
+#sim-root .plan-tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+#sim-root .sum { font-weight: 500; }
+#sim-root .mrow { border-top: 1px solid var(--line); padding-top: 12px; display: grid; gap: 8px; min-width: 0; }
+#sim-root .mrow header { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; }
+#sim-root .mrow .from { font-weight: 700; }
+#sim-root .mrow .arrow { color: var(--muted); }
+#sim-root .mrow .to { font: 700 17px/1.3 var(--f-display); }
+#sim-root .mrow .to.none { color: var(--out); }
+#sim-root .fit { display: grid; gap: 2px; }
+#sim-root .issues { display: grid; gap: 6px; font-size: 14px; }
+#sim-root .issues li { padding-left: 14px; position: relative; }
+#sim-root .issues li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 7px; height: 7px; background: var(--care); border-radius: 1px; transform: rotate(45deg); }
+#sim-root .issues li.lv-hard::before { background: var(--hard); transform: none; }
+#sim-root .issues li.lv-out::before { background: var(--out); transform: none; border-radius: 0; clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+#sim-root .ihow { display: block; color: var(--muted); font-size: 13.5px; padding-left: 1.1em; position: relative; }
+#sim-root .ihow::before { content: "→"; position: absolute; left: 0; color: var(--accent); }
+#sim-root .write { font-size: 14px; }
+#sim-root .write b { font-size: 12px; color: var(--muted); margin-right: 8px; }
+#sim-root .hints { display: grid; gap: 12px; }
+#sim-root .hint { display: grid; gap: 4px; border-top: 1px dashed var(--line); padding-top: 10px; }
+#sim-root .hint .hh { display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: center; }
+#sim-root .hint .mm { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+#sim-root .hint p { font-size: 14px; }
+#sim-root .how { display: grid; gap: 3px; font-size: 14px; }
+#sim-root .how li { padding-left: 1.1em; position: relative; }
+#sim-root .how li::before { content: "→"; position: absolute; left: 0; color: var(--accent); }
+#sim-root .okline { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 14px; }
+#sim-root .pat { display: grid; gap: 4px; }
+#sim-root .pat dt { font-weight: 700; margin-top: 8px; }
+#sim-root .pat dt:first-child { margin-top: 0; }
+#sim-root .pat dd { font-size: 14px; color: var(--muted); }
+#sim-root .prog { display: flex; flex-wrap: wrap; gap: 6px; }
+#sim-root .chord-head { display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: center; }
+#sim-root .chord-head .sym { font: 700 34px/1.1 var(--f-display); letter-spacing: 0.01em; }
+#sim-root .tones { display: flex; flex-wrap: wrap; gap: 2px 14px; font-size: 13.5px; }
+#sim-root .sw { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 5px; background: var(--r-root); }
+#sim-root .sw.r3, #sim-root .bar i.r3 { background: var(--r-third); }
+#sim-root .sw.r5, #sim-root .bar i.r5 { background: var(--r-fifth); }
+#sim-root .sw.r7, #sim-root .bar i.r7 { background: var(--r-seventh); }
+#sim-root .sw.rT, #sim-root .bar i.rT { background: var(--r-tension); }
+#sim-root .bar i.rR { background: var(--r-root); }
+#sim-root .scroll-x { overflow-x: auto; max-width: 100%; }
+#sim-root .fig { background: var(--sunk); border-radius: 10px; padding: 6px 8px; }
+#sim-root .why { display: grid; gap: 5px; font-size: 14px; }
+#sim-root .why li { padding-left: 1em; position: relative; }
+#sim-root .why li::before { content: "・"; position: absolute; left: 0; color: var(--muted); }
+#sim-root .bal { display: grid; gap: 6px; max-width: 460px; }
+#sim-root .bal-row { display: grid; grid-template-columns: 5.2em 1fr 3em; gap: 8px; align-items: center; font-size: 13.5px; }
+#sim-root .bar { position: relative; height: 10px; background: var(--sunk); border-radius: 5px; display: block; }
+#sim-root .bar i { position: absolute; inset: 0 auto 0 0; border-radius: 5px; }
+#sim-root .bar u { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--muted); }
+#sim-root .bv { font-variant-numeric: tabular-nums; text-align: right; }
+#sim-root .vt { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+#sim-root .vt th { text-align: left; font: 500 12px var(--f-body); color: var(--muted); padding: 4px 8px 4px 0; border-bottom: 1px solid var(--line-strong); white-space: nowrap; }
+#sim-root .vt td { padding: 6px 8px 6px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+#sim-root .vt td:first-child { font-weight: 700; white-space: nowrap; }
+#sim-root .vt .n { font-variant-numeric: tabular-nums; white-space: nowrap; font-weight: 500; }
+#sim-root .vt small { display: block; color: var(--muted); font-size: 12px; line-height: 1.45; }
+#sim-root .vt small.lv-hard { color: var(--hard); }
+#sim-root .vt tr.rest td { color: var(--muted); font-weight: 400; }
+#sim-root .fallback { width: 100%; font: 12px/1.5 ui-monospace, monospace; color: var(--ink); background: var(--sunk); border: 1px solid var(--line-strong); border-radius: 8px; padding: 8px; }
+#sim-root .ens { display: grid; gap: 10px; }
+#sim-root .ens-fam { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; }
+#sim-root .step { display: inline-flex; align-items: center; gap: 4px; font-size: 13.5px; }
+#sim-root .step .nm { min-width: 2.6em; font-weight: 700; }
+#sim-root .step .nm.off { color: var(--muted); font-weight: 400; }
+#sim-root .step b { min-width: 1em; text-align: center; font-variant-numeric: tabular-nums; }
+#sim-root .step button { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink); font-size: 15px; line-height: 1; cursor: pointer; }
+#sim-root .step button[disabled] { opacity: 0.35; cursor: default; }
+#sim-root .segs { display: flex; flex-wrap: wrap; gap: 6px; }
+#sim-root .seg { display: grid; text-align: left; min-width: 54px; padding: 4px 9px 5px; border: 1.5px solid var(--line-strong); border-radius: 8px; background: var(--surface); color: var(--ink); cursor: pointer; font-family: var(--f-body); }
+#sim-root .seg small { font-size: 10.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+#sim-root .seg b { font-size: 14.5px; }
+#sim-root .seg.c-low { border-style: dashed; }
+#sim-root .seg.c-none b { color: var(--muted); }
+#sim-root .seg[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+#sim-root .segd { border-top: 1px solid var(--line); padding-top: 12px; display: grid; gap: 10px; }
+#sim-root .snd { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; font-size: 13.5px; }
+#sim-root .snd dt { color: var(--muted); }
+#sim-root .snd dd { font-variant-numeric: tabular-nums; }
+#sim-root .lcard { border-top: 1px solid var(--line); padding-top: 14px; display: grid; gap: 10px; min-width: 0; }
+#sim-root .lcard header { display: grid; gap: 2px; }
+#sim-root .lcard header b { font: 700 16px/1.3 var(--f-display); }
+#sim-root .stats { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+#sim-root .famh { font-size: 19px; margin: 26px 0 10px; }
+#sim-root .grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); }
+#sim-root .icard header { display: flex; align-items: baseline; gap: 10px; }
+#sim-root .icard h4 { font-size: 17px; margin: 0; }
+#sim-root .icard .ab { color: var(--muted); font-size: 13px; font-weight: 700; }
+#sim-root .icard .tr { font-size: 13px; color: var(--muted); }
+#sim-root .regs { display: grid; gap: 5px; font-size: 13.5px; }
+#sim-root .regs li { display: grid; grid-template-columns: 12px minmax(0, 1fr); gap: 0 8px; }
+#sim-root .regs i { width: 10px; height: 10px; border-radius: 2px; margin-top: 0.42em; }
+#sim-root .regs .rr { font-variant-numeric: tabular-nums; color: var(--muted); font-size: 12.5px; }
+#sim-root .regs b { margin-right: 8px; }
+#sim-root .tips { display: grid; gap: 4px; font-size: 13.5px; }
+#sim-root .tips li { padding-left: 1em; position: relative; }
+#sim-root .tips li::before { content: "・"; position: absolute; left: 0; color: var(--muted); }
+#sim-root .legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12.5px; color: var(--muted); }
+#sim-root .legend i { display: inline-block; width: 12px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
+#sim-root .legend i.safe { height: 2px; vertical-align: 3px; background: var(--ink); }
+#sim-root i.q0 { background: var(--q0); }
+#sim-root i.q1 { background: var(--q1); }
+#sim-root i.q2 { background: var(--q2); }
+#sim-root i.q3 { background: var(--q3); }
+#sim-root .mapwrap { display: grid; gap: 4px; }
+#sim-root svg text { font-family: var(--f-body); }
+#sim-root .staff { display: block; }
+#sim-root .staff .sl { stroke: var(--line-strong); stroke-width: 1; }
+#sim-root .staff .bar { stroke: var(--line-strong); stroke-width: 1; }
+#sim-root .staff .lg { stroke: var(--ink); stroke-width: 1.1; }
+#sim-root .staff .ld { stroke: var(--line-strong); stroke-width: 0.8; }
+#sim-root .staff .ink { fill: var(--ink); }
+#sim-root .staff .ct { font-size: 11px; font-weight: 700; fill: var(--muted); }
+#sim-root .staff .lb { font-size: 10.5px; font-weight: 500; fill: var(--ink); }
+#sim-root .nh.rR { fill: var(--r-root); }
+#sim-root .nh.r3 { fill: var(--r-third); }
+#sim-root .nh.r5 { fill: var(--r-fifth); }
+#sim-root .nh.r7 { fill: var(--r-seventh); }
+#sim-root .nh.rT { fill: var(--r-tension); }
+#sim-root .nh.ring { stroke: var(--surface); stroke-width: 1.4; }
+#sim-root .rmap, #sim-root .ibar, #sim-root .fbar { display: block; width: 100%; height: auto; max-width: 600px; }
+#sim-root .gr { stroke: var(--line); stroke-width: 1; }
+#sim-root .gl { font-size: 8.5px; font-weight: 500; fill: var(--muted); font-variant-numeric: tabular-nums; }
+#sim-root .rl { font-size: 9.5px; font-weight: 700; fill: var(--ink); }
+#sim-root .rl.dim { fill: var(--muted); font-weight: 400; }
+#sim-root .rf { stroke: var(--line-strong); stroke-width: 1.5; stroke-linecap: round; }
+#sim-root .rs { fill: var(--line-strong); }
+#sim-root rect.q0 { fill: var(--q0); }
+#sim-root rect.q1 { fill: var(--q1); }
+#sim-root rect.q2 { fill: var(--q2); }
+#sim-root rect.q3 { fill: var(--q3); }
+#sim-root line.safe { stroke: var(--ink); stroke-width: 1.6; }
+#sim-root .ln { fill: var(--ok); }
+#sim-root .ln.lv-care { fill: var(--care); }
+#sim-root .ln.lv-hard { fill: var(--hard); }
+#sim-root .ln.lv-out { fill: var(--out); }
+#sim-root .ln.ghost { fill: none; stroke: var(--line-strong); stroke-width: 1; stroke-dasharray: 3 2; }
+#sim-root #sim-toast { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 12px); background: var(--ink); color: var(--bg); font-size: 14px; padding: 9px 16px; border-radius: 8px; opacity: 0; pointer-events: none; transition: opacity 0.2s, transform 0.2s; max-width: min(92vw, 520px); z-index: 20; }
+#sim-root #sim-toast.on { opacity: 1; transform: translate(-50%, 0); }
+@media (prefers-reduced-motion: reduce){#sim-root #sim-toast { transition: none; }}
+#sim-root { --str: #8A93A3; --str-c: #C2432A; --str-f: #1A2233; --wood: #B08A5A; }
+@media (prefers-color-scheme: dark){#sim-root:not([data-theme="light"]) { --str: #7C879B; --str-c: #FF8C6E; --str-f: #7FA0F0; --wood: #8A6A45; }}
+#sim-root[data-theme="dark"] { --str: #7C879B; --str-c: #FF8C6E; --str-f: #7FA0F0; --wood: #8A6A45; }
+#sim-root textarea { font: 500 16px/1.5 var(--f-body); color: var(--ink); background: var(--surface); border: 1px solid var(--line-strong); border-radius: 8px; padding: 8px 10px; width: 100%; resize: vertical; }
+#sim-root .pedals { display: flex; flex-wrap: wrap; gap: 10px 22px; }
+#sim-root .pgrp { display: grid; gap: 4px; }
+#sim-root .foot { font-size: 12px; font-weight: 700; color: var(--muted); }
+#sim-root .prow { display: flex; gap: 6px; }
+#sim-root .pcol { display: grid; gap: 3px; justify-items: center; }
+#sim-root .pcol b { font: 700 16px/1.2 var(--f-display); }
+#sim-root .pbtn { width: 40px; height: 34px; font: 500 16px/1 var(--f-body); color: var(--ink); background: var(--surface); border: 1px solid var(--line-strong); border-radius: 6px; cursor: pointer; }
+#sim-root .pbtn[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 700; }
+#sim-root .pdrow { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; }
+#sim-root .pdia { display: block; background: var(--sunk); border-radius: 6px; }
+#sim-root .pdia .ax { stroke: var(--line-strong); stroke-width: 1.5; }
+#sim-root .pdia .dv { stroke: var(--muted); stroke-width: 1.5; }
+#sim-root .pdia .pk { fill: var(--ink); }
+#sim-root .pdia .pk.free { fill: var(--line-strong); }
+#sim-root .ptext { font: 700 15px/1.4 var(--f-body); letter-spacing: 0.04em; white-space: nowrap; }
+#sim-root .pcs { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 5px; }
+#sim-root .pcc { border: 1px solid var(--line-strong); border-radius: 6px; padding: 5px 2px 4px; text-align: center; display: grid; gap: 1px; min-width: 0; }
+#sim-root .pcc b { font-size: 15px; }
+#sim-root .pcc small { font-size: 10.5px; color: var(--muted); line-height: 1.3; }
+#sim-root .pcc.blk { background: var(--sunk); }
+#sim-root .pcc.two { border: 2.5px solid var(--accent); }
+#sim-root .pcc.no { border-style: dashed; }
+#sim-root .pcc.no b { color: var(--muted); font-weight: 400; }
+#sim-root .harpwrap { background: var(--sunk); border-radius: 10px; padding: 4px; }
+#sim-root .harp { display: block; width: 100%; height: auto; touch-action: none; user-select: none; -webkit-user-select: none; cursor: pointer; }
+#sim-root .harp .hs { stroke: var(--str); stroke-width: 1.2; stroke-linecap: round; transition: stroke-width 0.25s; }
+#sim-root .harp .hs.c { stroke: var(--str-c); stroke-width: 1.6; }
+#sim-root .harp .hs.f { stroke: var(--str-f); stroke-width: 1.6; }
+#sim-root .harp .hs.w { stroke-width: 2.3; }
+#sim-root .harp .hs.on { stroke-width: 4.2; transition: none; }
+#sim-root .harp .neck, #sim-root .harp .board { stroke: var(--wood); stroke-width: 5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+#sim-root .hl { font-size: 8.5px; font-weight: 500; fill: var(--muted); }
+#sim-root .hl.c { fill: var(--str-c); font-weight: 700; }
+@media (prefers-reduced-motion: reduce){#sim-root .harp .hs { transition: none; }}
+#sim-root .piano { display: block; width: 100%; height: auto; max-width: 480px; }
+#sim-root .piano .wk { fill: var(--surface); stroke: var(--line-strong); cursor: pointer; }
+#sim-root .piano .bk { fill: var(--ink); cursor: pointer; }
+#sim-root .piano .kl { font-size: 9px; fill: var(--muted); pointer-events: none; }
+#sim-root .drums { display: block; width: 100%; height: auto; max-width: 480px; }
+#sim-root .drums .dr { fill: var(--sunk); stroke: var(--wood); stroke-width: 3; cursor: pointer; }
+#sim-root .drums .dn { font-size: 12px; font-weight: 700; fill: var(--ink); pointer-events: none; }
+#sim-root .tune { display: flex; flex-wrap: wrap; gap: 8px 16px; }
+#sim-root .tune small { color: var(--muted); font-size: 11.5px; }
+#sim-root .chg { display: grid; gap: 10px; }
+#sim-root .chg li { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 10px; border-top: 1px solid var(--line); padding-top: 8px; }
+#sim-root .chg .when { font-size: 12.5px; color: var(--muted); }
+#sim-root .chg small { flex-basis: 100%; color: var(--muted); font-size: 12.5px; }
+#sim-root .foot-note { margin-top: 22px; max-width: 46em; }
+#sim-root { border: 1px solid var(--line); border-radius: 18px; overflow: hidden; margin-top: 14px; scroll-margin-top: 12px; }
+#sim-root .top { position: static; }
+
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <figure class="top-banner">
+        <img src="assets/instrument-family-banner.jpg" alt="楽器ファミリー — 弦・木管・金管・ハープ。ヴァイオリン、ホルン、クラリネット、ハープが並ぶバナー" width="1920" height="825" />
+      </figure>
+      <header class="intro">
+        <span class="kicker">楽器ファミリー・メインページ</span>
+        <h1>弦・木管・金管・ハープ——<br />4つの家族を、構造から比べる</h1>
+        <p class="lead">オーケストラの楽器を家族ごとに1ページずつ。<strong>どういう仕組みで音が出るか（構造）</strong>、<strong>家族の中でどう違うか（比較）</strong>、<strong>音域はどこからどこまでか（チャート）</strong>を、模式図と写真で追います。各ページの後半には、その科に効く<strong>ヴォイシングと低音の置き方（ローインターバルリミット）のルール</strong>も足しました。楽典・和声の土台は、最後の「学習」タブに分けてあります。数値と「勘所」は、管弦楽法の原典3冊から引いたものです。<strong>出典が確認できた楽器には、試聴プレイヤーも付けました</strong>——各タブの「音で聴く」から実際の音色を聴けます。</p>
+        <p class="src-note">出典：ビドール『近代管弦楽法』（1904）／フォーサイス『Orchestration』（1914）／リムスキー＝コルサコフ『管弦楽法原理』。原典と現代の標準が食い違う所は、その旨を注記しています。</p>
+      </header>
+
+      <nav class="tabbar" aria-label="楽器ファミリー">
+        <div class="tabs" role="tablist">
+          <button class="tab" role="tab" id="tab-strings" data-tab="strings" aria-selected="true" aria-controls="panel-strings">弦楽器<span class="en">Strings</span></button>
+          <button class="tab" role="tab" id="tab-woodwinds" data-tab="woodwinds" aria-selected="false" aria-controls="panel-woodwinds">木管楽器<span class="en">Woodwinds</span></button>
+          <button class="tab" role="tab" id="tab-brass" data-tab="brass" aria-selected="false" aria-controls="panel-brass">金管楽器<span class="en">Brass</span></button>
+          <button class="tab" role="tab" id="tab-harp" data-tab="harp" aria-selected="false" aria-controls="panel-harp">ハープ<span class="en">Harp</span></button>
+          <button class="tab" role="tab" id="tab-study" data-tab="study" aria-selected="false" aria-controls="panel-study">学習——楽典・和声の土台<span class="en">Study</span></button>
+        </div>
+      </nav>
+
+      <!-- ================= 弦楽器 ================= -->
+      <section class="panel" id="panel-strings" role="tabpanel" aria-labelledby="tab-strings">
+        <div class="fam-head"><h2>弦楽器</h2><span class="tag tag-strings">擦弦楽器——弓でこする4人家族</span></div>
+        <p class="fam-lead">ヴァイオリン、ヴィオラ、チェロ、コントラバス。作りはほぼ同じで、大きさだけが違う4兄弟です。胴が大きいほど低い音——この単純な関係が、家族全員の性格を決めています。</p>
+
+        <h3 class="sec">音の出る仕組み</h3>
+        <div class="card">
+          <div class="flow">
+            <span class="step">弓の毛に付けた<strong>松脂</strong>が弦を引っかけ、弦が振動する</span><span class="arrow">→</span>
+            <span class="step">振動は<strong>駒</strong>を通って表板へ</span><span class="arrow">→</span>
+            <span class="step">胴の中の<strong>魂柱</strong>と<strong>バスバー</strong>が振動を胴全体に広げる</span><span class="arrow">→</span>
+            <span class="step"><strong>f字孔</strong>から音が外へ出る</span>
+          </div>
+          <p class="body" style="margin-top:12px;">弦そのものの音は小さいので、胴が「拡声器」の役目をします。表板と裏板の間に立つ小さな柱（魂柱）と、表板の裏に貼られた棒（バスバー）が、振動を板全体・胴全体へ行き渡らせる要です。</p>
+        </div>
+
+        <h3 class="sec">音で聴く</h3>
+        <div class="listen-grid">
+          <div class="listen-card">
+            <h4>ヴァイオリン</h4>
+            <p class="desc">半音階のロングトーン（arco・mf、D線、D4–B4）。各音を持続して弾いたサンプル集です。約71秒。</p>
+            <audio controls preload="metadata" src="assets/audio/violin.mp3"></audio>
+            <p class="credit">出典：University of Iowa Musical Instrument Samples（Lawrence Fritts）。ページ表示用にMP3へ変換しています。</p>
+          </div>
+          <div class="listen-card">
+            <h4>ヴィオラ</h4>
+            <p class="desc">半音階のロングトーン（arco・mf、C線、C3–B3）。各音を持続して弾いたサンプル集です。約62秒。</p>
+            <audio controls preload="metadata" src="assets/audio/viola.mp3"></audio>
+            <p class="credit">出典：University of Iowa Musical Instrument Samples（Lawrence Fritts）。ページ表示用にMP3へ変換しています。音高ラベルは原典ファイル名の表記に基づきます（独立した音高照合は未実施）。</p>
+          </div>
+          <div class="listen-card">
+            <h4>チェロ</h4>
+            <p class="desc">半音階のロングトーン（arco・mf、C線、C2–A♭2）。1736年製ストラディヴァリウスで収録されたもの（Iowaの楽器情報より）です。約81秒。</p>
+            <audio controls preload="metadata" src="assets/audio/cello.mp3"></audio>
+            <p class="credit">出典：University of Iowa Musical Instrument Samples（Lawrence Fritts）。ページ表示用にMP3へ変換しています。音高ラベルは原典ファイル名の表記に基づきます（独立した音高照合は未実施）。</p>
+          </div>
+          <div class="listen-card">
+            <h4>コントラバス</h4>
+            <p class="desc">半音階のロングトーン（arco・mf、E線、E1–B1）。各音を持続して弾いたサンプル集です。約33秒。</p>
+            <audio controls preload="metadata" src="assets/audio/doublebass.mp3"></audio>
+            <p class="credit">出典：University of Iowa Musical Instrument Samples（Lawrence Fritts）。ページ表示用にMP3へ変換しています。音高ラベルは原典ファイル名の表記に基づきます（独立した音高照合は未実施）。</p>
+          </div>
+        </div>
+        <p class="listen-note">弦の4楽器すべてに試聴が付きました。いずれもIowaのロングトーン集です。</p>
+
+        <h3 class="sec">構造の図</h3>
+        <div class="fig">
+          <h4>図1｜ヴァイオリンの上面——部品の名前</h4>
+          <div class="cols">
+            <svg viewBox="0 0 460 360" role="img" aria-label="ヴァイオリンの上面模式図">
+              <circle cx="230" cy="30" r="13" class="shape"/>
+              <rect x="221" y="40" width="18" height="34" class="shape"/>
+              <path class="shape" d="M230,72 C196,72 178,88 178,114 C178,140 202,150 202,176 C202,202 178,210 178,242 C178,284 200,306 230,306 C260,306 282,284 282,242 C282,210 258,202 258,176 C258,150 282,140 282,114 C282,88 264,72 230,72 Z"/>
+              <rect x="219" y="66" width="22" height="128" fill="var(--svg-ink)" opacity=".82" rx="3"/>
+              <g stroke="var(--svg-ink)" stroke-width="1" opacity=".65">
+                <line x1="223.5" y1="52" x2="221" y2="262"/><line x1="227.5" y1="52" x2="227" y2="262"/>
+                <line x1="232.5" y1="52" x2="233" y2="262"/><line x1="236.5" y1="52" x2="239" y2="262"/>
+              </g>
+              <rect x="204" y="196" width="52" height="6" class="accent-shape"/>
+              <path d="M196,182 q-7,22 1,42" stroke="var(--svg-ink)" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+              <path d="M264,182 q7,22 -1,42" stroke="var(--svg-ink)" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+              <path d="M219,262 L241,262 L236,296 L224,296 Z" fill="var(--svg-ink)" opacity=".82"/>
+              <ellipse cx="192" cy="298" rx="17" ry="9" fill="var(--svg-ink)" opacity=".55"/>
+              <g font-size="12.5">
+                <line class="leader" x1="246" y1="30" x2="330" y2="30"/><text x="336" y="34">スクロール（渦巻き）</text>
+                <line class="leader" x1="241" y1="58" x2="330" y2="58"/><text x="336" y="62">ペグ（糸巻き）</text>
+                <line class="leader" x1="243" y1="130" x2="330" y2="130"/><text x="336" y="134">指板</text>
+                <line class="leader" x1="258" y1="199" x2="330" y2="199"/><text x="336" y="203">駒</text>
+                <line class="leader" x1="243" y1="280" x2="330" y2="280"/><text x="336" y="284">テールピース</text>
+              </g>
+              <g font-size="12.5" text-anchor="end">
+                <line class="leader" x1="220" y1="105" x2="128" y2="105"/><text x="122" y="109">弦（4本）</text>
+                <line class="leader" x1="192" y1="205" x2="128" y2="205"/><text x="122" y="209">f字孔</text>
+                <line class="leader" x1="205" y1="298" x2="128" y2="298"/><text x="122" y="302">あご当て</text>
+              </g>
+            </svg>
+            <div>
+              <h4 class="sub">断面で見る——胴の中の2つの部品</h4>
+              <svg viewBox="-4 0 334 190" role="img" aria-label="ヴァイオリン胴の断面模式図">
+                <path class="shape" d="M30,52 Q150,26 270,52 L270,66 Q150,44 30,66 Z"/>
+                <path class="shape" d="M30,128 Q150,152 270,128 L270,114 Q150,134 30,114 Z"/>
+                <rect x="30" y="60" width="7" height="58" class="shape"/>
+                <rect x="263" y="60" width="7" height="58" class="shape"/>
+                <rect x="62" y="58" width="86" height="7" class="sage-shape"/>
+                <rect x="196" y="56" width="8" height="66" class="accent-shape"/>
+                <g font-size="12">
+                  <text x="86" y="22">表板</text>
+                  <text x="86" y="182">裏板</text>
+                  <line class="leader" x1="204" y1="88" x2="238" y2="88"/><text x="242" y="84">魂柱</text>
+                  <text x="242" y="100" class="sub" font-size="10.5">表板と裏板の支え</text>
+                  <line class="leader" x1="100" y1="62" x2="66" y2="96"/><text x="8" y="100">バスバー</text>
+                  <text x="8" y="114" class="sub" font-size="10.5">表板の裏の棒</text>
+                </g>
+              </svg>
+              <p class="cap" style="margin-top:4px;">魂柱は高音側（E線の下あたり）、バスバーは低音側（G線の下）にあります。どちらも外からは見えませんが、この2つがないと胴は鳴りません。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="fig">
+          <h4>図2｜4楽器の大きさ比べ（全長）</h4>
+          <svg viewBox="0 0 640 190" role="img" aria-label="弦楽器4種の全長比較バー">
+            <g font-size="13">
+              <text x="0" y="24">ヴァイオリン</text>
+              <rect x="130" y="10" width="151" height="18" rx="4" class="accent-shape"/>
+              <text x="290" y="24">約59cm</text>
+              <text x="0" y="58">ヴィオラ</text>
+              <rect x="130" y="44" width="169" height="18" rx="4" class="accent-shape"/>
+              <text x="308" y="58">約66cm</text>
+              <text x="0" y="92">チェロ</text>
+              <rect x="130" y="78" width="310" height="18" rx="4" class="accent-shape"/>
+              <text x="449" y="92">約121cm</text>
+              <text x="0" y="126">コントラバス</text>
+              <rect x="130" y="112" width="469" height="18" rx="4" class="accent-shape"/>
+              <rect x="599" y="112" width="31" height="18" rx="4" class="warn-shape"/>
+              <text x="130" y="152">約183〜195cm（個体差あり）</text>
+            </g>
+          </svg>
+          <p class="cap">コントラバスはヴァイオリンの3倍以上の長さ。胴の大きさと音の高さが反比例するのが一目で分かります。</p>
+        </div>
+
+        <h3 class="sec">音域チャート（実音）</h3>
+        <div class="chartbox">
+          <div data-chart="strings"></div>
+          <p class="chart-note">横軸は音高で、C1〜C8の目盛りで示しています。バーは実音の範囲です。ヴァイオリンの上限は原典の最大値で、管弦楽では最高部は危険域として内側で書くのが原則（ビドール）。ヴィオラの上限は奏者・楽器で幅があるため開いた形にしています。コントラバスの記音は実音の1オクターブ上。</p>
+        </div>
+
+        <h3 class="sec">比較——調弦</h3>
+        <div class="tblwrap">
+          <table>
+            <thead><tr><th>楽器</th><th>調弦（低い弦から）</th><th>間隔</th><th>備考</th></tr></thead>
+            <tbody>
+              <tr><td><strong>ヴァイオリン</strong></td><td>G3 – D4 – A4 – E5</td><td>完全5度</td><td>4本とも5度で統一</td></tr>
+              <tr><td><strong>ヴィオラ</strong></td><td>C3 – G3 – D4 – A4</td><td>完全5度</td><td>ヴァイオリンの規則を5度下げて使う</td></tr>
+              <tr><td><strong>チェロ</strong></td><td>C2 – G2 – D3 – A3</td><td>完全5度</td><td>音域は人声に重なる</td></tr>
+              <tr><td><strong>コントラバス</strong></td><td>E1 – A1 – D2 – G2</td><td><strong>完全4度</strong></td><td>弦では唯一の4度調弦。記音は実音のオクターブ上。現代は5弦やC延長管でC1まで下がる</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="sec">比較——できること・できないこと</h3>
+        <div class="tblwrap">
+          <table>
+            <thead><tr><th>技法</th><th>ヴァイオリン</th><th>ヴィオラ</th><th>チェロ</th><th>コントラバス</th></tr></thead>
+            <tbody>
+              <tr><td><strong>重音</strong></td><td><span class="mark-o">○</span> 開放弦を含むものは容易。ただし完全5度は音程が不正確になりがち</td><td><span class="mark-o">○</span> ヴァイオリンとほぼ同じ。手の伸びは狭く、同一弦は完全4度まで</td><td><span class="mark-o">○</span> 開放弦なしの2度・オクターブは管弦楽では避ける</td><td><span class="mark-t">△</span> 3度・完全4度・完全5度は容易。6度以上は片方が開放弦でないと不可</td></tr>
+              <tr><td><strong>ピッツィカート</strong></td><td><span class="mark-o">○</span> 有効域はG線〜E線の高音まで。速さの上限は16分音符で♩=104が目安</td><td><span class="mark-o">○</span> 上限はA線のオクターブまで</td><td><span class="mark-o">○</span> 上下両方向のアルペジオも良好。鋭い音の上限はG♯〜B♭あたり</td><td><span class="mark-o">○</span> 全音域で可。ただし速いピッツは奏者が疲弊するので、プルトを分けて交互に弾かせる</td></tr>
+              <tr><td><strong>ハーモニクス</strong></td><td><span class="mark-o">○</span> 自然（開放弦の第2〜6倍音）＋人工も可</td><td><span class="mark-o">○</span> ヴァイオリンを5度移行。低い音は自然倍音のみ</td><td><span class="mark-o">○</span> 自然／人工ともヴァイオリン・ヴィオラより少し広い</td><td><span class="mark-t">△</span> 自然倍音のみ。人工倍音は指の開きが要り不可能</td></tr>
+              <tr><td><strong>弱音器</strong></td><td><span class="mark-o">○</span> 音量が落ち、性格が濃くなる</td><td><span class="mark-o">○</span></td><td><span class="mark-o">○</span></td><td><span class="mark-t">△</span> フランスでは使わない慣行（ビドール）。釣合いのため人数を絞る指示で代える</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="sec">比較の勘所（原典から）</h3>
+        <div class="notes">
+          <div class="note"><span class="who">フォーサイス／ビドール</span><p><strong>ヴィオラは「音高に対して大きさが足りない」楽器。</strong>その音高に釣り合う胴は本来もっと大きくあるべきで、中音域の独特の性格はそこから来ます。個体差も弦楽器中最大で、ウォルフ音（特定の音だけうなる現象）はほぼ全個体に1〜2個あるとフォーサイスは書いています。</p></div>
+          <div class="note"><span class="who">リムスキー</span><p><strong>チェロの音域は人声に重なります。</strong>第1弦（A線）は明るく「胸声」のよう。反対に、人声の音域を超えた部分（ヴァイオリンの最高音より上、コントラバスの最低音より下）は表現力と温かさを失う——これが彼の物差しです。</p></div>
+          <div class="note"><span class="who">ビドール</span><p><strong>チェロとコントラバスは「対」で扱うのが原則。</strong>チェロだけでは低音が不十分、コントラバスだけでは響きが鈍く音程も不正確。両者が合わさると、澄んで堅固で深い「最良の基音」になります。コントラバスの低音は倍音の都合で、輪郭よりも「圧」で聞こえる音です。</p></div>
+        </div>
+
+        <h3 class="sec">この科のルール——ヴォイシングと低音の置き方</h3>
+        <p class="body">楽器そのものの知識の次は、「どう重ねるか」の規則です。弦の重ねの中心はオクターブで、低音側ほど間隔を広く取るのが原則。下のLIL図（ローインターバルリミット＝低音域で置ける音程の下限）には、チェロ／コントラバスの低音区間に印を付けました。</p>
+        <div class="notes" style="margin-top:12px;">
+          <div class="note"><span class="who">リムスキー</span><p><strong>重ねの常套はオクターブ。</strong>Vn I/II、Vn/Vla、Vla/Vc、Vc/Cb のオクターブ重ねが弦のヴォイシングの背骨です。極端な高音の旋律は1オクターブ下、極端な低音は1オクターブ上で重ねて、響きを中心へ寄せます。</p></div>
+          <div class="note"><span class="who">リムスキー</span><p><strong>短い和音（3〜4音）は Vn I/II・ヴィオラ中心に。</strong>チェロはコントラバスと一緒に最低音を担います。厳密な声部進行よりも、鳴らしやすさを優先してよい場面です。</p></div>
+          <div class="note"><span class="who">ローインターバルリミット</span><p><strong>コントラバスは和音の最下声として、単独かオクターブ重ねが基本。</strong>チェロとコントラバスの間に狭い音程を置くと濁ります——低音では2音の周波数差が小さく、うなりとして聞こえるためです。</p></div>
+          <div class="note"><span class="who modern">フォーサイス系の勘所</span><p><strong>ピッツィカートの低音は減衰が速い。</strong>低音の土台をピッツで長く保たせようとせず、短い合いの手やリズムの刻みに使うのが無難です。</p></div>
+        </div>
+        <div class="fig" style="margin-top:14px;">
+          <h4>図｜ローインターバルリミット——この高さより下では、この音程を置かない</h4>
+          <div data-lil="strings"></div>
+          <p class="cap">色の付いた範囲が「置かない方がよい」低音側です。下限の目安は、米海軍の音楽教科書系の和声学テキスト「Low Interval Limits」の伝統的な制限（最下声部とその上の声部の間）で、<strong>絶対の法則ではなく目安</strong>です。実務の合言葉は「バス譜表の真ん中の線より下では、間隔は協和に、できれば10度・5度・8度で」。破線の帯は、この科の低音楽器（Vc／Cb）の区間です。</p>
+        </div>
+
+        <h3 class="sec">写真で見る</h3>
+        <div class="photos">
+          <figure><img src="assets/violin-met.jpg" alt="ヴァイオリンの写真（歴史資料の個体）" /><figcaption><b>ヴァイオリン（歴史資料の個体）</b>The Metropolitan Museum of Art, CC0</figcaption></figure>
+          <figure><img src="assets/viola.jpg" alt="ヴィオラの写真" /><figcaption><b>ヴィオラ</b>Roberto Regazzi製、2020年。Photo: Florenus, CC BY-SA 4.0, via Wikimedia Commons</figcaption></figure>
+          <figure><img src="assets/cello.jpg" alt="チェロの写真" /><figcaption><b>チェロ</b>Photo: Georg Feitscher, CC BY-SA 3.0, via Wikimedia Commons</figcaption></figure>
+          <figure><img src="assets/contrabass-met.jpg" alt="コントラバスの写真（歴史資料の個体）" /><figcaption><b>コントラバス（歴史資料の個体）</b>The Metropolitan Museum of Art, CC0</figcaption></figure>
+        </div>
+
+        <div class="techou-link">弦の書き方・ヴォイシングの実習は姉妹ページへ → <a href="../guan-xian-le-fa-tetiyou/">管弦楽法てちょう</a>（楽器カードとヴォイシング・チェック20項目）</div>
+      </section>
+
+      <!-- ================= 木管楽器 ================= -->
+      <section class="panel" id="panel-woodwinds" role="tabpanel" aria-labelledby="tab-woodwinds" hidden>
+        <div class="fam-head"><h2>木管楽器</h2><span class="tag tag-wood">管の中の空気を鳴らす——発音体は3種類</span></div>
+        <p class="fam-lead">「木管」と言っても、現代のフルートは金属製です。家族の分け方は素材ではなく、<strong>息を音に変える仕組み（発音体）</strong>と<strong>管の形</strong>。この2つの組合せが、音色も得意技も決めます。</p>
+
+        <h3 class="sec">音の出る仕組み——発音体は3種類</h3>
+        <div class="grid3">
+          <div class="card mech-card"><h4>エアリード（フルート族）</h4><p>リードは無し。細い息の帯を管の縁（エッジ）に当てると、息が内と外に振り分けられて空気が振動します。歌口に唇を当てるだけの、いちばん原始的な仕組みです。</p></div>
+          <div class="card mech-card"><h4>シングルリード（クラリネット族）</h4><p>葦の薄い板が1枚。息でリードがマウスピースに打ち付けられて開閉し、空気の流れを断続させます。サクソフォンもこの仲間です。</p></div>
+          <div class="card mech-card"><h4>ダブルリード（オーボエ族・ファゴット）</h4><p>葦の板が2枚向かい合わせ。息で2枚がぶつかり合って振動します。リードは奏者が自分で削って作る消耗品で、その出来がそのまま音に出ます。</p></div>
+        </div>
+
+        <h3 class="sec">音で聴く</h3>
+        <p class="body">Iowaのサンプルは、半音階を1音ずつ持続して吹いたロングトーン集（mf）です。楽器ごとの音域と音色の違いを、そのまま聴き比べられます。</p>
+        <div class="listen-grid" style="margin-top:12px;">
+          <div class="listen-card">
+            <h4>フルート</h4>
+            <p class="desc">半音階のロングトーン（non-vibrato・mf、C5–B5）。約33秒。</p>
+            <audio controls preload="metadata" src="assets/audio/flute.mp3"></audio>
+            <p class="credit">出典：University of Iowa Musical Instrument Samples（Lawrence Fritts）。</p>
+          </div>
+          <div class="listen-card">
+            <h4>アルトフルート</h4>
+            <p class="desc">半音階のロングトーン（mf、C4–B4）。通常のフルートより低い同族楽器です。約50秒。</p>
+            <audio controls preload="metadata" src="assets/audio/altoflute.mp3"></audio>
+            <p class="credit">出典：University of Iowa Musical Instrument Samples（Lawrence Fritts）。</p>
+          </div>
+          <div class="listen-card">
+            <h4>バスフルート</h4>
+            <p class="desc">半音階のロングトーン（mf、C3–B3）。フルート族の低音側です。約58秒。</p>
+            <audio controls preload="metadata" src="assets/audio/bassflute.mp3"></audio>
+            <p class="credit">出典：University of Iowa Musical Instrument Samples（Lawrence Fritts）。</p>
+          </div>
+          <div class="listen-card">
+            <h4>オーボエ</h4>
+            <p class="desc">半音階のロングトーン（mf、C4–B4）。約41秒。</p>
+            <audio controls preload="metadata" src="assets/audio/oboe.mp3"></audio>
+            <p class="credit">出典：University of Iowa Musical Instrument Samples（Lawrence Fritts）。ページ表示用にMP3へ変換しています。音高ラベルは原典ファイル名の表記に基づきます（独立した音高照合は未実施）。</p>
+          </div>
+          <div class="listen-card">
+            <h4>コールアングレ</h4>
+            <p class="desc">管弦楽の中のコールアングレ——ドヴォルザーク交響曲第9番「新世界より」第2楽章（全曲11分34秒）。冒頭の有名なソロで知られる楽章全体の録音で、単独サンプルではありません。コールアングレのソロは、39秒辺りから聴けます。</p>
+            <audio controls preload="metadata" src="assets/audio/englishhorn-dvorak.mp3"></audio>
+            <p class="credit">出典：Musopen由来、パブリックドメインとして扱われている音源。ページ表示用にMP3へ変換しています。</p>
+          </div>
+          <div class="listen-card">
+            <h4>E♭クラリネット</h4>
+            <p class="desc">半音階のロングトーン（mf、C5–B5）。約32秒。</p>
+            <audio controls preload="metadata" src="assets/audio/ebclar.mp3"></audio>
+            <p class="credit">出典：University of Iowa Musical Instrument Samples（Lawrence Fritts）。</p>
+          </div>
+          <div class="listen-card">
+            <h4>B♭クラリネット</h4>
+            <p class="desc">半音階のロングトーン（mf、D3–B3・実音）。約51秒。</p>
+            <audio controls preload="metadata" src="assets/audio/bbclar.mp3"></audio>
+            <p class="credit">出典：University of Iowa Musical Instrument Samples（Lawrence Fritts）。ページ表示用にMP3へ変換しています。音高ラベルは原典ファイル名の表記に基づきます（独立した音高照合は未実施）。</p>
+          </div>
+          <div class="listen-card">
+            <h4>バスクラリネット</h4>
+            <p class="desc">半音階のロングトーン（mf、B2–B♭3）。約58秒。</p>
+            <audio controls preload="metadata" src="assets/audio/bassclar.mp3"></audio>
+            <p class="credit">出典：University of Iowa Musical Instrument Samples（Lawrence Fritts）。</p>
+          </div>
+          <div class="listen-card">
+            <h4>バセットホルン</h4>
+            <p class="desc">モーツァルト「ディヴェルティメント第2番 K.439b」第2楽章の抜粋。約1800年ウィーン製 Griesbacher の実物による演奏です。バセットホルンは、1:37辺りから聴けます。</p>
+            <audio controls preload="metadata" src="assets/audio/bassethorn.mp3"></audio>
+            <p class="credit">出典：St Cecilia's Hall、演奏 Calum Robertson。<a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>。元は動画（WebM）で、音声のみを抽出しMP3へ変換しています。</p>
+          </div>
+          <div class="listen-card">
+            <h4>ファゴット</h4>
+            <p class="desc">半音階のロングトーン（mf、C3–B3）。約26秒。</p>
+            <audio controls preload="metadata" src="assets/audio/bassoon.mp3"></audio>
+            <p class="credit">出典：University of Iowa Musical Instrument Samples（Lawrence Fritts）。ページ表示用にMP3へ変換しています。音高ラベルは原典ファイル名の表記に基づきます（独立した音高照合は未実施）。</p>
+          </div>
+        </div>
+        <p class="listen-note">ピッコロ／コントラファゴットは、ファイルは手元にあるものの台帳で出典が確認できていないため、今回も見送りました。プレイヤーの無い楽器は、無理に埋めていません。</p>
+
+        <h3 class="sec">構造の図</h3>
+        <div class="fig">
+          <h4>図1｜管の形と「吹き上がり」——クラリネットだけ12度</h4>
+          <svg viewBox="0 0 640 252" role="img" aria-label="管の形の比較模式図">
+            <g font-size="13">
+              <text x="0" y="34" font-weight="700">フルート</text>
+              <rect x="118" y="18" width="330" height="24" rx="4" class="shape"/>
+              <text x="462" y="34">円筒管</text>
+              <text x="0" y="96" font-weight="700">クラリネット</text>
+              <rect x="118" y="80" width="330" height="24" rx="4" class="shape"/>
+              <rect x="118" y="80" width="14" height="24" fill="var(--svg-ink)" opacity=".7"/>
+              <text x="462" y="96">円筒管＋閉管（入口が塞がれる）</text>
+              <text x="0" y="158" font-weight="700">オーボエ／ファゴット</text>
+              <path class="shape" d="M118,142 L448,134 L448,174 L118,166 Z"/>
+              <text x="462" y="158">円錐管（先へ広がる）</text>
+            </g>
+            <g font-size="12.5">
+              <text x="0" y="212" font-weight="700">強く吹き込むと（オーバーブロー）</text>
+              <text x="0" y="238">円筒の開管・円錐管 → <tspan font-weight="700">1オクターブ上</tspan>（第2倍音）</text>
+              <text x="330" y="238">閉じた円筒（クラリネット） → <tspan font-weight="700">12度上</tspan>（第3倍音）</text>
+            </g>
+          </svg>
+          <p class="cap">閉管では偶数倍音が出ないため、倍音は1・3・5…と奇数だけが強くなります。次の吹き上がり先がオクターブではなく12度（オクターブ＋5度）になるのはそのためで、クラリネットの音域の真ん中に「ブレイク」と呼ばれる運指の断層があるのもこの構造の帰結です。同じ長さでも、クラリネットはオーボエの半分の管長で同じ低音が出せます（フォーサイス）。</p>
+        </div>
+
+        <div class="fig">
+          <h4>図2｜キイの仕組み——遠くの孔を、カップで塞ぐ</h4>
+          <svg viewBox="0 0 640 190" role="img" aria-label="ベーム式キイの模式図">
+            <rect x="60" y="104" width="520" height="34" rx="6" class="shape"/>
+            <circle cx="170" cy="121" r="8" fill="var(--bg)"/>
+            <circle cx="310" cy="121" r="8" fill="var(--bg)"/>
+            <circle cx="455" cy="121" r="8" fill="var(--bg)"/>
+            <line x1="90" y1="66" x2="580" y2="66" stroke="var(--svg-line)" stroke-width="3"/>
+            <line x1="455" y1="66" x2="455" y2="98" stroke="var(--svg-line)" stroke-width="3"/>
+            <ellipse cx="455" cy="102" rx="17" ry="7" class="accent-shape"/>
+            <ellipse cx="310" cy="84" rx="13" ry="17" fill="var(--card2)" stroke="var(--svg-line)" stroke-width="1.4"/>
+            <g font-size="12.5">
+              <line class="leader" x1="170" y1="112" x2="170" y2="160"/><text x="170" y="176" text-anchor="middle">指で直接塞ぐ孔</text>
+              <line class="leader" x1="455" y1="96" x2="520" y2="52"/><text x="526" y="48">タンポ付きカップキイ</text>
+              <text x="526" y="64" class="sub" font-size="11">キイを押すと遠くの孔が塞がる</text>
+              <line class="leader" x1="330" y1="63" x2="330" y2="30"/><text x="330" y="22" text-anchor="middle">ロッド（軸）——キイ全体が連動する</text>
+            </g>
+          </svg>
+          <p class="cap">ベーム式の考え方は「孔の位置を指の都合ではなく、音響学的に正しい場所に置く」こと。届かない孔はロッドで連動するカップキイに塞がせます。この機構革命で、木管は全調を均等に吹けるようになりました（フォーサイス）。</p>
+        </div>
+
+        <h3 class="sec">音域チャート（実音で統一）</h3>
+        <div class="chartbox">
+          <div data-chart="woodwinds"></div>
+          <div class="legend">
+            <span><span class="sw" style="background:var(--plum)"></span>シャルモー（低音域）</span>
+            <span><span class="sw" style="background:var(--sky)"></span>クラリオン（中音域）</span>
+            <span><span class="sw" style="background:var(--rose)"></span>アルティシモ（高音域）</span>
+          </div>
+          <p class="chart-note">移調楽器もすべて実音の位置に置いています。ピッコロの最低音は、現代の標準楽器ではD（ビドールの時代のC管とは違う点に注意）。コントラファゴットの現代の標準（ヘッケル式）は実音B♭0まで下ります。</p>
+        </div>
+
+        <h3 class="sec">比較——仕組みの4項目</h3>
+        <div class="tblwrap">
+          <table>
+            <thead><tr><th>楽器</th><th>発音体</th><th>管の形</th><th>オーバーブロー先</th><th>移調</th></tr></thead>
+            <tbody>
+              <tr><td><strong>ピッコロ</strong></td><td>エアリード</td><td>円筒</td><td>8度</td><td>実音は記音の8度上</td></tr>
+              <tr><td><strong>フルート</strong></td><td>エアリード</td><td>円筒</td><td>8度</td><td>なし</td></tr>
+              <tr><td><strong>オーボエ</strong></td><td>ダブルリード</td><td>円錐</td><td>8度</td><td>なし</td></tr>
+              <tr><td><strong>コールアングレ</strong></td><td>ダブルリード</td><td>円錐</td><td>8度</td><td>in F（実音は記音の完全5度下）</td></tr>
+              <tr><td><strong>クラリネット</strong></td><td>シングルリード</td><td>円筒・閉管</td><td><strong>12度</strong></td><td>in B♭（実音は記音の長2度下）</td></tr>
+              <tr><td><strong>ファゴット</strong></td><td>ダブルリード</td><td>円錐</td><td>8度</td><td>なし</td></tr>
+              <tr><td><strong>コントラファゴット</strong></td><td>ダブルリード</td><td>円錐</td><td>8度</td><td>実音は記音の8度下</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="sec">比較の勘所（原典から）</h3>
+        <div class="notes">
+          <div class="note"><span class="who">ビドール</span><p><strong>クラリネットは1本で「3つの声」を持ちます。</strong>低音のシャルモーは劇的だが控えめで弱いので、主題の中心にせず経過的に使う。中音のクラリオン、高音のアルティシモで性格ががらりと変わる楽器です。一方で、管楽器で唯一、本物のpp（エコー効果）まで落とし切れるのもクラリネットです。</p></div>
+          <div class="note"><span class="who">フォーサイス</span><p><strong>ファゴットは理想的な「背景楽器」——ただし覆われると個性が消えます。</strong>静かで控えめな音色はクラリネットと並ぶ背景向きですが、軽いスタカートでは特に「出し抜かれ」やすい。ビゼー『アルルの女』では、ファゴットの対位パートがほぼ聞こえなくなる例が引かれています。</p></div>
+          <div class="note"><span class="who">ビドール</span><p><strong>息の消費量は正反対の両極があります。</strong>オーボエは全管楽器で最小クラスで、フルートよりはるかに長いフレーズが持ちます。フルートは歌口から空気が逃げるため消費が大きく、長いアンダンテでは呼吸の計画が要ります。ダブルリード楽器は、リードの状態に音が左右される点も書き手の前提です。</p></div>
+        </div>
+
+        <h3 class="sec">この科のルール——ヴォイシングと低音の置き方</h3>
+        <p class="body">木管のヴォイシングは「2本ずつの同族重ね」と「異種の混合」が基本です。低音側は、ファゴット／コントラファゴット／バス・クラリネットという低音楽器同士の距離が勝負になります。下のLIL図には、その低音楽器の区間に印を付けました。</p>
+        <div class="notes" style="margin-top:12px;">
+          <div class="note"><span class="who modern">現代の実務知識</span><p><strong>同族の重ねと、異種の混合を使い分ける。</strong>同じ楽器2本の重ねは溶け合い、ホルンとファゴットの橋渡しのような異種の混合は、科と科をつなぐ糊になります。</p></div>
+          <div class="note"><span class="who">フォーサイス</span><p><strong>ファゴットを内声部で埋もれさせない。</strong>覆われると個性が消える楽器です。背景に回す時も、輪郭が残る置き方を選びます。</p></div>
+          <div class="note"><span class="who">ビドール</span><p><strong>クラリネットのシャルモー域は、主題の中心に置かず経過的に。</strong>低音域・中音域・高音域の3声部の性格差が、そのままヴォイシングの制約になります。</p></div>
+          <div class="note"><span class="who modern">現代の実務知識</span><p><strong>ダブルリード同士のユニゾンは、音程が揺れやすい。</strong>リードの状態で音程が動くため、ぴたりと合う前提で書かない方が安全です。</p></div>
+          <div class="note"><span class="who">ローインターバルリミット</span><p><strong>低音楽器同士で狭い音程を作らない。</strong>バス・クラリネットの低音は本領ですが、ファゴットと近接させると濁ります。低音同士は広く離すのが原則です。</p></div>
+        </div>
+        <div class="fig" style="margin-top:14px;">
+          <h4>図｜ローインターバルリミット——この高さより下では、この音程を置かない</h4>
+          <div data-lil="woodwinds"></div>
+          <p class="cap">色の付いた範囲が「置かない方がよい」低音側です。下限の目安は、米海軍の音楽教科書系の和声学テキスト「Low Interval Limits」の伝統的な制限（最下声部とその上の声部の間）で、<strong>絶対の法則ではなく目安</strong>です。実務の合言葉は「バス譜表の真ん中の線より下では、間隔は協和に、できれば10度・5度・8度で」。破線の帯は、この科の低音楽器（Fg／C-Fg／バス・クラリネット）の区間です。</p>
+        </div>
+
+        <h3 class="sec">写真で見る</h3>
+        <div class="photos">
+          <figure><img src="assets/flute.jpg" alt="フルートの写真" /><figcaption><b>フルート</b>銀色の管体とキイが並ぶ、現代の標準的な姿。Photo: Thea Paraskevaides, CC BY-SA 4.0, via Wikimedia Commons</figcaption></figure>
+          <figure><img src="assets/piccolo.jpg" alt="ピッコロの写真" /><figcaption><b>ピッコロ</b>フルートの半分ほどの長さで、記音の1オクターブ上に鳴る。Photo: Mezzofortist, CC BY-SA 3.0, via Wikimedia Commons</figcaption></figure>
+          <figure><img src="assets/oboe.jpg" alt="オーボエの写真" /><figcaption><b>オーボエ</b>Photo: Hustvedt, CC BY-SA 3.0, via Wikimedia Commons</figcaption></figure>
+          <figure><img src="assets/english-horn.jpg" alt="コールアングレの写真" /><figcaption><b>コールアングレ</b>先端の球状のベルと、曲がったボーカル（吹き口の管）が目印。Photo: Hustvedt, CC BY-SA 3.0, via Wikimedia Commons</figcaption></figure>
+          <figure><img src="assets/clarinet.jpg" alt="クラリネットの写真" /><figcaption><b>クラリネット</b>Photo: RobertoMM, Public domain, via Wikimedia Commons</figcaption></figure>
+          <figure><img src="assets/bassoon.jpg" alt="ファゴットの写真" /><figcaption><b>ファゴット</b>Photo: Mezzofortist / Eddau, CC BY-SA 3.0, via Wikimedia Commons</figcaption></figure>
+          <figure><img src="assets/contrabassoon.jpg" alt="コントラファゴットの写真" /><figcaption><b>コントラファゴット</b>Photo: Mezzofortist, CC BY-SA 3.0, via Wikimedia Commons</figcaption></figure>
+          <figure><img src="assets/bassoon-comparison.jpg" alt="ファゴットとコントラファゴットの大きさ比べ写真" /><figcaption><b>大きさ比べ</b>左がファゴット、右がコントラファゴット。管を折り返してこの高さになる。Photo: Sotakeit, Public domain, via Wikimedia Commons</figcaption></figure>
+        </div>
+
+        <div class="techou-link">木管の書き方・ヴォイシングの実習は姉妹ページへ → <a href="../guan-xian-le-fa-tetiyou/">管弦楽法てちょう</a>（楽器カードとヴォイシング・チェック20項目）</div>
+      </section>
+
+      <!-- ================= 金管楽器 ================= -->
+      <section class="panel" id="panel-brass" role="tabpanel" aria-labelledby="tab-brass" hidden>
+        <div class="fam-head"><h2>金管楽器</h2><span class="tag tag-brass">リードは自分の唇——管の長さが音を決める</span></div>
+        <p class="fam-lead">金管にはリードがありません。振動するのは奏者自身の唇（アンブシュア）で、マウスピースはそれを受ける器です。唇が選べるのは「倍音列」という決まった音の階段だけで、バルブやスライドは、その階段ごと管を延ばして下げる装置です。</p>
+
+        <h3 class="sec">音の出る仕組み</h3>
+        <div class="card">
+          <div class="flow">
+            <span class="step"><strong>唇の振動</strong>がリードの役目をする</span><span class="arrow">→</span>
+            <span class="step"><strong>マウスピース</strong>が振動を受ける</span><span class="arrow">→</span>
+            <span class="step"><strong>管の長さ</strong>が、共鳴する音高（倍音列）を決める</span><span class="arrow">→</span>
+            <span class="step">管が<strong>長いほど低い</strong>音</span>
+          </div>
+          <p class="body" style="margin-top:12px;">1本の管で出せる音は、基音の整数倍の周波数を持つ「自然倍音」の列だけです（下の図1）。唇の締め方で列の何段目を鳴らすか選び、足りない半音はバルブ／スライドで管長を変えて埋めます。実際に使えるのは概ね第2倍音から上で、基音まで下れるのはテューバ類の大口径の楽器だけです（ビドール）。</p>
+        </div>
+
+        <h3 class="sec">音で聴く</h3>
+        <div class="listen-grid">
+          <div class="listen-card">
+            <h4>ホルン</h4>
+            <p class="desc">半音階のロングトーン（mf、C4–B4）。各音を持続して吹いたサンプル集です。約33秒。</p>
+            <audio controls preload="metadata" src="assets/audio/horn.mp3"></audio>
+            <p class="credit">出典：University of Iowa Musical Instrument Samples（Lawrence Fritts）。ページ表示用にMP3へ変換しています。</p>
+          </div>
+          <div class="listen-card">
+            <h4>オフィクレイド <span style="font-weight:500; font-size:13px; color:var(--ink2);">（歴史的金管）</span></h4>
+            <p class="desc">“The Bluebells of Scotland”の抜粋（約15秒）。19世紀中頃ロンドン、Charles Pace 製の実物による演奏です。</p>
+            <audio controls preload="metadata" src="assets/audio/ophicleide.mp3"></audio>
+            <p class="credit">出典：St Cecilia's Hall、演奏 Tony George。<a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>。ページ表示用にMP3へ変換しています。</p>
+          </div>
+          <div class="listen-card">
+            <h4>トランペット</h4>
+            <p class="desc">半音階のロングトーン（ヴィブラートあり・mf、E3–B3・実音）。約74秒。</p>
+            <audio controls preload="metadata" src="assets/audio/trumpet.mp3"></audio>
+            <p class="credit">出典：University of Iowa Musical Instrument Samples（Lawrence Fritts）。ページ表示用にMP3へ変換しています。音高ラベルは原典ファイル名の表記に基づきます（独立した音高照合は未実施）。</p>
+          </div>
+          <div class="listen-card">
+            <h4>トロンボーン</h4>
+            <p class="desc">半音階のロングトーン（テナー、mf、C3–B3）。約53秒。</p>
+            <audio controls preload="metadata" src="assets/audio/trombone.mp3"></audio>
+            <p class="credit">出典：University of Iowa Musical Instrument Samples（Lawrence Fritts）。ページ表示用にMP3へ変換しています。音高ラベルは原典ファイル名の表記に基づきます（独立した音高照合は未実施）。</p>
+          </div>
+          <div class="listen-card">
+            <h4>テューバ</h4>
+            <p class="desc">半音階のロングトーン（mf、C1–B1）。約28秒。</p>
+            <audio controls preload="metadata" src="assets/audio/tuba.mp3"></audio>
+            <p class="credit">出典：University of Iowa Musical Instrument Samples（Lawrence Fritts）。ページ表示用にMP3へ変換しています。音高ラベルは原典ファイル名の表記に基づきます（独立した音高照合は未実施）。</p>
+          </div>
+        </div>
+        <p class="listen-note">金管の主要4楽器（ホルン／トランペット／トロンボーン／テューバ）すべてに試聴が付きました。</p>
+
+        <h3 class="sec">構造の図</h3>
+        <div class="fig">
+          <h4>図1｜自然倍音列——1本の管が出せる音の階段</h4>
+          <svg viewBox="0 0 640 250" role="img" aria-label="自然倍音列の階段図">
+            <g font-size="12.5">
+              <rect x="30" y="196" width="66" height="26" rx="4" class="shape"/><text x="63" y="188" text-anchor="middle">第1倍音</text><text x="63" y="213" text-anchor="middle" font-weight="700">C（基音）</text>
+              <rect x="106" y="172" width="66" height="50" rx="4" class="sage-shape"/><text x="139" y="164" text-anchor="middle">第2倍音</text><text x="139" y="189" text-anchor="middle" font-weight="700">C</text>
+              <rect x="182" y="148" width="66" height="74" rx="4" class="sage-shape"/><text x="215" y="140" text-anchor="middle">第3倍音</text><text x="215" y="165" text-anchor="middle" font-weight="700">G</text>
+              <rect x="258" y="124" width="66" height="98" rx="4" class="sage-shape"/><text x="291" y="116" text-anchor="middle">第4倍音</text><text x="291" y="141" text-anchor="middle" font-weight="700">C</text>
+              <rect x="334" y="100" width="66" height="122" rx="4" class="sage-shape"/><text x="367" y="92" text-anchor="middle">第5倍音</text><text x="367" y="117" text-anchor="middle" font-weight="700">E</text>
+              <rect x="410" y="76" width="66" height="146" rx="4" class="sage-shape"/><text x="443" y="68" text-anchor="middle">第6倍音</text><text x="443" y="93" text-anchor="middle" font-weight="700">G</text>
+              <rect x="486" y="52" width="66" height="170" rx="4" class="warn-shape"/><text x="519" y="44" text-anchor="middle">第7倍音</text><text x="519" y="69" text-anchor="middle" font-weight="700">B♭</text>
+              <rect x="562" y="28" width="66" height="194" rx="4" class="sage-shape"/><text x="595" y="20" text-anchor="middle">第8倍音</text><text x="595" y="45" text-anchor="middle" font-weight="700">C</text>
+            </g>
+          </svg>
+          <p class="cap">管の基音がCの場合の例です。上に行くほど倍音の間隔は狭くなります。<strong>第7倍音のB♭は平均律より低く、そのままでは使えない音程</strong>。第11・13・14倍音も自然倍音としては音程がずれています（第11は特に）。だからこそ、バルブやスライドで管長を変えて半音階を埋める仕組みが要るのです（ビドール）。</p>
+        </div>
+
+        <div class="fig">
+          <h4>図2｜バルブとスライド——「管を延ばして階段ごと下げる」装置</h4>
+          <div class="cols">
+            <svg viewBox="0 0 340 210" role="img" aria-label="バルブの仕組み模式図">
+              <line x1="16" y1="60" x2="324" y2="60" stroke="var(--svg-line)" stroke-width="5"/>
+              <g>
+                <rect x="66" y="38" width="30" height="46" rx="5" class="shape"/>
+                <rect x="152" y="38" width="30" height="46" rx="5" class="shape"/>
+                <rect x="238" y="38" width="30" height="46" rx="5" class="shape"/>
+                <path d="M81,84 L81,128 Q81,146 102,146 L146,146 Q167,146 167,128 L167,84" fill="none" stroke="var(--svg-line)" stroke-width="3.5"/>
+                <path d="M253,84 L253,116 Q253,132 270,132 L292,132 Q309,132 309,116 L309,84" fill="none" stroke="var(--svg-line)" stroke-width="3.5" opacity=".45"/>
+              </g>
+              <g font-size="12">
+                <text x="81" y="26" text-anchor="middle" font-weight="700">第1バルブ</text>
+                <text x="81" y="168" text-anchor="middle">全音下がる</text>
+                <text x="167" y="26" text-anchor="middle" font-weight="700">第2バルブ</text>
+                <text x="167" y="168" text-anchor="middle">半音下がる</text>
+                <text x="253" y="26" text-anchor="middle" font-weight="700">第3バルブ</text>
+                <text x="253" y="188" text-anchor="middle">短3度下がる</text>
+              </g>
+            </svg>
+            <div>
+              <h4 class="sub">トロンボーンは、バルブの代わりにスライド</h4>
+              <svg viewBox="0 0 300 168" role="img" aria-label="トロンボーンのスライド7ポジション模式図">
+                <g font-size="11.5">
+                  <line x1="30" y1="18" x2="118" y2="18" stroke="var(--svg-line)" stroke-width="3.5"/><text x="126" y="22">第1ポジション</text>
+                  <line x1="30" y1="40" x2="136" y2="40" stroke="var(--svg-line)" stroke-width="3.5"/><text x="144" y="44">第2</text>
+                  <line x1="30" y1="62" x2="154" y2="62" stroke="var(--svg-line)" stroke-width="3.5"/><text x="162" y="66">第3</text>
+                  <line x1="30" y1="84" x2="172" y2="84" stroke="var(--svg-line)" stroke-width="3.5"/><text x="180" y="88">第4</text>
+                  <line x1="30" y1="106" x2="190" y2="106" stroke="var(--svg-line)" stroke-width="3.5"/><text x="198" y="110">第5</text>
+                  <line x1="30" y1="128" x2="208" y2="128" stroke="var(--svg-line)" stroke-width="3.5"/><text x="216" y="132">第6</text>
+                  <line x1="30" y1="150" x2="226" y2="150" stroke="var(--svg-line)" stroke-width="3.5"/><text x="234" y="154">第7</text>
+                </g>
+              </svg>
+              <p class="cap" style="margin-top:2px;">スライドを1段伸ばすごとに半音下がります。第7ポジションは腕の伸びも限界に近く、ビドールは「できる限り敬遠される」と書いています。</p>
+            </div>
+          </div>
+          <p class="cap">バルブを押すと迂回管（ループ）が主管につながり、その分だけ管が長くなって、倍音列ごと下がります。3本の組合せで半音階が埋まりますが、組合せた音は管長の割合が合わず少し狂う——補償機構が開発されてきた理由です（フォーサイス）。</p>
+        </div>
+
+        <div class="fig">
+          <h4>図3｜管の長さ比べ</h4>
+          <svg viewBox="0 0 640 168" role="img" aria-label="金管楽器の管長比較バー">
+            <g font-size="13">
+              <text x="0" y="24">トランペット</text>
+              <rect x="130" y="10" width="80" height="18" rx="4" class="accent-shape"/>
+              <text x="219" y="24">約1.5m</text>
+              <text x="0" y="58">トロンボーン</text>
+              <rect x="130" y="44" width="144" height="18" rx="4" class="accent-shape"/>
+              <text x="283" y="58">約2.7m</text>
+              <text x="0" y="92">ホルン（in F）</text>
+              <rect x="130" y="78" width="197" height="18" rx="4" class="accent-shape"/>
+              <text x="336" y="92">約3.7m</text>
+              <text x="0" y="126">テューバ</text>
+              <rect x="130" y="112" width="293" height="18" rx="4" class="accent-shape"/>
+              <text x="432" y="126">約5.5m級（種類で変動）</text>
+            </g>
+          </svg>
+          <p class="cap">ホルンはトランペットの2倍以上の管長を、あの小さな円に巻いています。しかも管は細く円錐寄り——「長いのに細い」ことが、ホルンの柔らかく詩的な性格の元です。テューバの管長は種類（F管・B♭管など）で大きく変わります。</p>
+        </div>
+
+        <h3 class="sec">音域チャート（実音）</h3>
+        <div class="chartbox">
+          <div data-chart="brass"></div>
+          <p class="chart-note">トランペットはB♭管の実音です（記譜音域はF♯3–C6で、B♭管は長2度下に響く）。トロンボーンはテノールの実用域で、この下にペダル音B♭1があります。ホルン・テューバの範囲は「約」で、楽器の種類と奏者で幅があります。ホルンの塞音（右手をベルに深く入れる強い塞音）は、昔言われた「半音下がる」ではなく<strong>半音上がる</strong>のが現代の決着です（フォーサイス）。</p>
+        </div>
+
+        <h3 class="sec">比較の勘所（原典から）</h3>
+        <div class="notes">
+          <div class="note"><span class="who">リムスキー</span><p><strong>ホルンのフォルテは、他の金管の約半分。</strong>トランペット、トロンボーン、テューバはほぼ互角でも、ホルンだけは桁が違います。均衡を取るには「ホルンの強弱記号を1段強く書く」か「Tp/Tb 1本にホルン2本」を当てるのが彼の処方です。</p></div>
+          <div class="note"><span class="who">フォーサイス</span><p><strong>テューバは和音の中で、構造的に「一段上の強さ」で鳴ってしまいます。</strong>トロンボーン3本との和音では特に目立ち、pの和音ではテューバを外してトロンボーンの間隔を工夫したり、真ん中にホルンを入れたりする方が良い、と書いています。</p></div>
+          <div class="note"><span class="who">フォーサイス</span><p><strong>コルネットは金管で唯一「姿を消せる」楽器。</strong>クラリネットの少し上くらいの音量で静かな音の塊を保ち、ppでは歌劇のソプラノ歌手の声の均衡すら乱しません。敏捷さも金管随一で、速い半音階やトレモロはクラリネットにほぼ匹敵します。</p></div>
+          <div class="note"><span class="who">ビドール／フォーサイス</span><p><strong>唇は「高音用」か「低音用」かを選ばなければなりません。</strong>だからホルンは第1・第3が高音担当、第2・第4が低音担当と書き分けます。高い倍音を出した唇は、直後の低い倍音に移れない——パートの書き分けは気配りではなく構造です。</p></div>
+        </div>
+
+        <h3 class="sec">この科のルール——ヴォイシングと低音の置き方</h3>
+        <p class="body">金管のヴォイシングは「見た目の厚さ」と「実際の音量」がずれる科です。ホルンは弱く、テューバは強く出る——その前提で重ねを設計します。低音側はトロンボーン／テューバの区間がLILの典型的な濁りどころです。</p>
+        <div class="notes" style="margin-top:12px;">
+          <div class="note"><span class="who">リムスキー</span><p><strong>ホルンをトップに厚く見せない。</strong>ホルンのフォルテは他の金管の約半分しかありません。強弱記号を1段強く書くか、本数で補うのが前提です。</p></div>
+          <div class="note"><span class="who">フォーサイス</span><p><strong>テューバの低音の重ねは控えめに。</strong>テューバは和音の中で構造的に一段上の強さで鳴ります。低音を厚く重ねると、和音全体の釣合いが崩れます。</p></div>
+          <div class="note"><span class="who">ローインターバルリミット</span><p><strong>トロンボーン／テューバの低音域で、3度・2度を置くと典型的に濁る。</strong>低音の金管同士は、5度・8度・10度と広く取るのが安全です（下のLIL図）。</p></div>
+          <div class="note"><span class="who">ビドール</span><p><strong>テューバの最低音域は、いちばん弱い。</strong>管弦楽では Sol（G）より下げるのは無謀、が彼の線引きです。最低音域に重要な音を預けないこと。</p></div>
+          <div class="note"><span class="who">フォーサイス</span><p><strong>塞音・弱音器は音程が動く。</strong>強い塞音は半音上がります。ヴォイシングの時に「書いた音程の前提が変わる」注意として組み込んでください。</p></div>
+        </div>
+        <div class="fig" style="margin-top:14px;">
+          <h4>図｜ローインターバルリミット——この高さより下では、この音程を置かない</h4>
+          <div data-lil="brass"></div>
+          <p class="cap">色の付いた範囲が「置かない方がよい」低音側です。下限の目安は、米海軍の音楽教科書系の和声学テキスト「Low Interval Limits」の伝統的な制限（最下声部とその上の声部の間）で、<strong>絶対の法則ではなく目安</strong>です。実務の合言葉は「バス譜表の真ん中の線より下では、間隔は協和に、できれば10度・5度・8度で」。破線の帯は、この科の低音楽器（Tb／Tuba）の実用低音区間です。</p>
+        </div>
+
+        <h3 class="sec">写真で見る</h3>
+        <div class="photos">
+          <figure><img src="assets/horn.jpg" alt="ホルンの写真" /><figcaption><b>ホルン</b>Photo: BenP, CC BY 2.5, via Wikimedia Commons</figcaption></figure>
+          <figure><img src="assets/trumpet.jpg" alt="トランペットの写真" /><figcaption><b>トランペット</b>Photo: Amada44, CC BY-SA 3.0, via Wikimedia Commons</figcaption></figure>
+          <figure><img src="assets/trombone.jpg" alt="トロンボーンの写真" /><figcaption><b>トロンボーン</b>入手できた画像が小さいため、小さめの表示。Photo: Josef Pich, CC BY-SA 4.0, via Wikimedia Commons</figcaption></figure>
+          <figure><img src="assets/tuba.jpg" alt="テューバの写真" /><figcaption><b>テューバ</b>Photo: Žiga, CC0, via Wikimedia Commons</figcaption></figure>
+        </div>
+
+        <div class="techou-link">金管の書き方・ヴォイシングの実習は姉妹ページへ → <a href="../guan-xian-le-fa-tetiyou/">管弦楽法てちょう</a>（楽器カードとヴォイシング・チェック20項目）</div>
+      </section>
+
+      <!-- ================= ハープ ================= -->
+      <section class="panel" id="panel-harp" role="tabpanel" aria-labelledby="tab-harp" hidden>
+        <div class="fam-head"><h2>ハープ</h2><span class="tag tag-harp">47本の弦と、7つのペダル</span></div>
+        <p class="fam-lead">どの家族にも属さない、一人だけの存在です。弦を指で弾く撥弦楽器ですが、半音は「ペダルで弦を短くする」ことで作ります。このページの主役は、そのダブルアクション・ペダルの仕組みです。</p>
+
+        <h3 class="sec">音の出る仕組み</h3>
+        <div class="card">
+          <div class="flow">
+            <span class="step"><strong>47本の弦</strong>を指で弾く</span><span class="arrow">→</span>
+            <span class="step">振動は<strong>響板</strong>（前面の板）へ伝わる</span><span class="arrow">→</span>
+            <span class="step">背中側の<strong>共鳴胴</strong>が響かせ、音は響板から前へ出る</span>
+          </div>
+          <p class="body" style="margin-top:12px;">弦には色の目印があります。<strong>Cの弦は赤、Fの弦は青（または黒）</strong>。47本も弦がある中で、演奏者はこの色を頼りに自分の位置を知ります。低い音の弦は金属の巻線、高い方は腸線（ガット）が中心です。</p>
+        </div>
+
+        <h3 class="sec">音で聴く</h3>
+        <p class="listen-note">ハープには試聴プレイヤーがありません。University of Iowa Musical Instrument Samples のコレクションにハープのサンプルは存在しないため（索引と楽器一覧で確認済み）で、別出典が確認できたら次回足します。</p>
+
+        <h3 class="sec">弾いて試す</h3>
+        <div class="sim-card">
+          <h4>ハープとティンパニの試奏台</h4>
+          <p>ペダルの仕込みを変えて弦を鳴らし、<strong>グリッサンド</strong>がどう響くか、書いた和音がハープで<strong>弾けるかどうか（点検）</strong>を、その場で試せます。ファミリーにはタブの無い<strong>ティンパニ</strong>の画面も入っています——下のボタンで、ティンパニの画面に切り替えて下の試奏台へ移動できます。試奏台はこのページの中に置いてあるので、そのまま下へスクロールしても使えます。音は、最初に画面をタップしたあとに鳴ります。</p>
+          <div class="sim-actions">
+            <button type="button" class="sim-btn" data-sim-open="harp">試奏台を使う（ハープ）</button>
+            <button type="button" class="sim-btn sub" data-sim-open="timp">ティンパニから使う</button>
+          </div>
+          <p class="credit">試奏台：まこりん作（1枚で動くHTMLを、このページの中に組み込みました）。</p>
+        </div>
+<div id="sim-root">
+<p style="margin:0;padding:8px 16px 0;text-align:right;font-size:13px;color:var(--muted);">試奏台：まこりん作</p>
+<header class="top">
+  <div class="sim-wrap topin">
+    <h2 class="sim-h1">ハープとティンパニの試奏台</h2>
+    <nav class="tabs" role="tablist" aria-label="画面の切り替え">
+      <button type="button" role="tab" id="sim-tab-harp" data-tab="harp" aria-controls="sim-p-harp" aria-selected="true">ハープ</button>
+      <button type="button" role="tab" id="sim-tab-gliss" data-tab="gliss" aria-controls="sim-p-gliss" aria-selected="false">グリッサンド</button>
+      <button type="button" role="tab" id="sim-tab-check" data-tab="check" aria-controls="sim-p-check" aria-selected="false">点検</button>
+      <button type="button" role="tab" id="sim-tab-timp" data-tab="timp" aria-controls="sim-p-timp" aria-selected="false">ティンパニ</button>
+    </nav>
+    <div class="vol">
+      <label for="sim-vol">音量</label>
+      <input type="range" id="sim-vol" min="0" max="100" step="1" value="50" aria-label="試奏台の音量">
+      <span class="vol-val" id="sim-vol-val">50%</span>
+    </div>
+  </div>
+</header>
+<div class="sim-wrap sim-main">
+  <div id="sim-p-harp" role="tabpanel" aria-labelledby="sim-tab-harp"></div>
+  <div id="sim-p-gliss" role="tabpanel" aria-labelledby="sim-tab-gliss" hidden></div>
+  <div id="sim-p-check" role="tabpanel" aria-labelledby="sim-tab-check" hidden></div>
+  <div id="sim-p-timp" role="tabpanel" aria-labelledby="sim-tab-timp" hidden></div>
+  <p class="cap foot-note">音域やペダルの決まりは、管弦楽法の本で一般的に教えられている内容を、作り手（AI）の知識から書いたものです。本そのものとは照らし合わせていません。時間の目安は、奏者や楽器で変わります。</p>
+</div>
+<div id="sim-toast" role="status" aria-live="polite"></div>
+</div>
+
+        <h3 class="sec">構造の図——ダブルアクション・ペダル</h3>
+        <div class="fig">
+          <h4>図1｜ハープの全体と、ペダルの並び</h4>
+          <div class="cols">
+            <svg viewBox="0 0 300 330" role="img" aria-label="ハープの全体模式図">
+              <path class="shape" d="M70,22 L92,22 L96,286 L74,286 Z"/>
+              <path class="shape" d="M92,22 Q196,8 236,66 L226,84 Q188,38 96,44 Z"/>
+              <path class="shape" d="M226,84 L118,286 L96,286 L204,84 Z"/>
+              <rect x="66" y="284" width="180" height="16" rx="4" class="shape"/>
+              <g stroke="var(--svg-sub)" stroke-width="1" opacity=".8">
+                <line x1="104" y1="38" x2="128" y2="282"/><line x1="122" y1="34" x2="148" y2="282"/>
+                <line x1="140" y1="32" x2="166" y2="282"/><line x1="158" y1="32" x2="182" y2="282"/>
+                <line x1="176" y1="36" x2="196" y2="282"/><line x1="192" y1="44" x2="208" y2="282"/>
+              </g>
+              <g font-size="12">
+                <line class="leader" x1="80" y1="150" x2="30" y2="150"/><text x="26" y="146" text-anchor="end">柱</text>
+                <text x="26" y="161" class="sub" font-size="10.5" text-anchor="end">中にロッドが通る</text>
+                <line class="leader" x1="170" y1="26" x2="238" y2="16"/><text x="242" y="20">ネック（頸）</text>
+                <text x="242" y="35" class="sub" font-size="10.5">上にディスクが並ぶ</text>
+                <line class="leader" x1="168" y1="180" x2="238" y2="180"/><text x="242" y="176">響板と弦（47本）</text>
+                <text x="242" y="191" class="sub" font-size="10.5">Cの弦は赤、Fの弦は青</text>
+                <line class="leader" x1="150" y1="292" x2="238" y2="292"/><text x="242" y="296">ペダル（7つ）</text>
+              </g>
+            </svg>
+            <div>
+              <h4 class="sub">足元の7ペダル——左足3つ、右足4つ</h4>
+              <svg viewBox="0 0 320 130" role="img" aria-label="ハープのペダル配置図">
+                <g font-size="13" text-anchor="middle">
+                  <rect x="14" y="34" width="34" height="52" rx="6" class="accent-shape"/><text x="31" y="66" font-weight="700">D</text>
+                  <rect x="56" y="34" width="34" height="52" rx="6" class="accent-shape"/><text x="73" y="66" font-weight="700">C</text>
+                  <rect x="98" y="34" width="34" height="52" rx="6" class="accent-shape"/><text x="115" y="66" font-weight="700">B</text>
+                  <rect x="188" y="34" width="34" height="52" rx="6" class="sage-shape"/><text x="205" y="66" font-weight="700">E</text>
+                  <rect x="230" y="34" width="34" height="52" rx="6" class="sage-shape"/><text x="247" y="66" font-weight="700">F</text>
+                  <rect x="272" y="34" width="34" height="52" rx="6" class="sage-shape"/><text x="289" y="66" font-weight="700">G</text>
+                  <rect x="146" y="34" width="34" height="52" rx="6" class="sage-shape"/><text x="163" y="66" font-weight="700">A</text>
+                  <text x="73" y="108">左足</text>
+                  <text x="228" y="108">右足</text>
+                  <text x="160" y="18" class="sub" font-size="11.5">並びは音階順ではなく、足の担当で決まっています</text>
+                </g>
+              </svg>
+              <p class="cap" style="margin-top:2px;">ペダルは担当する音名ごとに1つずつで、その音の<strong>全オクターブに同時に</strong>効きます。たとえばCのペダルを踏めば、47本の中のすべてのCの弦が一斉に半音上がります。だから転調のたびに、踏み替えの「置き場所」を設計しておく必要があります。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="fig">
+          <h4>図2｜ディスクとフォーク——1段で半音、2段でもう半音</h4>
+          <svg viewBox="0 0 640 210" role="img" aria-label="ハープのディスクとフォークの拡大模式図">
+            <g font-size="12.5" text-anchor="middle">
+              <text x="110" y="22" font-weight="700">ペダル開放（♭）</text>
+              <line x1="110" y1="34" x2="110" y2="180" stroke="var(--svg-ink)" stroke-width="2"/>
+              <circle cx="110" cy="62" r="17" class="shape"/>
+              <line x1="99" y1="52" x2="99" y2="40" stroke="var(--svg-line)" stroke-width="3.5"/>
+              <line x1="121" y1="52" x2="121" y2="40" stroke="var(--svg-line)" stroke-width="3.5"/>
+              <line x1="99" y1="86" x2="99" y2="74" stroke="var(--svg-line)" stroke-width="3.5"/>
+              <line x1="121" y1="86" x2="121" y2="74" stroke="var(--svg-line)" stroke-width="3.5"/>
+              <text x="110" y="200">弦は全長で振動</text>
+              <text x="320" y="22" font-weight="700">1段目（♮）</text>
+              <line x1="320" y1="34" x2="320" y2="180" stroke="var(--svg-ink)" stroke-width="2"/>
+              <circle cx="320" cy="62" r="17" class="sage-shape"/>
+              <line x1="309" y1="62" x2="297" y2="62" stroke="var(--sage)" stroke-width="3.5"/>
+              <line x1="331" y1="62" x2="343" y2="62" stroke="var(--sage)" stroke-width="3.5"/>
+              <circle cx="320" cy="62" r="3.5" fill="var(--sage)"/>
+              <text x="320" y="200">上のフォークが弦を挟み、半音上がる</text>
+              <text x="530" y="22" font-weight="700">2段目（♯）</text>
+              <line x1="530" y1="34" x2="530" y2="180" stroke="var(--svg-ink)" stroke-width="2"/>
+              <circle cx="530" cy="62" r="17" class="accent-shape"/>
+              <line x1="519" y1="76" x2="507" y2="76" stroke="var(--rose)" stroke-width="3.5"/>
+              <line x1="541" y1="76" x2="553" y2="76" stroke="var(--rose)" stroke-width="3.5"/>
+              <circle cx="530" cy="76" r="3.5" fill="var(--rose)"/>
+              <text x="530" y="200">下のフォークが挟み、もう半音上がる</text>
+            </g>
+          </svg>
+          <p class="cap">ペダルを踏むと、柱の中のロッドが上がって、ネックの上のディスクが回ります。ディスクには2組のフォーク（プロング）が付いていて、回るたびに弦を挟んで「鳴る長さ」を短くします。<strong>1段目で♭→♮、2段目で♮→♯</strong>。これが「ダブルアクション」の名前の由来です。</p>
+        </div>
+
+        <h3 class="sec">調律とグリッサンド</h3>
+        <div class="card">
+          <p class="body">弦そのものの調律は<strong>C♭長調</strong>（ペダル全開放）。ペダルを全て1段目に入れると各音が♮になって<strong>変ホ長調</strong>の音階が得られます——これが実務の標準位置です。2段目まで入れると全音が♯になります。</p>
+          <div class="flow" style="margin-top:14px;">
+            <span class="step">① ペダルで、目的の和音・音階になるよう<strong>仕込んでおく</strong></span><span class="arrow">→</span>
+            <span class="step">② 指を弦の列に沿って<strong>滑らせる</strong></span><span class="arrow">→</span>
+            <span class="step">③ 仕込んだ音だけが連なって鳴る＝<strong>グリッサンド</strong></span>
+          </div>
+          <p class="body" style="margin-top:12px;">グリッサンドは「速い音階」ではなく、<strong>ペダルの仕込みが本体</strong>です。異名同音の裏技もあり、たとえばEの弦をE♯にしておけば、Fの弦と合わせて同じFの音を2本の弦で交互に弾けます——同じ弦の速い反復が苦手なハープならではの解決法です（ビドール）。</p>
+        </div>
+
+        <h3 class="sec">音域チャート——ピアノと並べて</h3>
+        <div class="chartbox">
+          <div data-chart="harp"></div>
+          <p class="chart-note">ハープの音域はC♭1〜G♯7（47弦）。ビドール（1904）は上限をG♭と記しますが、現代の標準はG♯7です。ピアノは88鍵（A0〜C8）で、ハープより少し広い範囲をカバーします。</p>
+        </div>
+
+        <h3 class="sec">比較——ハープとピアノ</h3>
+        <div class="tblwrap">
+          <table>
+            <thead><tr><th>項目</th><th>ハープ</th><th>ピアノ</th></tr></thead>
+            <tbody>
+              <tr><td><strong>音を出すもの</strong></td><td>弦47本を指で直接弾く</td><td>鍵盤88鍵→ハンマーが弦を打つ</td></tr>
+              <tr><td><strong>半音の作り方</strong></td><td>ペダルで弦を短くする（全オクターブ同時）</td><td>黒鍵が担当する</td></tr>
+              <tr><td><strong>得意</strong></td><td>グリッサンドとアルペジオが主役。和音は原則アルペジオで</td><td>速い同音反復、半音階、細かい装飾</td></tr>
+              <tr><td><strong>苦手</strong></td><td>速い同音反復（同じ弦は弾くたび前の音を消す）。急な転調（ペダルの踏み替えが要る）</td><td>グリッサンドらしい滑らかさは出ない</td></tr>
+              <tr><td><strong>音の消え方</strong></td><td>ダンパーが無く、共鳴が自然に消えるのを待つ。減衰はギターのように速い</td><td>ダンパーペダルで止められる</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="sec">比較の勘所（原典から）</h3>
+        <div class="notes">
+          <div class="note"><span class="who">リムスキー／ビドール／フォーサイス</span><p><strong>片手の和音は最大4音。</strong>奏者は第5指（小指）を使わないからです。和音は密に置き、手と手の間も空けすぎない。そして原則はアルペジオ——そうでない時だけ non arpeggiato と明記します。3人の原典がそろって同じ規則を置く、ハープ書法の第一条です。</p></div>
+          <div class="note"><span class="who">ビドール</span><p><strong>ハープにはダンパーがありません。</strong>だから書き手は、共鳴が伝播して消えるまでの時間を残し、混濁を避けて書くこと。彼はハープを「人気のない大聖堂のオルガン」のように扱えと書いています。また、音階・アルペジオの綴りは♯系より♭系（C♭、G♭、D♭）を選ぶのが鉄則です。</p></div>
+          <div class="note"><span class="who">リムスキー</span><p><strong>残響の長さは音域で変わります。</strong>中・低音域は残響が長く、速い和声変化では前の和音を手で止める必要がある。速いフィギュレーションが明瞭になるのは高音域だけです。速いパッセージと細かい装飾は、高音域に置くのが安全です。</p></div>
+        </div>
+
+        <h3 class="sec">この楽器のルール——ヴォイシングと低音の置き方</h3>
+        <p class="body">ハープの和音は「密に置く」のが他の楽器と逆の原則です。一方で低音は残響が長く、速い曲では左手の置き方がそのまま濁りを決めます。下のLIL図には、左手の受け持つ低音区間に印を付けました。</p>
+        <div class="notes" style="margin-top:12px;">
+          <div class="note"><span class="who">リムスキー</span><p><strong>和音は密に置く（close）。</strong>各手4音まで、手と手の間も空けすぎない。原則はアルペジオで、そうでない時だけ non arpeggiato と明記します。</p></div>
+          <div class="note"><span class="who">ビドール</span><p><strong>速い曲では、左手はオクターブか単音だけに。</strong>でないと低音が「ピアノの最低音の和音のように唸って濁る」——ハープ版のローインターバルリミットです。</p></div>
+          <div class="note"><span class="who">リムスキー</span><p><strong>中・低音域は残響が長い。</strong>速い和声変化では、前の和音を手で止める必要がある前提で書きます。止める暇のない速さで低音の和音を替えないこと。</p></div>
+          <div class="note"><span class="who">リムスキー</span><p><strong>同音反復と速いフィギュレーションは、高音域だけが明瞭。</strong>音域ごとに「できること」が違うので、速い動きは高音域へ寄せるのがルールです。</p></div>
+        </div>
+        <div class="fig" style="margin-top:14px;">
+          <h4>図｜ローインターバルリミット（ハープ版）——左手の低音は広く取る</h4>
+          <div data-lil="harp"></div>
+          <p class="cap">色の付いた範囲が「置かない方がよい」低音側です。下限の目安は、米海軍の音楽教科書系の和声学テキスト「Low Interval Limits」の伝統的な制限（最下声部とその上の声部の間）で、<strong>絶対の法則ではなく目安</strong>です。ハープでは残響の長さが濁りをさらに強めるため、速い曲ほど左手はオクターブ／単音に絞ります。破線の帯は、左手の低音区間です。</p>
+        </div>
+
+        <h3 class="sec">写真で見る</h3>
+        <div class="photos">
+          <figure><img src="assets/pedal-harp.jpg" alt="ペダルハープの写真" /><figcaption><b>ペダルハープ</b>Salvi製のコンサート・ペダルハープ。Photo: WinfriedSchneider, CC BY-SA 3.0, via Wikimedia Commons</figcaption></figure>
+          <figure><img src="assets/harp-met.jpg" alt="ハープの写真（歴史資料）" /><figcaption><b>ハープ（歴史資料）</b>The Metropolitan Museum of Art, CC0</figcaption></figure>
+        </div>
+
+        <div class="techou-link">ハープの書き方・ヴォイシングの実習は姉妹ページへ → <a href="../guan-xian-le-fa-tetiyou/">管弦楽法てちょう</a>（楽器カードとヴォイシング・チェック20項目）</div>
+      </section>
+
+      <!-- ================= 学習：楽典・和声の土台 ================= -->
+      <section class="panel" id="panel-study" role="tabpanel" aria-labelledby="tab-study" hidden>
+        <div class="fam-head"><h2>学習——楽典・和声の土台</h2><span class="tag tag-study">ルールの「なぜ」を置く場所</span></div>
+        <p class="fam-lead">各楽器ページのルール（ヴォイシングとローインターバルリミット）の土台になる、楽典と和声学の最小限をここに分けました。楽器の話ではなく、「音と音の関係」の話です。</p>
+
+        <h3 class="sec">なぜ低音は濁るのか——ローインターバルリミットの仕組み</h3>
+        <div class="card">
+          <p class="body">音程は「2音の周波数の比」ですが、耳が感じる近さは<strong>周波数の差</strong>にも左右されます。音が低くなるほど、同じ音程でも2音の周波数の差は小さくなり、耳には濁り・うなりとして聞こえます。だから低音域では声部の間隔を広く取る——これが<strong>ローインターバルリミット（低音域の音程下限）</strong>です。</p>
+          <p class="body" style="margin-top:10px;">実務の合言葉は「<strong>バス譜表の真ん中の線より下では、間隔は協和に、できれば10度・5度・8度で</strong>」。下の図の下限は、米海軍の音楽教科書系の和声学テキスト「Low Interval Limits」の伝統的な制限（最下声部とその上の声部の間）で、<strong>絶対の法則ではなく目安</strong>として使います。</p>
+        </div>
+        <div class="fig" style="margin-top:14px;">
+          <h4>図｜ローインターバルリミット——音程ごとの下限</h4>
+          <div data-lil="study"></div>
+          <p class="cap">読み方：たとえば「3度」の行は、最下声部が c より下にある時、その上の声部との間に3度を置かない方がよい、という意味です。5度・8度は低音でも比較的自由に置けます。</p>
+        </div>
+
+        <h3 class="sec">和音の配置の原則</h3>
+        <div class="notes">
+          <div class="note"><span class="who">リムスキー</span><p><strong>和音は低音で広く、高音で自由に。</strong>低い声部ほど間隔を開け、高い声部ほど密に置いても濁りません。LILは、この原則を音程ごとの下限として数字にしたものです。</p></div>
+          <div class="note"><span class="who">リムスキー</span><p><strong>フォルテで中音域を空けない。</strong>低音と高音だけが鳴って真ん中が抜けた配置は、フォルテで特に貧しく聞こえます。強く鳴らす時ほど、中音域を埋める声部を用意します。</p></div>
+          <div class="note"><span class="who modern">現代の実務知識</span><p><strong>下限は「最下声部と、その上の声部」の間の話。</strong>上の声部同士の間隔まで一律に縛るものではありません。まず一番下の2声の距離を点検するのが、LILの使い方です。</p></div>
+        </div>
+
+        <h3 class="sec">この先の進み方</h3>
+        <div class="card">
+          <p class="body">このページに置いたのは、ルールを使うための土台だけです。和音の種類や声部進行の型（禁則を含む楽典・和声学の本体）と、実際の楽譜で点検する実習は、姉妹ページの「理論の土台」と「ヴォイシング・チェック20項目」にまとめてあります。</p>
+        </div>
+        <div class="techou-link">楽典・和声の本体と実習は姉妹ページへ → <a href="../guan-xian-le-fa-tetiyou/">管弦楽法てちょう</a>（理論の土台／ヴォイシング・チェック20項目）</div>
+      </section>
+
+      <footer>
+        <p>写真は表示用に縮小しています。原寸は出典ページ（Wikimedia Commons／The Metropolitan Museum of Art）で確認できます。</p>
+        <p>音源はページ表示用にMP3へ変換しています。原盤は各出典ページで確認できます。音高ラベルは原典ファイル名の表記に基づきます（独立した音高照合は未実施）。</p>
+        <p>音源の出典と条件：University of Iowa Musical Instrument Samples（Lawrence Fritts）——公式の利用条件は「自由にダウンロードしてあらゆるプロジェクトに制限なく利用可（CC0ではない）」。バセットホルン／オフィクレイドは St Cecilia's Hall による <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>（演奏者名と加工内容は各プレイヤーの近くに明記）。コールアングレの録音は Musopen 由来で、パブリックドメインです。</p>
+        <p>数値・記述の出典：ビドール『近代管弦楽法』（1904、塚谷晃弘訳）／フォーサイス『Orchestration』（1914）／リムスキー＝コルサコフ『管弦楽法原理』。原典と現代の標準が異なる点は本文中に注記しました。</p>
+      </footer>
+    </div>
+
+    <script>
+      /* ---------- tabs ---------- */
+      var TABS = ["strings", "woodwinds", "brass", "harp", "study"];
+      function selectTab(name, push) {
+        if (TABS.indexOf(name) < 0) name = "strings";
+        TABS.forEach(function (t) {
+          var btn = document.getElementById("tab-" + t);
+          var panel = document.getElementById("panel-" + t);
+          var on = t === name;
+          btn.setAttribute("aria-selected", on ? "true" : "false");
+          if (on) { panel.removeAttribute("hidden"); } else { panel.setAttribute("hidden", ""); }
+        });
+        if (push) {
+          try { history.replaceState(null, "", "#" + name); } catch (e) {}
+        }
+      }
+      TABS.forEach(function (t) {
+        document.getElementById("tab-" + t).addEventListener("click", function () {
+          selectTab(t, true);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      });
+      window.addEventListener("hashchange", function () {
+        selectTab(location.hash.replace("#", ""), false);
+      });
+
+      /* ---------- range charts ---------- */
+      var AXIS_MIN = 21, AXIS_MAX = 108; /* A0..C8 */
+      var CHARTS = {
+        strings: { color: "var(--rose)", rows: [
+          { name: "ヴァイオリン", low: 55, high: 98, label: "G3 〜 D7" },
+          { name: "ヴィオラ", low: 48, high: 91, open: true, label: "C3 〜" },
+          { name: "チェロ", low: 36, high: 76, label: "C2 〜 E5" },
+          { name: "コントラバス", low: 28, high: 58, label: "E1 〜 B♭3（実音）" }
+        ]},
+        woodwinds: { color: "var(--sage)", rows: [
+          { name: "ピッコロ", low: 74, high: 108, label: "D5 〜 C8（実音）" },
+          { name: "フルート", low: 60, high: 96, label: "C4 〜 C7" },
+          { name: "オーボエ", low: 58, high: 91, label: "B♭3 〜 G6" },
+          { name: "コールアングレ", low: 52, high: 84, label: "E3 〜 C6（実音・in F）" },
+          { name: "クラリネット", low: 50, high: 91, label: "D3 〜 G6（実音・in B♭）", segments: [
+            { from: 50, to: 68, color: "var(--plum)" },
+            { from: 68, to: 82, color: "var(--sky)" },
+            { from: 82, to: 91, color: "var(--rose)" }
+          ]},
+          { name: "ファゴット", low: 34, high: 70, label: "B♭1 〜 B♭4" },
+          { name: "コントラファゴット", low: 22, high: 60, label: "B♭0 〜 C4（実音）" }
+        ]},
+        brass: { color: "var(--butter)", rows: [
+          { name: "ホルン（in F）", low: 42, high: 84, label: "約 F♯2 〜 C6（実音）" },
+          { name: "トランペット（in B♭）", low: 52, high: 82, label: "E3 〜 B♭5（実音）" },
+          { name: "トロンボーン", low: 40, high: 70, label: "E2 〜 B♭4（実音）" },
+          { name: "テューバ", low: 29, high: 60, label: "約 F1 〜 C4（目安）" }
+        ]},
+        harp: { color: "var(--plum)", rows: [
+          { name: "ハープ（47弦）", low: 23, high: 104, label: "C♭1 〜 G♯7" },
+          { name: "ピアノ（88鍵）", low: 21, high: 108, label: "A0 〜 C8", color: "var(--ink3)" }
+        ]}
+      };
+
+      function buildChart(key) {
+        var host = document.querySelector('[data-chart="' + key + '"]');
+        if (!host) return;
+        var cfg = CHARTS[key];
+        var W = 720, labelW = 142, plotW = W - labelW - 118, rowH = 34, top = 26;
+        var H = top + cfg.rows.length * rowH + 22;
+        function x(m) { return labelW + (m - AXIS_MIN) / (AXIS_MAX - AXIS_MIN) * plotW; }
+        var s = '<svg viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="音域チャート">';
+        for (var c = 24; c <= 108; c += 12) {
+          s += '<line x1="' + x(c) + '" y1="' + (top - 6) + '" x2="' + x(c) + '" y2="' + (H - 20) + '" stroke="var(--line)" stroke-width="1"/>';
+          s += '<text x="' + x(c) + '" y="' + (H - 5) + '" font-size="10.5" text-anchor="middle" class="sub">C' + (c / 12 - 1) + "</text>";
+        }
+        cfg.rows.forEach(function (r, i) {
+          var y = top + i * rowH, cy = y + 8;
+          s += '<text x="' + (labelW - 8) + '" y="' + (cy + 12) + '" font-size="12.5" text-anchor="end" font-weight="700">' + r.name + "</text>";
+          if (r.segments) {
+            r.segments.forEach(function (sg) {
+              s += '<rect x="' + x(sg.from) + '" y="' + cy + '" width="' + (x(sg.to) - x(sg.from)) + '" height="13" fill="' + sg.color + '"/>';
+            });
+            s += '<rect x="' + x(r.low) + '" y="' + cy + '" width="' + (x(r.high) - x(r.low)) + '" height="13" fill="none" stroke="var(--svg-line)" stroke-width="1" rx="3"/>';
+          } else if (r.open) {
+            s += '<rect x="' + x(r.low) + '" y="' + cy + '" width="' + (x(r.high) - x(r.low)) + '" height="13" rx="3" fill="' + (r.color || cfg.color) + '" opacity=".45"/>';
+            s += '<path d="M' + x(r.high) + "," + cy + ' l14,6.5 l-14,6.5 z" fill="' + (r.color || cfg.color) + '" opacity=".45"/>';
+          } else {
+            s += '<rect x="' + x(r.low) + '" y="' + cy + '" width="' + Math.max(3, x(r.high) - x(r.low)) + '" height="13" rx="3" fill="' + (r.color || cfg.color) + '"/>';
+          }
+          s += '<text x="' + (x(r.high) + (r.open ? 20 : 8)) + '" y="' + (cy + 12) + '" font-size="11.5" class="sub">' + r.label + "</text>";
+        });
+        s += "</svg>";
+        host.innerHTML = s;
+      }
+      Object.keys(CHARTS).forEach(buildChart);
+
+      /* ---------- low interval limit charts ---------- */
+      var LIL_MIN = 21, LIL_MAX = 65;
+      var LIL_ROWS = [
+        { name: "2度", limit: 52, limitName: "e" },
+        { name: "3度", limit: 48, limitName: "c" },
+        { name: "三全音", limit: 47, limitName: "B" },
+        { name: "短6度", limit: 43, limitName: "G" },
+        { name: "5度・8度", limit: null, limitName: "" }
+      ];
+      var LIL_ZONES = {
+        strings: { from: 28, to: 41, label: "Vc／Cb の低音区間" },
+        woodwinds: { from: 22, to: 46, label: "Fg／C-Fg／バス・クラリネットの低音区間" },
+        brass: { from: 29, to: 48, label: "Tb／Tuba の実用低音区間" },
+        harp: { from: 23, to: 48, label: "左手の低音区間" },
+        study: null
+      };
+      function buildLil(key) {
+        var host = document.querySelector('[data-lil="' + key + '"]');
+        if (!host) return;
+        var W = 720, labelW = 92, plotW = W - labelW - 16, rowH = 36, top = 34;
+        var H = top + LIL_ROWS.length * rowH + 26;
+        function x(m) { return labelW + (m - LIL_MIN) / (LIL_MAX - LIL_MIN) * plotW; }
+        var zone = LIL_ZONES[key];
+        var s = '<svg viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="ローインターバルリミットの図">';
+        if (zone) {
+          s += '<rect x="' + x(zone.from) + '" y="' + (top - 22) + '" width="' + (x(zone.to) - x(zone.from)) + '" height="' + (LIL_ROWS.length * rowH + 8) + '" fill="none" stroke="var(--svg-line)" stroke-width="1.2" stroke-dasharray="5 4" rx="6"/>';
+          s += '<text x="' + ((x(zone.from) + x(zone.to)) / 2) + '" y="' + (top - 27) + '" font-size="11" text-anchor="middle" class="sub">' + zone.label + "</text>";
+        }
+        s += '<text x="' + x(LIL_MIN) + '" y="14" font-size="11" class="sub">← 低い</text>';
+        s += '<text x="' + x(LIL_MAX) + '" y="14" font-size="11" text-anchor="end" class="sub">高い →</text>';
+        LIL_ROWS.forEach(function (r, i) {
+          var y = top + i * rowH, cy = y + 5;
+          s += '<text x="' + (labelW - 8) + '" y="' + (cy + 13) + '" font-size="12.5" text-anchor="end" font-weight="700">' + r.name + "</text>";
+          s += '<rect x="' + x(LIL_MIN) + '" y="' + cy + '" width="' + (x(LIL_MAX) - x(LIL_MIN)) + '" height="15" rx="3" fill="var(--card2)" stroke="var(--line)"/>';
+          if (r.limit !== null) {
+            s += '<rect x="' + x(LIL_MIN) + '" y="' + cy + '" width="' + (x(r.limit) - x(LIL_MIN)) + '" height="15" fill="var(--warn-line)" opacity=".55"/>';
+            s += '<circle cx="' + x(r.limit) + '" cy="' + (cy + 7.5) + '" r="5" fill="var(--rose)"/>';
+            s += '<text x="' + x(r.limit) + '" y="' + (cy + 32) + '" font-size="11" text-anchor="middle" font-weight="700">下限 ' + r.limitName + "</text>";
+          } else {
+            s += '<text x="' + (x(LIL_MIN) + 8) + '" y="' + (cy + 12) + '" font-size="11.5" class="sub">低音でも比較的自由</text>';
+          }
+        });
+        s += "</svg>";
+        host.innerHTML = s;
+      }
+      Object.keys(LIL_ZONES).forEach(buildLil);
+
+      /* ---------- audio: default volume 50% ---------- */
+      document.querySelectorAll("audio").forEach(function (a) { a.volume = 0.5; });
+
+      selectTab(location.hash.replace("#", "") || "strings", false);
+    </script>
+      <script>
+/* ===== 試奏台（まこりん作）の本体スクリプト。組み込み用に、要素IDへ sim- 接頭辞を付け、URLの # は使わないよう直したもの ===== */
+/* 管弦楽法ナビ — core: pitch spelling, chord symbols, chord identification */
+(function () {
+  'use strict';
+  const O = (globalThis.Orch = globalThis.Orch || {});
+
+  const LET = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
+  const LPC = [0, 2, 4, 5, 7, 9, 11];
+  const FLAT_SP = [[0, 0], [1, -1], [1, 0], [2, -1], [2, 0], [3, 0], [3, 1], [4, 0], [5, -1], [5, 0], [6, -1], [6, 0]];
+  const SHARP_SP = [[0, 0], [0, 1], [1, 0], [1, 1], [2, 0], [3, 0], [3, 1], [4, 0], [4, 1], [5, 0], [5, 1], [6, 0]];
+  const ACC = { '-2': '♭♭', '-1': '♭', '0': '', '1': '♯', '2': '♯♯' };
+
+  function mod(n, m) { return ((n % m) + m) % m; }
+  function accVal(s) { return s === '#' ? 1 : s === '##' ? 2 : s === 'b' ? -1 : s === 'bb' ? -2 : 0; }
+  function spPc(sp) { return mod(LPC[sp.l] + sp.a, 12); }
+  function spellPc(pc, pref) { const t = (pref === 'sharp' ? SHARP_SP : FLAT_SP)[mod(pc, 12)]; return { l: t[0], a: t[1] }; }
+  function spMidi(sp) { return 12 * (sp.o + 1) + LPC[sp.l] + sp.a; }
+  function midiToSp(midi, pcsp) {
+    const base = LPC[pcsp.l] + pcsp.a;
+    return { l: pcsp.l, a: pcsp.a, o: Math.round((midi - base) / 12) - 1 };
+  }
+  function midiDefaultSp(midi, pref) { return midiToSp(midi, spellPc(mod(midi, 12), pref)); }
+  function parseNote(name) {
+    const m = /^([A-Ga-g])(##|bb|#|b|♯|♭)?(-?\d)$/.exec(String(name).trim());
+    if (!m) return null;
+    const acc = m[2] === '♯' ? '#' : m[2] === '♭' ? 'b' : m[2];
+    return spMidi({ l: LET.indexOf(m[1].toUpperCase()), a: accVal(acc), o: +m[3] });
+  }
+  function N(name) { const v = parseNote(name); if (v == null) throw new Error('bad note ' + name); return v; }
+
+  function deName(l, a) {
+    const b = ['C', 'D', 'E', 'F', 'G', 'A', 'H'][l];
+    if (a === 0) return b;
+    if (a > 0) return b + (a === 1 ? 'is' : 'isis');
+    if (l === 2) return a === -1 ? 'Es' : 'Eses';
+    if (l === 5) return a === -1 ? 'As' : 'Asas';
+    if (l === 6) return a === -1 ? 'B' : 'Heses';
+    return b + (a === -1 ? 'es' : 'eses');
+  }
+  function fmtPc(sp, cfg) { return cfg && cfg.names === 'de' ? deName(sp.l, sp.a) : LET[sp.l] + ACC[sp.a]; }
+  function fmtNote(sp, cfg) { return fmtPc(sp, cfg) + (cfg && cfg.oct === 'yamaha' ? sp.o - 1 : sp.o); }
+  function fmtMidi(midi, cfg, pref) { return fmtNote(midiDefaultSp(midi, pref), cfg); }
+
+  /* written = sounding moved by (steps letters, semi semitones) */
+  function transposeSp(sp, steps, semi) {
+    if (!steps && !semi) return { l: sp.l, a: sp.a, o: sp.o };
+    let L = sp.l + steps;
+    const o = sp.o + Math.floor(L / 7);
+    L = mod(L, 7);
+    const target = spMidi(sp) + semi;
+    const a = target - (12 * (o + 1) + LPC[L]);
+    if (Math.abs(a) > 1) return midiToSp(target, spellPc(mod(target, 12), a > 0 ? 'sharp' : 'flat'));
+    return { l: L, a: a, o: o };
+  }
+
+  const IV_NAMES = ['同じ音', '短2度', '長2度', '短3度', '長3度', '完全4度', '増4度', '完全5度', '短6度', '長6度', '短7度', '長7度', 'オクターブ'];
+  function ivName(g) {
+    if (g <= 12) return IV_NAMES[g];
+    if (g === 24) return '2オクターブ';
+    const wide = { 13: '短9度', 14: '長9度', 15: '短10度', 16: '長10度', 17: '完全11度', 18: '増11度', 19: '完全12度', 20: '短13度', 21: '長13度' };
+    if (wide[g]) return wide[g];
+    const o = Math.floor(g / 12), r = g % 12;
+    return o + 'オクターブ' + (r ? '＋' + IV_NAMES[r] : '');
+  }
+
+  /* ---------- chord symbols ---------- */
+  const ROLE_JA = { R: '根音', '3': '第3音', S: '係留音', '5': '第5音', '6': '第6音', '7': '第7音', T: 'テンション', B: 'バス音' };
+
+  function parseChord(input) {
+    const raw = String(input == null ? '' : input).trim();
+    if (!raw) return { error: '和音が空です' };
+    const s = raw.normalize('NFKC').replace(/♭/g, 'b').replace(/♯/g, '#').replace(/[△Δ]/g, 'maj')
+      .replace(/ø/g, 'm7b5').replace(/[°º]/g, 'dim').replace(/[()\[\],\s]/g, '').replace(/[−–]/g, '-');
+    const m = /^([A-Ga-g])(##|bb|#|b)?/.exec(s);
+    if (!m) return { error: '「' + raw + '」：最初の音名（A〜G）が読めません' };
+    const root = { l: LET.indexOf(m[1].toUpperCase()), a: accVal(m[2]) };
+    let rest = s.slice(m[0].length);
+    let bass = null;
+    const sl = /\/([A-Ga-g])(##|bb|#|b)?$/.exec(rest);
+    if (sl) { bass = { l: LET.indexOf(sl[1].toUpperCase()), a: accVal(sl[2]) }; rest = rest.slice(0, sl.index); }
+
+    let minor = false, fifth = 7, seventh = null, sixth = false, sus = 0, omit3 = false, omit5 = false, majFlag = false, dim = false;
+    const tens = {}; let implied9 = false;
+    let i = 0;
+    while (i < rest.length) {
+      const r = rest.slice(i); let t;
+      if ((t = /^(mM7|mmaj7|mMaj7|minmaj7|minMaj7)/.exec(r))) { minor = true; seventh = 11; }
+      else if ((t = /^(maj|Maj|MAJ|M)(?=7|9|11|13|$)/.exec(r))) { majFlag = true; }
+      else if ((t = /^(maj|Maj|MAJ)/.exec(r))) { majFlag = true; }
+      else if ((t = /^(min|mi|m)/.exec(r))) { minor = true; }
+      else if (i === 0 && (t = /^-(?!5)/.exec(r))) { minor = true; }
+      else if ((t = /^dim7/.exec(r))) { minor = true; dim = true; fifth = 6; seventh = 9; }
+      else if ((t = /^dim/.exec(r))) { minor = true; dim = true; fifth = 6; }
+      else if ((t = /^aug/.exec(r))) { fifth = 8; }
+      else if (i === 0 && (t = /^\+5?(?!9|11)/.exec(r))) { fifth = 8; }
+      else if ((t = /^sus(2|4)?/.exec(r))) { sus = t[1] === '2' ? 2 : 4; }
+      else if ((t = /^add(13|11|9|6|4|2)/.exec(r))) {
+        const n = +t[1];
+        if (n === 2 || n === 9) tens[9] = 2; else if (n === 4 || n === 11) tens[11] = 5; else sixth = true;
+      }
+      else if ((t = /^(omit|no)(3|5)/.exec(r))) { if (t[2] === '3') omit3 = true; else omit5 = true; }
+      else if ((t = /^(b|-)(13|9|5)/.exec(r))) { const n = +t[2]; if (n === 5) fifth = 6; else if (n === 9) tens[9] = 1; else tens[13] = 8; }
+      else if ((t = /^(#|\+)(11|9|5)/.exec(r))) { const n = +t[2]; if (n === 5) fifth = 8; else if (n === 9) tens[9] = 3; else tens[11] = 6; }
+      else if ((t = /^(6\/9|69)/.exec(r))) { sixth = true; tens[9] = 2; }
+      else if ((t = /^(13|11|9|7|6)/.exec(r))) {
+        const n = +t[1];
+        if (n === 6) sixth = true;
+        if (n >= 7 && seventh == null) seventh = majFlag ? 11 : 10;
+        if (n >= 9 && !(9 in tens)) { tens[9] = 2; implied9 = n > 9; }
+        if (n === 11) tens[11] = 5;
+        if (n === 13) tens[13] = 9;
+      }
+      else if ((t = /^5$/.exec(r))) { omit3 = true; }
+      else if ((t = /^alt/.exec(r))) { if (seventh == null) seventh = 10; tens[9] = 1; tens[13] = 8; }
+      else return { error: '「' + raw + '」：「' + rest.slice(i) + '」の部分が読めません' };
+      i += t[0].length;
+    }
+
+    const rootPc = spPc(root);
+    const tones = [];
+    function push(role, semis, letterOff, label, need, opt) {
+      const pc = mod(rootPc + semis, 12);
+      if (tones.some(function (x) { return x.pc === pc; })) return;
+      const L = mod(root.l + letterOff, 7);
+      let a = mod(pc - LPC[L] + 6, 12) - 6;
+      let sp = { l: L, a: a };
+      if (Math.abs(a) > 1) sp = spellPc(pc, a > 0 ? 'sharp' : 'flat');
+      tones.push({ role: role, semis: semis, pc: pc, sp: sp, label: label, need: need, opt: !!opt });
+    }
+    push('R', 0, 0, '根音', 40);
+    if (!omit3) {
+      if (sus) push('S', sus === 2 ? 2 : 5, sus === 2 ? 1 : 3, 'sus' + sus, 40);
+      else push('3', minor ? 3 : 4, 2, '第3音', 40);
+    }
+    if (!omit5) push('5', fifth, 4, '第5音', fifth === 7 ? 3 : 25);
+    if (sixth) push('6', 9, 5, '第6音', 25);
+    if (seventh != null) push('7', seventh, 6, '第7音', 30);
+    if (9 in tens) push('T', tens[9], 1, tens[9] === 1 ? '♭9' : tens[9] === 3 ? '♯9' : '9', implied9 ? 2 : 12, implied9);
+    if (11 in tens) push('T', tens[11], 3, tens[11] === 6 ? '♯11' : '11', 12);
+    if (13 in tens) push('T', tens[13], 5, tens[13] === 8 ? '♭13' : '13', 12);
+
+    let bassPc = rootPc, bassIdx = 0;
+    if (bass) {
+      bassPc = spPc(bass);
+      bassIdx = tones.findIndex(function (x) { return x.pc === bassPc; });
+      if (bassIdx < 0) { tones.push({ role: 'B', semis: mod(bassPc - rootPc, 12), pc: bassPc, sp: bass, label: 'バス音', need: 40, opt: false }); bassIdx = tones.length - 1; }
+    }
+
+    const isDom = !minor && !sus && !omit3 && seventh === 10;
+    const symmetric = (dim && seventh === 9) || (fifth === 8 && seventh == null && !minor && !sus && !Object.keys(tens).length);
+    const hasB = tones.some(function (x) { return x.role === 'B'; });
+    const w = tones.map(function (x) {
+      if (symmetric) return 1;
+      switch (x.role) {
+        case 'R': return hasB ? 3.0 : 4.5;
+        case '3': return isDom ? 1.9 : 2.5;
+        case 'S': return 2.5;
+        case '5': return x.semis === 7 ? 3.0 : 2.2;
+        case '6': return 1.8;
+        case '7': return 2.0;
+        case 'B': return 4.0;
+        default: return x.opt ? 0.6 : 1.1;
+      }
+    });
+    if (!symmetric && bassIdx > 0 && tones[bassIdx].role !== 'B') { w[bassIdx] += 1.5; w[0] -= 0.5; }
+    const wsum = w.reduce(function (a, b) { return a + b; }, 0);
+    tones.forEach(function (x, k) {
+      x.target = w[k] / wsum;
+      x.over = x.role === '3' ? (isDom ? 3 : 2.2) : x.role === '7' || x.role === '6' ? 2 : x.role === 'T' ? 2.5 : x.role === 'S' ? 1.5 : (x.role === '5' && x.semis !== 7) ? 1.5 : 1;
+    });
+
+    const pretty = rest.replace(/(b|-)(?=13|9|5)/g, '♭').replace(/(#|\+)(?=11|9|5)/g, '♯');
+    const symbol = LET[root.l] + ACC[root.a] + pretty + (bass ? '/' + LET[bass.l] + ACC[bass.a] : '');
+    return {
+      symbol: symbol, raw: raw, root: root, rootPc: rootPc, suffix: rest, bass: bass, bassPc: bassPc, bassIdx: bassIdx,
+      tones: tones, minor: minor, isDom: isDom, symmetric: symmetric, hasSeventh: seventh != null,
+      pcs: tones.map(function (x) { return x.pc; })
+    };
+  }
+
+  /* "C Am | F G7" → chords; separators: spaces, |, 、, ｜, →, - between spaces */
+  function parseProgression(text) {
+    const parts = String(text || '').normalize('NFKC').split(/[\s|｜、→>]+/).filter(function (x) { return x && x !== '-' && x !== '–'; });
+    const chords = [], errors = [];
+    parts.forEach(function (p) { const c = parseChord(p); if (c.error) errors.push(c.error); else chords.push(c); });
+    return { chords: chords, errors: errors };
+  }
+
+  /* ---------- chord identification from weighted pitch classes ---------- */
+  const TEMPLATES = [
+    ['', 0], ['m', 0], ['7', 0.03], ['m7', 0.03], ['maj7', 0.03], ['dim', 0.03], ['m7b5', 0.05], ['dim7', 0.05],
+    ['aug', 0.06], ['sus4', 0.05], ['sus2', 0.07], ['6', 0.06], ['m6', 0.07], ['mM7', 0.08], ['7sus4', 0.07],
+    ['aug7', 0.09], ['9', 0.08], ['maj9', 0.09], ['m9', 0.09], ['add9', 0.08], ['madd9', 0.09], ['7b9', 0.09], ['7#9', 0.1]
+  ].map(function (t) { const c = parseChord('C' + t[0]); return { suf: t[0], prior: t[1], tones: c.tones.map(function (x) { return { semis: x.semis, role: x.role, alt5: x.role === '5' && x.semis !== 7 }; }) }; });
+  const MISS = { R: 0.35, '3': 0.3, S: 0.3, '7': 0.3, '6': 0.3, T: 0.25 };
+
+  /* w: 12 weights (any scale); bassPc: lowest pitch class or -1; spell: optional map pc → {l,a} */
+  function identifyChord(w, bassPc, spell) {
+    let total = 0; for (let k = 0; k < 12; k++) total += w[k];
+    if (total <= 0) return [];
+    const n = w.map(function (x) { return x / total; });
+    const present = n.filter(function (x) { return x > 0.04; }).length;
+    const out = [];
+    if (present <= 1) {
+      const pc = n.indexOf(Math.max.apply(null, n));
+      const sp = (spell && spell[pc]) || spellPc(pc);
+      const c = parseChord(LET[sp.l] + (sp.a > 0 ? '#'.repeat(sp.a) : 'b'.repeat(-sp.a)) + '5');
+      c.symbol = LET[sp.l] + ACC[sp.a] + '（単音）'; c.unison = true;
+      return [{ chord: c, score: 1, conf: 'high', out: 0 }];
+    }
+    for (let r = 0; r < 12; r++) {
+      for (let ti = 0; ti < TEMPLATES.length; ti++) {
+        const T = TEMPLATES[ti];
+        let inSum = 0, missing = 0, bassIn = false;
+        for (let j = 0; j < T.tones.length; j++) {
+          const pc = (r + T.tones[j].semis) % 12;
+          inSum += n[pc];
+          if (pc === bassPc) bassIn = true;
+          const role = T.tones[j].role;
+          if (n[pc] < (role === 'T' ? 0.15 : role === '7' || role === '6' ? 0.08 : 0.03)) missing += role === '5' ? (T.tones[j].alt5 ? 0.3 : 0.08) : (MISS[role] || 0.25);
+        }
+        const outSum = 1 - inSum;
+        const sc = inSum - 1.5 * outSum - missing - T.prior + (bassPc === r ? 0.12 : bassIn ? 0.03 : bassPc >= 0 ? -0.1 : 0);
+        out.push({ r: r, T: T, score: sc, out: outSum, missing: missing, bassIn: bassIn });
+      }
+    }
+    if (present === 2) {
+      // bare fifth / fourth → power chord
+      for (let r = 0; r < 12; r++) {
+        const inSum = n[r] + n[(r + 7) % 12];
+        out.push({ r: r, T: { suf: '5', prior: 0.02, tones: [] }, score: inSum - 1.5 * (1 - inSum) - 0.02 + (bassPc === r ? 0.12 : 0), out: 1 - inSum, missing: 0, bassIn: bassPc === r || bassPc === (r + 7) % 12 });
+      }
+    }
+    out.sort(function (a, b) { return b.score - a.score; });
+    const res = [], seen = {};
+    for (let k = 0; k < out.length && res.length < 3; k++) {
+      const c = out[k];
+      const minorish = /^(m(?!aj)|dim)/.test(c.T.suf);
+      const sp = (spell && spell[c.r]) || spellPc(c.r, minorish && [1, 6, 8].indexOf(c.r) >= 0 ? 'sharp' : 'flat');
+      let sym = LET[sp.l] + (sp.a > 0 ? '#'.repeat(sp.a) : 'b'.repeat(-sp.a)) + c.T.suf;
+      if (bassPc >= 0 && bassPc !== c.r && c.bassIn) {
+        const bs = (spell && spell[bassPc]) || spellPc(bassPc);
+        sym += '/' + LET[bs.l] + (bs.a > 0 ? '#'.repeat(bs.a) : 'b'.repeat(-bs.a));
+      }
+      if (seen[sym]) continue; seen[sym] = 1;
+      const chord = parseChord(sym);
+      if (chord.error) continue;
+      const margin = res.length === 0 && out[k + 1] ? c.score - out[k + 1].score : 0;
+      res.push({ chord: chord, score: c.score, out: c.out, missing: c.missing, margin: margin, bassForeign: bassPc >= 0 && !c.bassIn });
+    }
+    if (res.length) {
+      const b = res[0];
+      b.conf = b.out < 0.08 && b.missing < 0.1 && b.margin > 0.08 ? 'high' : b.out < 0.22 && b.missing < 0.35 ? 'mid' : 'low';
+      for (let k = 1; k < res.length; k++) res[k].conf = 'alt';
+    }
+    return res;
+  }
+
+  Object.assign(O, {
+    LET: LET, LPC: LPC, ACC: ACC, ROLE_JA: ROLE_JA, mod: mod, spPc: spPc, spellPc: spellPc, spMidi: spMidi, midiToSp: midiToSp,
+    midiDefaultSp: midiDefaultSp, parseNote: parseNote, N: N, fmtPc: fmtPc, fmtNote: fmtNote, fmtMidi: fmtMidi,
+    transposeSp: transposeSp, ivName: ivName, parseChord: parseChord, parseProgression: parseProgression, identifyChord: identifyChord
+  });
+})();
+
+/* ハープとティンパニの試奏台 — models and planners (pedal harp, pedal timpani).
+   Figures are common textbook values written from memory; instruments and players differ. */
+(function () {
+  'use strict';
+  const O = globalThis.Orch, LPC = O.LPC, LET = O.LET, mod = O.mod, N = O.N;
+  const PED_ORDER = [1, 0, 6, 2, 3, 4, 5];            // D C B | E F G A  (left foot | right foot)
+  const LEFT = [1, 0, 6];
+  const ACC = { '-1': '♭', '0': '♮', '1': '♯' };
+  const footOf = function (l) { return LEFT.indexOf(l) >= 0 ? 'L' : 'R'; };
+  const pcOf = function (l, a) { return mod(LPC[l] + a, 12); };
+
+  /* 47 strings, C1 … G7 (string letter + octave; pitch moves with the pedal of that letter) */
+  const STRINGS = (function () { const out = []; for (let o = 1; o <= 7; o++) for (let l = 0; l < 7; l++) { if (o === 7 && l > 4) break; out.push({ l: l, o: o, i: out.length }); } return out; })();
+  function stringMidi(s, ped) { return 12 * (s.o + 1) + LPC[s.l] + (ped[s.l] || 0); }
+  const HARP_LO = 23, HARP_HI = 104;                   // C♭1 … G♯7
+
+  function keyPedals(fifths) {
+    const ped = [0, 0, 0, 0, 0, 0, 0], sh = [3, 0, 4, 1, 5, 2, 6], fl = [6, 2, 5, 1, 4, 0, 3];
+    for (let k = 0; k < Math.abs(fifths); k++) ped[fifths > 0 ? sh[k] : fl[k]] = fifths > 0 ? 1 : -1;
+    return ped;
+  }
+  function pedName(l, a, cfg) { return cfg && cfg.names === 'de' ? O.fmtPc({ l: l, a: a }, cfg) : LET[l] + ACC[a]; }
+  function pedText(ped, cfg) {
+    const f = function (l) { return pedName(l, ped[l] || 0, cfg); };
+    return PED_ORDER.slice(0, 3).map(f).join(' ') + ' | ' + PED_ORDER.slice(3).map(f).join(' ');
+  }
+  /* which strings give each pitch class */
+  function pcTable(ped) { const t = []; for (let k = 0; k < 12; k++) t.push([]); for (let l = 0; l < 7; l++) t[pcOf(l, ped[l] || 0)].push(l); return t; }
+
+  /* glissando finder: every string must land inside the set */
+  function glissFind(pcs) {
+    const set = {}; let size = 0; pcs.forEach(function (p) { if (!set[p]) { set[p] = 1; size++; } });
+    const all = [];
+    for (let n = 0; n < 2187; n++) {
+      const ped = []; let m = n, outside = [], cov = {}, c = 0, moved = 0;
+      for (let l = 0; l < 7; l++) { const a = (m % 3) - 1; m = Math.floor(m / 3); ped.push(a); if (a) moved++; const pc = pcOf(l, a); if (set[pc]) { if (!cov[pc]) { cov[pc] = 1; c++; } } else outside.push(l); }
+      all.push({ ped: ped, outside: outside, covered: c, moved: moved });
+    }
+    const by = function (a, b) { return a.outside.length - b.outside.length || b.covered - a.covered || a.moved - b.moved; };
+    const exact = all.filter(function (x) { return !x.outside.length && x.covered === size; }).sort(by);
+    if (exact.length) return { kind: 'exact', list: exact.slice(0, 6), size: size };
+    const inside = all.filter(function (x) { return !x.outside.length; }).sort(by);
+    if (inside.length) return { kind: 'partial', list: inside.slice(0, 4), size: size };
+    return { kind: 'near', list: all.sort(by).slice(0, 4), size: size };
+  }
+
+  /* one hand: four fingers, about a tenth */
+  function handCheck(ps) {
+    const s = ps.slice().sort(function (a, b) { return a - b; }), n = s.length;
+    if (n <= 1) return { ok: true, text: '' };
+    if (n > 8) return { ok: false, text: '同時に' + n + '音。ハープは片手4音・両手で8音まで。' };
+    let best = null;
+    for (let k = Math.max(0, n - 4); k <= Math.min(4, n); k++) {
+      const lh = k ? s[k - 1] - s[0] : 0, rh = n - k ? s[n - 1] - s[k] : 0, worst = Math.max(lh, rh);
+      if (!best || worst < best.worst) best = { k: k, lh: lh, rh: rh, worst: worst };
+    }
+    if (best.worst > 16) return { ok: false, text: '片手の幅が' + O.ivName(best.worst) + '。10度を超えると届かない。', split: best.k };
+    return { ok: true, text: best.k && n - best.k ? '左手' + best.k + '音・右手' + (n - best.k) + '音' : '片手' + n + '音', split: best.k };
+  }
+
+  /* pedal plan for a passage. steps: [{t (sec), ps:[midi], label}]; opts.tau = seconds per pedal move on one foot */
+  function planHarp(steps, opts) {
+    const tau = (opts && opts.tau) || 0.5, cfg = (opts && opts.cfg) || {};
+    const optsFor = []; for (let pc = 0; pc < 12; pc++) { optsFor.push([]); for (let l = 0; l < 7; l++) for (let a = -1; a <= 1; a++) if (pcOf(l, a) === pc) optsFor[pc].push({ l: l, a: a }); }
+    let beam = [{ ped: [null, null, null, null, null, null, null], cost: 0, prev: null, rec: null, last: [-1, -1, -1, -1, -1, -1, -1] }];
+    const warns = [], dead = {};
+    steps.forEach(function (st, i) {
+      const pcs = Array.from(new Set(st.ps.map(function (p) { return p % 12; })));
+      const next = {};
+      beam.forEach(function (b) {
+        (function go(k, ped, claimed, cost, changes, picks) {
+          if (k === pcs.length) {
+            const sig = ped.join(','), last = b.last.slice(); picks.forEach(function (p) { last[p.l] = i; });
+            if (!next[sig] || next[sig].cost > cost) next[sig] = { ped: ped, cost: cost, prev: b, rec: { i: i, picks: picks, changes: changes }, last: last };
+            return;
+          }
+          const pc = pcs[k], have = optsFor[pc].filter(function (o) { return ped[o.l] === o.a; });
+          if (have.length) { const c2 = claimed.slice(); have.forEach(function (o) { c2[o.l] = 1; }); go(k + 1, ped, c2, cost, changes, picks.concat([{ pc: pc, l: have[0].l, a: have[0].a }])); return; }
+          optsFor[pc].forEach(function (o) {
+            if (claimed[o.l]) return;
+            const p2 = ped.slice(), c2 = claimed.slice(); p2[o.l] = o.a; c2[o.l] = 1;
+            if (ped[o.l] === null) go(k + 1, p2, c2, cost + 0.01 + (o.a ? 0.002 : 0), changes, picks.concat([{ pc: pc, l: o.l, a: o.a }]));
+            else go(k + 1, p2, c2, cost + 1 + (b.last[o.l] === i - 1 ? 0.6 : 0) + (Math.abs(ped[o.l] - o.a) === 2 ? 0.3 : 0), changes.concat([{ l: o.l, from: ped[o.l], to: o.a }]), picks.concat([{ pc: pc, l: o.l, a: o.a }]));
+          });
+        })(0, b.ped, [0, 0, 0, 0, 0, 0, 0], b.cost, [], []);
+      });
+      const list = Object.keys(next).map(function (k) { return next[k]; }).sort(function (a, b) { return a.cost - b.cost; }).slice(0, 48);
+      if (list.length) beam = list; else { dead[i] = 1; warns.push({ lv: 'out', i: i, text: (st.label || (i + 1) + '番目') + '：この音の組み合わせは、ハープでは同時に出せない（同じ弦が2つの音に必要）。' }); }
+    });
+    const chain = []; for (let b = beam[0]; b && b.rec; b = b.prev) chain.unshift(b);
+    const init = [null, null, null, null, null, null, null], seen = [0, 0, 0, 0, 0, 0, 0];
+    const lastUse = [-1, -1, -1, -1, -1, -1, -1], changes = [], out = [];
+    steps.forEach(function (st, i) { out.push({ step: st, picks: [], changes: [], hand: handCheck(st.ps), dead: !!dead[i], range: st.ps.filter(function (p) { return p < HARP_LO || p > HARP_HI; }) }); });
+    chain.forEach(function (b) {
+      const r = b.rec, o = out[r.i];
+      r.picks.forEach(function (p) { if (!seen[p.l]) { seen[p.l] = 1; if (!r.changes.some(function (c) { return c.l === p.l; })) init[p.l] = p.a; } });
+      r.changes.forEach(function (c) { const ch = { l: c.l, from: c.from, to: c.to, foot: footOf(c.l), need: r.i, after: lastUse[c.l], deadline: steps[r.i].t, release: lastUse[c.l] >= 0 ? steps[lastUse[c.l]].t : -4 }; changes.push(ch); o.changes.push(ch); });
+      o.picks = r.picks; r.picks.forEach(function (p) { lastUse[p.l] = r.i; });
+    });
+    ['L', 'R'].forEach(function (foot) {
+      let prev = -99;
+      changes.filter(function (c) { return c.foot === foot; }).sort(function (a, b) { return a.deadline - b.deadline; }).forEach(function (c) {
+        const earliest = Math.max(c.release + 0.05, prev + tau);
+        c.slack = c.deadline - earliest; c.ok = c.slack >= 0.02; c.tight = c.ok && c.slack < tau; c.at = c.ok ? earliest : c.deadline; prev = c.at;
+        if (!c.ok) warns.push({ lv: 'hard', i: c.need, text: (steps[c.need].label || (c.need + 1) + '番目') + 'の前：' + (foot === 'L' ? '左足' : '右足') + 'の ' + pedName(c.l, c.from, cfg) + '→' + pedName(c.l, c.to, cfg) + ' が間に合わない（同じ足の踏み替えが重なるか、直前までその弦を使っている）。' });
+      });
+    });
+    out.forEach(function (o, i) {
+      if (o.range.length) warns.push({ lv: 'out', i: i, text: (o.step.label || (i + 1) + '番目') + '：ハープの音域（' + O.fmtMidi(HARP_LO, cfg) + '〜' + O.fmtMidi(HARP_HI, cfg, 'sharp') + '）の外の音がある。' });
+      if (!o.hand.ok) warns.push({ lv: 'hard', i: i, text: (o.step.label || (i + 1) + '番目') + '：' + o.hand.text });
+    });
+    return { init: init, steps: out, changes: changes, warns: warns, total: changes.length };
+  }
+
+  /* ---------- timpani ---------- */
+  const DRUMS = [
+    { id: 32, name: '32インチ', lo: N('D2'), hi: N('A2') }, { id: 29, name: '29インチ', lo: N('F2'), hi: N('C3') },
+    { id: 26, name: '26インチ', lo: N('Bb2'), hi: N('F3') }, { id: 23, name: '23インチ', lo: N('D3'), hi: N('A3') }, { id: 20, name: '20インチ', lo: N('E3'), hi: N('C4') }
+  ];
+  /* steps: [{t, ps:[midi], label}]; drums: subset of DRUMS; opts.need = seconds wanted for a retune */
+  function planTimp(steps, drums, opts) {
+    const need = (opts && opts.need) || 3, cfg = (opts && opts.cfg) || {}, n = drums.length, warns = [];
+    let beam = [{ tune: drums.map(function () { return null; }), last: drums.map(function () { return -1; }), cost: 0, prev: null, rec: null }];
+    steps.forEach(function (st, i) {
+      const p = st.ps[0], next = {};
+      if (st.ps.length > 1) warns.push({ lv: 'care', i: i, text: (st.label || (i + 1) + '番目') + '：同時に2音。ここでは下の音だけを見ている。' });
+      beam.forEach(function (b) {
+        const push = function (d, cost, change) { const tune = b.tune.slice(), last = b.last.slice(); const moved = tune[d] !== p; tune[d] = p; last[d] = i; if (moved) { let pv = null; tune.forEach(function (x) { if (x != null) { if (pv != null && x <= pv) cost += 0.4; pv = x; } }); } const sig = tune.join(','); if (!next[sig] || next[sig].cost > cost) next[sig] = { tune: tune, last: last, cost: cost, prev: b, rec: { i: i, d: d, change: change } }; };
+        const has = b.tune.indexOf(p);
+        if (has >= 0) { push(has, b.cost, null); return; }
+        for (let d = 0; d < n; d++) {
+          if (p < drums[d].lo || p > drums[d].hi) continue;
+          if (b.tune[d] === null) { push(d, b.cost + 0.01, null); continue; }
+          const room = b.last[d] >= 0 ? st.t - steps[b.last[d]].t : 99;
+          push(d, b.cost + 1 + (Math.abs(b.tune[d] - p) > 4 ? 0.3 : 0) + (room < need ? 3 : 0), { from: b.tune[d], to: p, room: room, after: b.last[d] });
+        }
+      });
+      const list = Object.keys(next).map(function (k) { return next[k]; }).sort(function (a, b) { return a.cost - b.cost; }).slice(0, 40);
+      if (list.length) beam = list; else warns.push({ lv: 'out', i: i, text: (st.label || (i + 1) + '番目') + '：' + O.fmtMidi(p, cfg) + ' は、選んだ太鼓の音域に入らない。' });
+    });
+    const chain = []; for (let b = beam[0]; b && b.rec; b = b.prev) chain.unshift(b.rec);
+    const init = drums.map(function () { return null; }), out = steps.map(function (st) { return { step: st, d: -1, change: null }; }), changes = [];
+    chain.forEach(function (r) {
+      out[r.i].d = r.d; out[r.i].change = r.change;
+      if (r.change) { changes.push({ i: r.i, d: r.d, from: r.change.from, to: r.change.to, room: r.change.room, after: r.change.after, ok: r.change.room >= need }); if (r.change.room < need) warns.push({ lv: 'hard', i: r.i, text: (steps[r.i].label || (r.i + 1) + '番目') + 'の前：' + drums[r.d].name + ' を ' + O.fmtMidi(r.change.from, cfg) + '→' + O.fmtMidi(r.change.to, cfg) + ' に張り替える時間が約' + r.change.room.toFixed(1) + '秒しかない。' }); }
+      else if (init[r.d] === null) init[r.d] = steps[r.i].ps[0];
+    });
+    return { init: init, steps: out, changes: changes, warns: warns };
+  }
+
+  /* "C4 E4+G4 r | F#4" → steps on a fixed grid */
+  function parseSeq(text, unitSec) {
+    const steps = [], errors = []; let k = 0, bar = 1, inBar = 0;
+    String(text || '').normalize('NFKC').split(/\s+/).forEach(function (tok) {
+      if (!tok) return;
+      if (tok === '|' || tok === '｜') { bar++; inBar = 0; return; }
+      const t = k * unitSec; k++; inBar++;
+      if (/^(r|R|-|休)$/.test(tok)) return;
+      const ps = []; let bad = false;
+      tok.split('+').forEach(function (nm) { const m = O.parseNote(nm.replace(/♯/g, '#').replace(/♭/g, 'b')); if (m == null) bad = true; else ps.push(m); });
+      if (bad || !ps.length) { errors.push('「' + tok + '」が読めません（例：C4　F#3　Bb2　C4+E4+G4　休みは r）'); return; }
+      ps.sort(function (a, b) { return a - b; });
+      steps.push({ t: t, ps: ps, label: bar + '小節' + inBar + '番目', tok: tok });
+    });
+    return { steps: steps, errors: errors, count: k };
+  }
+
+  Object.assign(O, { PED_ORDER: PED_ORDER, PED_ACC: ACC, footOf: footOf, HARP_STRINGS: STRINGS, stringMidi: stringMidi, HARP_LO: HARP_LO, HARP_HI: HARP_HI, keyPedals: keyPedals, pedName: pedName, pedText: pedText, pcTable: pcTable, glissFind: glissFind, handCheck: handCheck, planHarp: planHarp, DRUMS: DRUMS, planTimp: planTimp, parseSeq: parseSeq });
+})();
+
+/* ハープとティンパニの試奏台 — app */
+(function () {
+  'use strict';
+  const O = globalThis.Orch, LET = O.LET, N = O.N;
+  const LS_KEY = 'harp-timp-sim-v1', CFG = { names: 'en', oct: 'sci' };
+  const $ = function (s, r) { return (r || document).querySelector(s); };
+  const esc = function (s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); };
+  const fP = function (p, pref) { return O.fmtMidi(p, CFG, pref); };
+  const TABS = ['harp', 'gliss', 'check', 'timp'];
+  const UNITS = [['q', '4分音符', 1], ['e', '8分音符', 2], ['t', '3連符', 3], ['s', '16分音符', 4]];
+  const GTYPES = [
+    ['9', '属九の和音（C9）', [0, 4, 7, 10, 2]], ['dim7', '減七の和音', [0, 3, 6, 9]], ['7', '属七の和音（C7）', [0, 4, 7, 10]], ['maj', '長三和音', [0, 4, 7]], ['min', '短三和音', [0, 3, 7]],
+    ['maj7', '長七の和音', [0, 4, 7, 11]], ['m7', '短七の和音', [0, 3, 7, 10]], ['m7b5', '半減七の和音', [0, 3, 6, 10]], ['6', '付加六の和音（C6）', [0, 4, 7, 9]], ['7b9', '属七♭9', [0, 4, 7, 10, 1]],
+    ['aug', '増三和音', [0, 4, 8]], ['whole', '全音音階', [0, 2, 4, 6, 8, 10]], ['penta', '五音音階（ドレミソラ）', [0, 2, 4, 7, 9]], ['major', '長音階', [0, 2, 4, 5, 7, 9, 11]], ['hmin', '和声短音階', [0, 2, 3, 5, 7, 8, 11]]
+  ];
+  const ROOTS = ['C', 'C♯／D♭', 'D', 'E♭／D♯', 'E', 'F', 'F♯／G♭', 'G', 'A♭／G♯', 'A', 'B♭／A♯', 'B'];
+  const S = {
+    tab: 'harp', ped: [0, 0, 0, 0, 0, 0, 0], zoom: 'all',
+    gl: { root: 7, type: '9' },
+    ck: { text: 'C4 E4 G4 C5 | B4 G4 E4 B3 | A3 C#4 E4 A4 | D4+F#4+A4 r r r', unit: 'e', bpm: 100, tau: 0.5, oct: 3, chord: false },
+    tp: { on: [32, 29, 26, 23], tune: { 32: N('G2'), 29: N('C3'), 26: N('D3'), 23: N('G3'), 20: N('A3') }, text: 'C3 G2 C3 G2 | r r r r | D3 A2 D3 r | E3 r r B2', unit: 'q', bpm: 100, need: 3 },
+    open: {}
+  };
+  function load() { try { const j = JSON.parse(localStorage.getItem(LS_KEY) || 'null'); if (!j) return; ['tab', 'zoom'].forEach(function (k) { if (j[k]) S[k] = j[k]; }); if (Array.isArray(j.ped) && j.ped.length === 7) S.ped = j.ped; ['gl', 'ck', 'tp', 'open'].forEach(function (k) { if (j[k]) Object.assign(S[k], j[k]); }); if (TABS.indexOf(S.tab) < 0) S.tab = 'harp'; } catch (e) { /* storage may be unavailable */ } }
+  function save() { try { localStorage.setItem(LS_KEY, JSON.stringify(S)); } catch (e) { /* ignore */ } }
+  let toastTimer = null;
+  function toast(msg) { const t = $('#sim-toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toastTimer); toastTimer = setTimeout(function () { t.classList.remove('on'); }, 3200); }
+  function setPath(path, v) { const ks = path.split('.'); let o = S; for (let k = 0; k < ks.length - 1; k++) o = o[ks[k]]; o[ks[ks.length - 1]] = v; }
+  function chips(bind, opts, cur, label, type) { return '<div class="chips" role="group" aria-label="' + esc(label) + '">' + opts.map(function (o) { return '<button type="button" class="chip" data-act="set" data-bind="' + bind + '"' + (type ? ' data-type="' + type + '"' : '') + ' data-v="' + esc(o[0]) + '" aria-pressed="' + (String(o[0]) === String(cur)) + '">' + esc(o[1]) + '</button>'; }).join('') + '</div>'; }
+  function select(id, bind, opts, cur, type) { return '<select id="' + id + '" data-bind="' + bind + '"' + (type ? ' data-type="' + type + '"' : '') + '>' + opts.map(function (o) { return '<option value="' + esc(o[0]) + '"' + (String(o[0]) === String(cur) ? ' selected' : '') + '>' + esc(o[1]) + '</option>'; }).join('') + '</select>'; }
+  function badge(lv, text) { return '<span class="badge lv-' + lv + '"><i></i>' + esc(text) + '</span>'; }
+  function det(key, summary, body, cls) { return '<details class="' + (cls || 'more') + '" data-open="' + key + '"' + (S.open[key] ? ' open' : '') + '><summary>' + summary + '</summary>' + body + '</details>'; }
+  function unitSec(u, bpm) { const x = UNITS.find(function (z) { return z[0] === u; }) || UNITS[1]; return 60 / (bpm || 100) / x[2]; }
+
+  /* ---------- drawing ---------- */
+  function pedDiagram(ped, small) {
+    const W = small ? 150 : 220, H = small ? 34 : 44, y = H / 2, step = (W - 30) / 7.6; let x = 12, s = '';
+    s += '<svg class="pdia" viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H + '" role="img" aria-label="ペダルの図 ' + esc(O.pedText(ped, CFG)) + '"><line class="ax" x1="6" x2="' + (W - 6) + '" y1="' + y + '" y2="' + y + '"/>';
+    O.PED_ORDER.forEach(function (l, k) {
+      if (k === 3) { s += '<line class="dv" x1="' + (x + 2) + '" x2="' + (x + 2) + '" y1="3" y2="' + (H - 3) + '"/>'; x += step * 0.6; }
+      const a = ped[l] == null ? 0 : ped[l], h = small ? 9 : 12, y0 = a < 0 ? y - h - 1 : a > 0 ? y + 1 : y - h / 2;
+      s += '<rect class="pk' + (ped[l] == null ? ' free' : '') + '" x="' + (x + 2) + '" y="' + y0 + '" width="5" height="' + h + '" rx="1.5"/>'; x += step;
+    });
+    return s + '</svg>';
+  }
+  const ZOOM = { all: [0, 46], low: [0, 20], mid: [14, 34], high: [26, 46] };
+  function harpGeom() {
+    const z = ZOOM[S.zoom] || ZOOM.all, n = z[1] - z[0] + 1, W = 340, H = 236, gap = (W - 24) / (n - 1), Lmax = H - 62, Lmin = 34;
+    return { z: z, W: W, H: H, gap: gap, x: function (gi) { return 12 + (gi - z[0]) * gap; }, yb: function (gi) { return H - 30 - gi / 46 * (H * 0.46); }, yt: function (gi) { return (H - 30 - gi / 46 * (H * 0.46)) - Lmax * Math.pow(Lmin / Lmax, gi / 46); } };
+  }
+  function harpSVG() {
+    const g = harpGeom(), out = [], top = [];
+    out.push('<svg id="sim-harp" class="harp" viewBox="0 0 ' + g.W + ' ' + g.H + '" role="img" aria-label="ハープの弦。なぞると鳴る">');
+    for (let gi = g.z[0]; gi <= g.z[1]; gi++) top.push(g.x(gi).toFixed(1) + ',' + (g.yt(gi) - 4).toFixed(1));
+    out.push('<polyline class="neck" points="' + top.join(' ') + '"/><line class="board" x1="' + g.x(g.z[0]) + '" y1="' + (g.yb(g.z[0]) + 4) + '" x2="' + g.x(g.z[1]) + '" y2="' + (g.yb(g.z[1]) + 4) + '"/>');
+    for (let gi = g.z[0]; gi <= g.z[1]; gi++) {
+      const s = O.HARP_STRINGS[gi], x = g.x(gi).toFixed(1), midi = O.stringMidi(s, S.ped);
+      out.push('<line id="sim-hs-' + gi + '" class="hs' + (s.l === 0 ? ' c' : s.l === 3 ? ' f' : '') + (gi < 12 ? ' w' : '') + '" x1="' + x + '" x2="' + x + '" y1="' + g.yt(gi).toFixed(1) + '" y2="' + g.yb(gi).toFixed(1) + '"/>');
+      if (S.zoom !== 'all') out.push('<text class="hl' + (s.l === 0 ? ' c' : '') + '" x="' + x + '" y="' + (g.H - 6) + '" text-anchor="middle">' + esc(O.fmtNote(O.midiToSp(midi, { l: s.l, a: S.ped[s.l] || 0 }), CFG)) + '</text>');
+      else if (s.l === 0) out.push('<text class="hl c" x="' + x + '" y="' + (g.H - 6) + '" text-anchor="middle">C' + s.o + '</text>');
+    }
+    out.push('<rect id="sim-harp-pad" x="0" y="0" width="' + g.W + '" height="' + g.H + '" fill="transparent"/></svg>');
+    return out.join('');
+  }
+
+  /* ---------- sound ---------- */
+  let AC = null, master = null, hWave = null, simVol = 0.5;
+  function audio() {
+    if (!AC) { const C = window.AudioContext || window.webkitAudioContext; if (!C) return null; AC = new C(); master = AC.createGain(); master.gain.value = simVol; const comp = AC.createDynamicsCompressor(); master.connect(comp); comp.connect(AC.destination);
+      const h = [1, 0.5, 0.3, 0.16, 0.1, 0.06, 0.04, 0.03], re = new Float32Array(h.length + 1), im = new Float32Array(h.length + 1); h.forEach(function (v, k) { im[k + 1] = v; }); hWave = AC.createPeriodicWave(re, im); }
+    if (AC.state === 'suspended') AC.resume();
+    return AC;
+  }
+  function pluck(midi, when, vel) {
+    if (!audio()) return;
+    const t = when || AC.currentTime, f = 440 * Math.pow(2, (midi - 69) / 12), dur = Math.min(4.2, Math.max(0.7, 4.4 - (midi - 24) * 0.047));
+    const o = AC.createOscillator(), g = AC.createGain(), lp = AC.createBiquadFilter();
+    o.setPeriodicWave(hWave); o.frequency.value = f; lp.type = 'lowpass'; lp.frequency.setValueAtTime(Math.min(11000, f * 9), t); lp.frequency.exponentialRampToValueAtTime(Math.max(260, f * 1.6), t + dur * 0.7);
+    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(vel || 0.32, t + 0.004); g.gain.exponentialRampToValueAtTime(0.0006, t + dur);
+    o.connect(lp); lp.connect(g); g.connect(master); o.start(t); o.stop(t + dur + 0.05);
+  }
+  function drumHit(midi, when) {
+    if (!audio()) return;
+    const t = when || AC.currentTime, f = 440 * Math.pow(2, (midi - 69) / 12);
+    [[1, 0.5, 1.6], [1.5, 0.22, 1.0], [1.99, 0.14, 0.7]].forEach(function (p) { const o = AC.createOscillator(), g = AC.createGain(); o.type = 'sine'; o.frequency.setValueAtTime(f * p[0] * 1.03, t); o.frequency.exponentialRampToValueAtTime(f * p[0], t + 0.07); g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(p[1], t + 0.004); g.gain.exponentialRampToValueAtTime(0.0006, t + p[2]); o.connect(g); g.connect(master); o.start(t); o.stop(t + p[2] + 0.05); });
+  }
+  function flash(gi) { const el = $('#sim-hs-' + gi); if (!el) return; el.classList.add('on'); setTimeout(function () { el.classList.remove('on'); }, 320); }
+  function pluckString(gi, delay) { const s = O.HARP_STRINGS[gi]; if (!s) return; if (!audio()) return; pluck(O.stringMidi(s, S.ped), AC.currentTime + (delay || 0)); setTimeout(function () { flash(gi); }, (delay || 0) * 1000); }
+  function glissPlay(ped, up) { if (!audio()) { toast('この画面では音を出せません。'); return; } const t = AC.currentTime + 0.05; for (let k = 0; k < 29; k++) { const gi = up ? 10 + k : 38 - k, s = O.HARP_STRINGS[gi]; pluck(12 * (s.o + 1) + O.LPC[s.l] + (ped[s.l] || 0), t + k * 0.045, 0.22); if (ped === S.ped) setTimeout(function () { flash(gi); }, 50 + k * 45); } }
+
+  /* ---------- ハープ ---------- */
+  function renderHarp() {
+    const ped = S.ped, tab = O.pcTable(ped);
+    const col = function (l) { return '<div class="pcol"><b>' + LET[l] + '</b>' + [[-1, '♭'], [0, '♮'], [1, '♯']].map(function (a) { return '<button type="button" class="pbtn" data-act="ped" data-l="' + l + '" data-a="' + a[0] + '" aria-pressed="' + (ped[l] === a[0]) + '" aria-label="' + LET[l] + 'のペダルを' + a[1] + 'に">' + a[1] + '</button>'; }).join('') + '</div>'; };
+    const fifths = (function () { for (let f = -7; f <= 7; f++) if (O.keyPedals(f).join() === ped.join()) return f; return 'x'; })();
+    const KEYS = [[-7, 'C♭'], [-6, 'G♭'], [-5, 'D♭'], [-4, 'A♭'], [-3, 'E♭'], [-2, 'B♭'], [-1, 'F'], [0, 'C'], [1, 'G'], [2, 'D'], [3, 'A'], [4, 'E'], [5, 'B'], [6, 'F♯'], [7, 'C♯']].map(function (k) { return [k[0], k[1] + ' の長音階（' + (k[0] ? (k[0] > 0 ? '♯' : '♭') + Math.abs(k[0]) + 'つ' : '調号なし') + '）']; });
+    const twins = tab.filter(function (x) { return x.length > 1; }).length, miss = tab.filter(function (x) { return !x.length; }).length;
+    $('#sim-p-harp').innerHTML = '<div class="lead"><h2>ハープ</h2><p>ペダルを動かして、弦を指でなぞると鳴ります。弦の色は本物と同じで、赤が C、黒が F。</p></div>' +
+      '<div class="cols"><div class="col-in"><section class="card"><h3>ペダル</h3>' +
+      '<div class="pedals"><div class="pgrp"><span class="foot">左足</span><div class="prow">' + [1, 0, 6].map(col).join('') + '</div></div><div class="pgrp"><span class="foot">右足</span><div class="prow">' + [2, 3, 4, 5].map(col).join('') + '</div></div></div>' +
+      '<p class="sub">上（♭）・真ん中（♮）・下（♯）の3段。同じ名前の弦は、全部のオクターブで一緒に動きます。</p>' +
+      '<div class="pdrow">' + pedDiagram(ped) + '<code class="ptext">' + esc(O.pedText(ped, CFG)) + '</code><button type="button" class="btn" data-act="copy" data-text="' + esc(O.pedText(ped, CFG)) + '">コピー</button></div>' +
+      '<label class="f"><span>調から決める</span>' + select('h-key', 'key', [['x', '（自分で動かした形）']].concat(KEYS), fifths, 'key') + '</label></section>' +
+      '<section class="card"><h3>いま出せる音</h3><div class="pcs">' + tab.map(function (ls, pc) { const nm = ls.length ? O.pedName(ls[0], ped[ls[0]] || 0, CFG).replace('♮', '') : fP(pc + 60).replace(/\d/, ''); return '<div class="pcc' + (ls.length ? '' : ' no') + (ls.length > 1 ? ' two' : '') + ([1, 3, 6, 8, 10].indexOf(pc) >= 0 ? ' blk' : '') + '"><b>' + esc(nm) + '</b><small>' + (ls.length ? ls.map(function (l) { return LET[l] + '弦'; }).join('・') : '出せない') + '</small></div>'; }).join('') + '</div>' +
+      '<p class="sub">出せる音は' + (12 - miss) + '種類。' + (twins ? '太い枠の' + twins + 'つは、2本の弦が同じ高さ（異名同音）。グリッサンドでは同じ音が2回鳴ります。' : '同じ高さになる弦の組はありません。') + '</p></section></div>' +
+      '<div class="col-out"><section class="card"><h3>弦</h3>' + chips('zoom', [['all', '全体'], ['low', '低い所'], ['mid', '真ん中'], ['high', '高い所']], S.zoom, '表示する範囲') +
+      '<div class="harpwrap">' + harpSVG() + '</div><p class="cap">47本。いちばん低い弦が左。' + (S.zoom === 'all' ? '1本ずつ弾きたいときは、範囲を選ぶと弦の間が広がります。' : '弦の下は、いまのペダルでの音。') + '</p>' +
+      '<div class="btns"><button type="button" class="btn primary" data-act="gliss" data-d="up">▶ 上へグリッサンド</button><button type="button" class="btn" data-act="gliss" data-d="down">▶ 下へ</button><span class="sub">簡単な合成音です。</span></div></section>' +
+      det('hfacts', '<h3>ハープの決まりごと</h3>', '<ul class="tips"><li>1オクターブに弦は7本（ドレミファソラシ）。半音は、ペダルで弦の高さを変えて作る。</li><li>ペダルは7本。左足が D・C・B、右足が E・F・G・A。片足で一度に動かせるのは1本。</li><li>D・G・A の3つの音は、ほかの弦では出せない。それ以外の音は、隣の弦でも同じ高さを作れる（例：C は B♯ でも出せる）。</li><li>指は片手4本（小指は使わない）。和音は片手4音まで、幅は10度くらいまで。</li><li>半音階の速い動きは苦手。ペダルの踏み替えが間に合わない。</li><li>鳴っている弦のペダルを動かすと、雑音が出たり音がずり上がったりする。踏み替えは、その弦を弾いていない間に。</li><li>いちばん低い2本（C・D）は、ペダルが効かない楽器が多い（この画面では一緒に動かしています）。</li></ul>', 'card fold') + '</div></div>';
+  }
+
+  /* ---------- グリッサンド ---------- */
+  function renderGliss() {
+    const ty = GTYPES.find(function (t) { return t[0] === S.gl.type; }) || GTYPES[0];
+    const pcs = ty[2].map(function (iv) { return (iv + S.gl.root) % 12; });
+    const r = O.glissFind(pcs);
+    const head = r.kind === 'exact' ? badge('ok', 'できる') + '<span>この音だけが鳴るペダルの組み合わせがあります。</span>' : r.kind === 'partial' ? badge('care', '音が足りない') + '<span>外の音は鳴りませんが、和音の音が全部はそろいません。</span>' : badge('hard', '余る弦がある') + '<span>どう踏んでも、和音の外の音になる弦が残ります。いちばん近い形を出します。</span>';
+    $('#sim-p-gliss').innerHTML = '<div class="lead"><h2>グリッサンド早見</h2><p>ハープのグリッサンドは、7本の弦が全部鳴ります。だから、7本とも和音の音にそろえられるかどうかで、できる和音が決まります。</p></div>' +
+      '<div class="cols"><div class="col-in"><section class="card"><label class="f"><span>根音</span>' + select('g-root', 'gl.root', ROOTS.map(function (n, k) { return [k, n]; }), S.gl.root, 'num') + '</label><label class="f"><span>和音・音階</span>' + select('g-type', 'gl.type', GTYPES.map(function (t) { return [t[0], t[1]]; }), S.gl.type) + '</label>' +
+      '<p class="sub">鳴らしたい音：' + pcs.map(function (p) { return fP(p + 60).replace(/\d/, ''); }).join('・') + '</p></section></div>' +
+      '<div class="col-out"><section class="card result"><div class="okline">' + head + '</div>' + r.list.map(function (x, k) {
+        const names = O.PED_ORDER.map(function (l) { return O.pedName(l, x.ped[l], CFG); });
+        return '<article class="mrow"><div class="pdrow">' + pedDiagram(x.ped) + '<code class="ptext">' + esc(O.pedText(x.ped, CFG)) + '</code></div>' +
+          (x.outside.length ? '<ul class="issues"><li class="lv-hard">和音の外になる弦：' + x.outside.map(function (l) { return O.pedName(l, x.ped[l], CFG); }).join('・') + '。グリッサンドでは鳴ってしまいます。</li></ul>' : '') +
+          (r.kind === 'partial' ? '<ul class="issues"><li>そろう音は ' + x.covered + ' / ' + r.size + ' 種類。</li></ul>' : '') +
+          '<div class="btns"><button type="button" class="btn primary" data-act="gplay" data-k="' + k + '">▶ 聴く</button><button type="button" class="btn" data-act="guse" data-k="' + k + '">このペダルをハープに入れる</button><button type="button" class="btn quiet" data-act="copy" data-text="' + esc(names.slice(0, 3).join(' ') + ' | ' + names.slice(3).join(' ')) + '">コピー</button></div></article>';
+      }).join('') + '</section></div></div>';
+    renderGliss.list = r.list;
+  }
+
+  /* ---------- 点検 ---------- */
+  function miniPiano(oct) {
+    const W = 336, wk = W / 14, out = ['<svg class="piano" viewBox="0 0 ' + W + ' 70" role="group" aria-label="鍵盤で音を入れる">'], whites = [0, 2, 4, 5, 7, 9, 11], blacks = { 0: 1, 1: 3, 3: 6, 4: 8, 5: 10 };
+    for (let k = 0; k < 14; k++) { const m = 12 * (oct + 1 + Math.floor(k / 7)) + whites[k % 7]; out.push('<rect class="wk" data-act="key" data-m="' + m + '" x="' + (k * wk + 0.5) + '" y="0.5" width="' + (wk - 1) + '" height="69" rx="2"/>'); if (k % 7 === 0) out.push('<text class="kl" x="' + (k * wk + wk / 2) + '" y="63" text-anchor="middle">C' + (oct + Math.floor(k / 7)) + '</text>'); }
+    for (let k = 0; k < 14; k++) { const b = blacks[k % 7]; if (b == null) continue; const m = 12 * (oct + 1 + Math.floor(k / 7)) + b; out.push('<rect class="bk" data-act="key" data-m="' + m + '" x="' + ((k + 1) * wk - wk * 0.3) + '" y="0.5" width="' + (wk * 0.6) + '" height="42" rx="2"/>'); }
+    return out.join('') + '</svg>';
+  }
+  function seqInput(key, st, hint) {
+    return '<label class="f"><span>音の並び<small>' + hint + '</small></span><textarea id="' + key + '-text" data-bind="' + key + '.text" rows="3" autocapitalize="off" autocomplete="off" spellcheck="false">' + esc(st.text) + '</textarea></label>' +
+      '<div class="inline"><label class="f"><span>1つの音の長さ</span>' + select(key + '-unit', key + '.unit', UNITS.map(function (u) { return [u[0], u[1]]; }), st.unit) + '</label><label class="f"><span>テンポ ♩=</span><input id="' + key + '-bpm" type="number" inputmode="numeric" min="30" max="240" data-bind="' + key + '.bpm" data-type="num" value="' + st.bpm + '"></label></div>';
+  }
+  let ckPlan = null, ckSeq = null;
+  function renderCheck() {
+    const ck = S.ck, seq = O.parseSeq(ck.text, unitSec(ck.unit, ck.bpm)), plan = O.planHarp(seq.steps, { tau: ck.tau, cfg: CFG });
+    ckPlan = plan; ckSeq = seq;
+    const init = plan.init.map(function (a) { return a; }), lv = plan.warns.some(function (w) { return w.lv === 'out'; }) ? 'out' : plan.warns.length ? 'hard' : plan.changes.some(function (c) { return c.tight; }) ? 'care' : 'ok';
+    const stepName = function (i) { return i < 0 ? '最初' : esc(seq.steps[i].label); };
+    let res = '';
+    if (!seq.steps.length) res = '<p class="empty">音を入れると、ペダルの段取りが出ます。</p>';
+    else {
+      res += '<div class="okline">' + badge(lv, lv === 'ok' ? 'そのまま弾ける' : lv === 'care' ? '弾けるが忙しい' : lv === 'hard' ? '難しい所がある' : 'ハープでは無理な所がある') + '<span>ペダルの踏み替えは ' + plan.total + ' 回。</span></div>';
+      res += '<h4>弾き始めのペダル</h4><div class="pdrow">' + pedDiagram(init) + '<code class="ptext">' + esc(O.pedText(init.map(function (a) { return a == null ? 0 : a; }), CFG)) + '</code><button type="button" class="btn" data-act="ckuse">ハープに入れる</button></div>' + (init.some(function (a) { return a == null; }) ? '<p class="cap">薄い印は、この並びでは使わない弦。どの位置でもかまいません（ここでは ♮）。</p>' : '');
+      if (plan.changes.length) res += '<h4>踏み替え</h4><ul class="chg">' + plan.changes.slice().sort(function (a, b) { return a.need - b.need; }).map(function (c) {
+        return '<li><span class="when">' + stepName(c.need) + 'の前までに</span><b>' + (c.foot === 'L' ? '左足' : '右足') + '　' + esc(O.pedName(c.l, c.from, CFG)) + ' → ' + esc(O.pedName(c.l, c.to, CFG)) + '</b>' + badge(c.ok ? (c.tight ? 'care' : 'ok') : 'hard', c.ok ? (c.tight ? '忙しい' : '間に合う') : '間に合わない') + '<small>' + (c.after >= 0 ? stepName(c.after) + 'でこの弦を弾いたあとから踏める。' : 'この弦はまだ弾いていないので、早めに踏める。') + (c.ok ? '余裕は約' + Math.max(0, c.slack).toFixed(1) + '秒。' : '') + '</small></li>';
+      }).join('') + '</ul>';
+      if (plan.warns.length) res += '<ul class="issues">' + plan.warns.map(function (w) { return '<li class="lv-' + w.lv + '">' + esc(w.text) + '</li>'; }).join('') + '</ul>';
+      res += '<div class="btns"><button type="button" class="btn primary" data-act="ckplay">▶ 通して聴く</button></div>';
+      res += det('cksteps', '1音ずつの内訳（どの弦で弾くか）', '<div class="scroll-x"><table class="vt"><thead><tr><th>場所</th><th>音</th><th>弾く弦</th><th>手</th></tr></thead><tbody>' + plan.steps.map(function (o) {
+        const strs = o.step.ps.map(function (p) { const pk = o.picks.find(function (x) { return x.pc === p % 12; }); return pk ? O.fmtNote(O.midiToSp(p, { l: pk.l, a: pk.a }), CFG) : '―'; });
+        return '<tr><td>' + esc(o.step.label) + '</td><td class="n">' + esc(o.step.tok.replace(/#/g, '♯').replace(/([A-Ga-g])b/g, '$1♭').replace(/\+/g, ' ')) + '</td><td class="n">' + esc(strs.join(' ')) + '</td><td>' + esc(o.hand.text || '') + '</td></tr>';
+      }).join('') + '</tbody></table></div><p class="cap">「弾く弦」が入れた音と違う名前のときは、隣の弦で同じ高さを出しています（踏み替えを減らすため）。</p>');
+    }
+    $('#sim-p-check').innerHTML = '<div class="lead"><h2>音を並べて点検</h2><p>音の並びを入れると、弾き始めのペダルと、どこでどの足が踏み替えるかを出します。同じ高さを隣の弦で出す工夫も、自動で探します。</p></div>' +
+      '<div class="cols"><div class="col-in"><section class="card">' + seqInput('ck', ck, '空白で区切る。和音は + でつなぐ。休みは r、小節の区切りは |') +
+      (seq.errors.length ? '<ul class="issues">' + seq.errors.map(function (e) { return '<li class="lv-hard">' + esc(e) + '</li>'; }).join('') + '</ul>' : '') +
+      '<div class="f"><span>鍵盤で足す<small>中央のドが C4</small></span>' + miniPiano(ck.oct) + '</div>' +
+      '<div class="btns"><button type="button" class="btn" data-act="oct" data-d="-1"' + (ck.oct <= 1 ? ' disabled' : '') + '>◀ 低く</button><button type="button" class="btn" data-act="oct" data-d="1"' + (ck.oct >= 5 ? ' disabled' : '') + '>高く ▶</button><button type="button" class="chip" data-act="chordmode" aria-pressed="' + ck.chord + '">和音として重ねる</button><button type="button" class="btn" data-act="addtok" data-v="r">休み</button><button type="button" class="btn" data-act="addtok" data-v="|">小節線</button><button type="button" class="btn quiet" data-act="deltok">1つ消す</button></div>' +
+      '<div class="f"><span>ペダル1回にかかる時間の目安</span>' + chips('ck.tau', [[0.3, '速い（0.3秒）'], [0.5, 'ふつう（0.5秒）'], [0.8, 'ゆっくり（0.8秒）']], ck.tau, 'ペダルの時間', 'num') + '</div></section></div>' +
+      '<div class="col-out"><section class="card result">' + res + '</section></div></div>';
+  }
+
+  /* ---------- ティンパニ ---------- */
+  let tpPlan = null, tpDrums = [];
+  function renderTimp() {
+    const tp = S.tp, drums = O.DRUMS.filter(function (d) { return tp.on.indexOf(d.id) >= 0; });
+    tpDrums = drums;
+    const seq = O.parseSeq(tp.text, unitSec(tp.unit, tp.bpm)), plan = O.planTimp(seq.steps, drums, { need: tp.need, cfg: CFG });
+    tpPlan = plan;
+    const W = 340, cell = W / Math.max(4, drums.length);
+    const dsvg = '<svg class="drums" viewBox="0 0 ' + W + ' 96" role="group" aria-label="ティンパニ。叩くと鳴る">' + drums.map(function (d, k) { const r = 15 + (d.id - 20) * 1.5, cx = cell * (k + 0.5); return '<circle class="dr" data-act="drum" data-id="' + d.id + '" cx="' + cx + '" cy="42" r="' + r + '"/><text class="dn" x="' + cx + '" y="46" text-anchor="middle">' + esc(fP(tp.tune[d.id])) + '</text><text class="hl" x="' + cx + '" y="90" text-anchor="middle">' + d.id + '″</text>'; }).join('') + '</svg>';
+    const lv = plan.warns.some(function (w) { return w.lv === 'out'; }) ? 'out' : plan.warns.some(function (w) { return w.lv === 'hard'; }) ? 'hard' : 'ok';
+    let res = '';
+    if (!drums.length) res = '<p class="empty">太鼓を1台以上選んでください。</p>';
+    else if (!seq.steps.length) res = '<p class="empty">音を入れると、張り替えの段取りが出ます。</p>';
+    else {
+      res += '<div class="okline">' + badge(lv, lv === 'ok' ? 'そのまま叩ける' : lv === 'hard' ? '張り替えが忙しい' : '音域の外がある') + '<span>音の張り替えは ' + plan.changes.length + ' 回。</span></div>';
+      res += '<h4>叩き始めの音</h4><ul class="chg">' + drums.map(function (d, k) { return '<li><b>' + d.name + '</b><span class="when">' + (plan.init[k] == null ? '使わない' : esc(fP(plan.init[k]))) + '</span></li>'; }).join('') + '</ul><div class="btns"><button type="button" class="btn" data-act="tpuse">この音を太鼓に入れる</button><button type="button" class="btn primary" data-act="tpplay">▶ 通して聴く</button></div>';
+      if (plan.changes.length) res += '<h4>張り替え</h4><ul class="chg">' + plan.changes.map(function (c) { return '<li><span class="when">' + esc(seq.steps[c.i].label) + 'の前までに</span><b>' + drums[c.d].name + '　' + esc(fP(c.from)) + ' → ' + esc(fP(c.to)) + '</b>' + badge(c.ok ? 'ok' : 'hard', c.ok ? '間に合う' : '忙しい') + '<small>この太鼓を最後に叩いてから約' + (c.room > 60 ? '60秒以上' : c.room.toFixed(1) + '秒') + '。</small></li>'; }).join('') + '</ul>';
+      if (plan.warns.length) res += '<ul class="issues">' + plan.warns.map(function (w) { return '<li class="lv-' + w.lv + '">' + esc(w.text) + '</li>'; }).join('') + '</ul>';
+    }
+    $('#sim-p-timp').innerHTML = '<div class="lead"><h2>ティンパニ</h2><p>太鼓1台が出せるのは、一度に1つの音。別の音が要るときは、ペダルで張り替えます。その時間が足りるかを見ます。</p></div>' +
+      '<div class="cols"><div class="col-in"><section class="card"><h3>太鼓</h3><div class="f"><span>使う太鼓</span><div class="chips">' + O.DRUMS.map(function (d) { return '<button type="button" class="chip" data-act="drumon" data-id="' + d.id + '" aria-pressed="' + (tp.on.indexOf(d.id) >= 0) + '">' + d.id + '″</button>'; }).join('') + '</div></div>' + dsvg +
+      '<div class="tune">' + drums.map(function (d) { return '<div class="step"><span class="nm">' + d.id + '″</span><button type="button" data-act="tune" data-id="' + d.id + '" data-d="-1" aria-label="' + d.name + 'を半音下げる"' + (tp.tune[d.id] <= d.lo ? ' disabled' : '') + '>−</button><b>' + esc(fP(tp.tune[d.id])) + '</b><button type="button" data-act="tune" data-id="' + d.id + '" data-d="1" aria-label="' + d.name + 'を半音上げる"' + (tp.tune[d.id] >= d.hi ? ' disabled' : '') + '>＋</button><small>' + esc(fP(d.lo)) + '〜' + esc(fP(d.hi)) + '</small></div>'; }).join('') + '</div><p class="cap">音域は標準的な目安。楽器によって少し違います。</p></section>' +
+      '<section class="card"><h3>音を並べて点検</h3>' + seqInput('tp', tp, '空白で区切る。休みは r、小節の区切りは |') + (seq.errors.length ? '<ul class="issues">' + seq.errors.map(function (e) { return '<li class="lv-hard">' + esc(e) + '</li>'; }).join('') + '</ul>' : '') +
+      '<div class="f"><span>張り替えに欲しい時間</span>' + chips('tp.need', [[2, '2秒'], [3, '3秒'], [5, '5秒']], tp.need, '張り替えの時間', 'num') + '</div></section></div>' +
+      '<div class="col-out"><section class="card result">' + res + '</section></div></div>';
+  }
+
+  /* ---------- events ---------- */
+  const RENDER = { harp: renderHarp, gliss: renderGliss, check: renderCheck, timp: renderTimp };
+  function render() { TABS.forEach(function (t) { $('#sim-p-' + t).hidden = t !== S.tab; const b = $('#sim-tab-' + t); b.setAttribute('aria-selected', String(t === S.tab)); b.tabIndex = t === S.tab ? 0 : -1; }); RENDER[S.tab](); }
+  function go(tab, push) { if (TABS.indexOf(tab) < 0) return; S.tab = tab; save(); render();  }
+  function copy(text) { const fb = function () { toast('コピーできませんでした：' + text); }; try { navigator.clipboard.writeText(text).then(function () { toast('コピーしました：' + text); }, fb); } catch (e) { fb(); } }
+  function addTok(tok) { const ck = S.ck, parts = ck.text.trim().split(/\s+/).filter(Boolean); const last = parts[parts.length - 1]; if (ck.chord && last && /^[A-Ga-g]/.test(last) && /^[A-G]/.test(tok)) parts[parts.length - 1] = last + '+' + tok; else parts.push(tok); ck.text = parts.join(' '); save(); render(); }
+  document.addEventListener('change', function (e) {
+    const t = e.target; if (!t.closest || !t.closest('#sim-root')) return; if (!t.dataset || !t.dataset.bind) return;
+    if (t.dataset.type === 'key') { if (t.value !== 'x') { S.ped = O.keyPedals(+t.value); save(); render(); } return; }
+    setPath(t.dataset.bind, t.dataset.type === 'num' ? Number(t.value) : t.value);
+    ['ck', 'tp'].forEach(function (k) { if (!(S[k].bpm >= 30 && S[k].bpm <= 240)) S[k].bpm = 100; });
+    save(); render();
+  });
+  document.addEventListener('toggle', function (e) { const d = e.target; if (d && d.dataset && d.dataset.open) { S.open[d.dataset.open] = d.open; save(); } }, true);
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest || !e.target.closest('#sim-root')) return;
+    const b = e.target.closest('[data-act],[data-tab]'); if (!b) return;
+    if (b.dataset.tab) { go(b.dataset.tab, true); return; }
+    const a = b.dataset.act, ds = b.dataset;
+    if (a === 'set') { setPath(ds.bind, ds.type === 'num' ? Number(ds.v) : ds.v); save(); render(); }
+    else if (a === 'ped') { S.ped[+ds.l] = +ds.a; save(); render(); const s = O.HARP_STRINGS[21 + ((+ds.l + 7) % 7)]; pluck(O.stringMidi(s, S.ped)); }
+    else if (a === 'gliss') glissPlay(S.ped, ds.d === 'up');
+    else if (a === 'copy') copy(ds.text);
+    else if (a === 'gplay') glissPlay(renderGliss.list[+ds.k].ped, true);
+    else if (a === 'guse') { S.ped = renderGliss.list[+ds.k].ped.slice(); go('harp', true); toast('ペダルを入れました。弦をなぞってみてください。'); }
+    else if (a === 'ckuse') { S.ped = ckPlan.init.map(function (x) { return x == null ? 0 : x; }); go('harp', true); toast('弾き始めのペダルを入れました。'); }
+    else if (a === 'ckplay') { if (!audio()) { toast('この画面では音を出せません。'); return; } const t0 = AC.currentTime + 0.08; ckSeq.steps.forEach(function (st) { st.ps.forEach(function (p, k) { pluck(p, t0 + st.t + k * 0.012, 0.26); }); }); }
+    else if (a === 'key') { const nm = fP(+ds.m, 'sharp').replace('♯', '#'); pluck(+ds.m); addTok(nm); }
+    else if (a === 'addtok') { const keep = S.ck.chord; S.ck.chord = false; addTok(ds.v); S.ck.chord = keep; render(); }
+    else if (a === 'deltok') { const parts = S.ck.text.trim().split(/\s+/).filter(Boolean); const last = parts[parts.length - 1] || ''; if (last.indexOf('+') > 0) parts[parts.length - 1] = last.slice(0, last.lastIndexOf('+')); else parts.pop(); S.ck.text = parts.join(' '); save(); render(); }
+    else if (a === 'oct') { S.ck.oct = Math.min(5, Math.max(1, S.ck.oct + (+ds.d))); save(); render(); }
+    else if (a === 'chordmode') { S.ck.chord = !S.ck.chord; save(); render(); }
+    else if (a === 'drum') drumHit(S.tp.tune[+ds.id]);
+    else if (a === 'drumon') { const id = +ds.id, k = S.tp.on.indexOf(id); if (k >= 0) S.tp.on.splice(k, 1); else S.tp.on.push(id); save(); render(); }
+    else if (a === 'tune') { const d = O.DRUMS.find(function (x) { return x.id === +ds.id; }); S.tp.tune[d.id] = Math.min(d.hi, Math.max(d.lo, S.tp.tune[d.id] + (+ds.d))); save(); render(); drumHit(S.tp.tune[d.id]); }
+    else if (a === 'tpuse') { tpDrums.forEach(function (d, k) { if (tpPlan.init[k] != null) S.tp.tune[d.id] = tpPlan.init[k]; }); save(); render(); toast('叩き始めの音を太鼓に入れました。'); }
+    else if (a === 'tpplay') { if (!audio()) { toast('この画面では音を出せません。'); return; } const t0 = AC.currentTime + 0.08; tpPlan.steps.forEach(function (o) { drumHit(o.step.ps[0], t0 + o.step.t); }); }
+  });
+  /* strings: tap or sweep */
+  let sweeping = false, lastGi = -1;
+  function strAt(ev) { const svg = $('#sim-harp'); if (!svg) return -1; const r = svg.getBoundingClientRect(), g = harpGeom(), vx = (ev.clientX - r.left) / r.width * g.W; return Math.min(g.z[1], Math.max(g.z[0], Math.round((vx - 12) / g.gap) + g.z[0])); }
+  document.addEventListener('pointerdown', function (e) { if (!e.target.closest || !e.target.closest('#sim-harp-pad')) return; e.preventDefault(); sweeping = true; lastGi = strAt(e); pluckString(lastGi, 0); try { e.target.setPointerCapture(e.pointerId); } catch (x) { /* ignore */ } });
+  document.addEventListener('pointermove', function (e) { if (!sweeping) return; const gi = strAt(e); if (gi < 0 || gi === lastGi) return; const d = gi > lastGi ? 1 : -1; let k = 0; for (let i = lastGi + d; i !== gi + d; i += d) pluckString(i, (k++) * 0.012); lastGi = gi; });
+  ['pointerup', 'pointercancel'].forEach(function (n) { document.addEventListener(n, function () { sweeping = false; }); });
+  document.addEventListener('keydown', function (e) { if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return; if (!e.target.closest || !e.target.closest('#sim-root')) return; const b = e.target.closest('[role="tab"]'); if (!b) return; const k = TABS.indexOf(S.tab), nx = TABS[(k + (e.key === 'ArrowRight' ? 1 : TABS.length - 1)) % TABS.length]; go(nx, true); $('#sim-tab-' + nx).focus(); });
+  /* volume slider: 試奏台の音の出口（masterゲイン）の音量。初期値はページの他の試聴音源と同じ50% */
+  const volEl = document.getElementById('sim-vol'), volVal = document.getElementById('sim-vol-val');
+  if (volEl) volEl.addEventListener('input', function () {
+    simVol = volEl.value / 100;
+    if (volVal) volVal.textContent = volEl.value + '%';
+    if (master && AC) master.gain.setTargetAtTime(simVol, AC.currentTime, 0.02);
+  });
+  load();
+  render();
+  O.sim = { S: S, render: render, go: go };
+})();
+    </script>
+
+<script>
+  /* 試奏台の入口ボタン：このページの中で試奏台を開く */
+  document.querySelectorAll("[data-sim-open]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var t = b.getAttribute("data-sim-open");
+      if (window.Orch && Orch.sim && Orch.sim.go) Orch.sim.go(t, false);
+      var el = document.getElementById("sim-root");
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  });
+</script>
+  </body>
+</html>

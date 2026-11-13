@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:,">
+<title>Dots更新（2026-11-13）調査</title>
+<style>
+:root{
+  --bg:#f4f5f3; --surface:#ffffff; --surface2:#eef1ee; --ink:#171a18; --ink2:#4a524d; --muted:#6b756e;
+  --line:#d9ded9; --teal:#0d6b5e; --teal-bg:#e3f0ec; --amber:#9a6a00; --amber-bg:#fdf0c9; --red:#b42318; --red-bg:#fdecea;
+  --blue:#1d4f91; --blue-bg:#e6eef8; --radius:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#121513; --surface:#1c201d; --surface2:#242824; --ink:#eef1ee; --ink2:#c3cbc5; --muted:#98a29b; --line:#333a35; --teal:#5ec2b0; --teal-bg:#17352f; --amber:#e8bc4a; --amber-bg:#3a2f0f; --red:#ff8a7a; --red-bg:#3d1e1a; --blue:#8db4e8; --blue-bg:#1d2f47; }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic UI","Yu Gothic",Meiryo,system-ui,sans-serif;line-height:1.75;font-size:16px}
+a{color:var(--teal);text-decoration-thickness:1px;text-underline-offset:3px;word-break:break-all}
+a:hover{text-decoration-thickness:2px}
+.wrap{max-width:940px;margin:0 auto;padding:0 18px 64px}
+.top{padding:34px 0 8px}
+.kicker{font-size:13px;letter-spacing:.08em;color:var(--teal);font-weight:700}
+h1{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,serif;font-size:clamp(28px,5.5vw,42px);line-height:1.3;margin:10px 0 12px;font-weight:700}
+.lede{font-size:17px;color:var(--ink2);max-width:720px;margin:0}
+.meta{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;font-size:13px;color:var(--muted)}
+.meta span{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 11px}
+.verdict{margin:26px 0 8px;background:var(--ink);color:#f2f4f2;border-radius:18px;padding:24px 24px 20px}
+@media (prefers-color-scheme: dark){ .verdict{background:#e9ede9;color:#171a18} }
+.verdict h2{margin:0 0 6px;font-size:15px;letter-spacing:.06em}
+.verdict .big{font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:clamp(20px,3.6vw,26px);line-height:1.5;margin:0 0 14px;font-weight:700}
+.verdict ul{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+.verdict li{display:flex;gap:10px;font-size:15px;line-height:1.65}
+.verdict li b{flex-shrink:0}
+.num{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:var(--teal);color:#fff;font-size:13px;font-weight:700;flex-shrink:0;margin-top:2px}
+section{margin-top:44px}
+.sec-head{display:flex;align-items:baseline;gap:12px;border-bottom:2px solid var(--ink);padding-bottom:8px;margin-bottom:18px}
+.sec-head h2{font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:24px;margin:0;line-height:1.4}
+.sec-head .tag{font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.tag-fact{background:var(--teal-bg);color:var(--teal)}
+.tag-voice{background:var(--amber-bg);color:var(--amber)}
+.tag-unknown{background:var(--surface2);color:var(--muted)}
+p{margin:0 0 14px}
+.note{font-size:14px;color:var(--ink2)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin-bottom:14px}
+.card h3{margin:0 0 8px;font-size:17px;line-height:1.5}
+blockquote{margin:12px 0;padding:14px 16px;background:var(--surface2);border-radius:10px;font-size:15px;line-height:1.7}
+blockquote p{margin:0}
+.src{font-size:13px;color:var(--muted);margin-top:10px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:640px){.grid2{grid-template-columns:1fr}}
+.pillars{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0}
+@media(max-width:760px){.pillars{grid-template-columns:1fr 1fr}}
+.pillar{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--teal);border-radius:10px;padding:14px}
+.pillar .ic{font-size:20px}
+.pillar strong{display:block;font-size:15px;margin:4px 0 2px}
+.pillar span{font-size:13px;color:var(--ink2);line-height:1.55;display:block}
+table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;font-size:14.5px}
+th,td{text-align:left;vertical-align:top;padding:12px 14px;border-bottom:1px solid var(--line)}
+th{background:var(--surface2);font-size:13px;letter-spacing:.03em}
+tr:last-child td{border-bottom:none}
+.badge{display:inline-block;font-size:12px;font-weight:700;padding:2px 9px;border-radius:999px;white-space:nowrap}
+.b-live{background:var(--red-bg);color:var(--red)}
+.b-done{background:var(--teal-bg);color:var(--teal)}
+.b-info{background:var(--blue-bg);color:var(--blue)}
+.timeline{margin:18px 0 6px}
+.tl-item{display:grid;grid-template-columns:118px 18px 1fr;gap:0 10px}
+.tl-time{font-size:13px;color:var(--muted);text-align:right;padding-top:2px;line-height:1.5}
+.tl-dot{position:relative}
+.tl-dot::before{content:"";position:absolute;left:8px;top:8px;width:9px;height:9px;border-radius:50%;background:var(--teal)}
+.tl-dot::after{content:"";position:absolute;left:12px;top:22px;bottom:-6px;width:1px;background:var(--line)}
+.tl-item:last-child .tl-dot::after{display:none}
+.tl-body{padding-bottom:18px}
+.tl-body strong{font-size:15px}
+.tl-body p{font-size:14px;color:var(--ink2);margin:2px 0 0}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
+.filters button{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:9px 16px;font-size:14px;cursor:pointer;min-height:38px;font-family:inherit}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.voice{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;margin-bottom:10px}
+.voice .vhead{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:6px}
+.voice time{font-size:13px;color:var(--muted);font-weight:700}
+.voice .medium{font-size:12px;font-weight:700;background:var(--surface2);border-radius:999px;padding:2px 9px}
+.voice p{margin:0;font-size:15px}
+.voice .src{margin-top:8px}
+.callout{border-radius:var(--radius);padding:18px 20px;margin:16px 0}
+.callout-warn{background:var(--amber-bg)}
+.callout-red{background:var(--red-bg)}
+.callout h3{margin:0 0 6px;font-size:16px}
+.callout p{margin:0;font-size:15px}
+ul.tight{margin:0 0 14px;padding-left:1.3em}
+ul.tight li{margin-bottom:6px}
+details{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:4px 18px;margin-bottom:10px}
+summary{cursor:pointer;font-weight:700;padding:12px 0;min-height:44px;display:flex;align-items:center}
+details .inner{padding-bottom:16px;font-size:15px}
+.sources{font-size:13.5px}
+.sources li{margin-bottom:8px}
+footer{margin-top:52px;border-top:1px solid var(--line);padding-top:16px;font-size:13px;color:var(--muted)}
+.hidden{display:none !important}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div class="kicker">調査報告書 ｜ 2026年11月13日実施</div>
+  <h1>Dotsに今日入った更新と<br>「賢さが減った」感の裏取り</h1>
+  <p class="lede">「今日Dotsに更新があって、明らかに賢さが減って、機能も使えなくなった気がする」——その感覚を、公式ステータス・公式発表・X／Threads／フォーラムの生の声で確かめた結果です。結論を先に言うと、<strong>モデル変更の発表はなく、「アップデート後に急に賢くなくなった」という投稿のまとまりも確認できませんでした</strong>。一方で、機能が使えない状態については、公式障害と一致するものが実際にありました。</p>
+  <div class="meta">
+    <span>対象期間：2026年11月12日〜13日（JST）</span>
+    <span>ステータス確認：11月13日 12:55頃</span>
+    <span>認否の確認時点：11月13日 13:00</span>
+  </div>
+</header>
+
+<div class="verdict">
+  <h2>結論 — 4点</h2>
+  <p class="big">「賢さが減った」裏付けは見つからず。<br>「機能が使えない」は一部、公式障害どおりだった。</p>
+  <ul>
+    <li><span class="num">1</span><span><b>モデル変更は発表されていない。</b>今日の更新の公式な中身は「速く・専門用語少なく・フォロースルー改善」と、カスタム指示への対応だけです。</span></li>
+    <li><span class="num">2</span><span><b>「急に頭が悪くなった」という声のまとまりは確認できず。</b>英語・日本語で X、Reddit、Threads、Instagram、フォーラムを探した範囲では該当なし。日本語の同趣旨の投稿も見つかりませんでした。</span></li>
+    <li><span class="num">3</span><span><b>ただし障害は本当に起きていた。</b>11月13日 03:29開始の Microsoft 365 コネクタ障害が調査時点で進行中。「ツールが期待通り動かない」という公式文面は、まさに「機能が使えない」状態です。</span></li>
+    <li><span class="num">4</span><span><b>OpenAIは品質低下を認めていない。</b>承認・修正発表・ロールバックは、13:00時点で確認できませんでした。</span></li>
+  </ul>
+</div>
+
+<p class="note">このページでは、出典の確かさで3つに分けて書いています。<span class="badge b-done">公式に確認できた事実</span> は公式ページを直接開いて確かめたもの、<span class="badge b-live" style="background:var(--amber-bg);color:var(--amber)">利用者報告</span> は未検証の声、<span class="badge b-info">未確認</span> は分からなかったことです。混ぜて読まないでください。</p>
+
+<!-- 1. Update -->
+<section id="update">
+  <div class="sec-head"><h2>1. 今日のアップデートの中身</h2><span class="tag tag-fact">公式に確認できた事実</span></div>
+  <p>「今日のアップデート」の実体は、日本時間11月13日未明（UTC 11月12日）に発表された、Dotsの挙動改善とカスタム指示への対応でした。公式が「変わった」と言っているのは次の4点です。</p>
+
+  <div class="pillars">
+    <div class="pillar"><div class="ic" aria-hidden="true">⚡</div><strong>応答が速く</strong><span>Faster replies。ただし数値やベンチマークは提示なし</span></div>
+    <div class="pillar"><div class="ic" aria-hidden="true">💬</div><strong>専門用語が減る</strong><span>Less jargon</span></div>
+    <div class="pillar"><div class="ic" aria-hidden="true">🫡</div><strong>フォロースルー改善</strong><span>Better follow-through＝指示の完遂が良くなった、という公式の主張</span></div>
+    <div class="pillar"><div class="ic" aria-hidden="true">⚙️</div><strong>カスタム指示に対応</strong><span>dotが custom instructions に従えるように。設定は Customize &gt; Behavior（モバイル）／dotのメニュー（Web・デスクトップ）</span></div>
+  </div>
+
+  <div class="card">
+    <h3>@ChatGPT 公式X投稿（11月13日 05:04 JST）</h3>
+    <blockquote><p>“Your dot now has… ⚡️ Faster replies 💬 Less jargon 🫡 Better follow-through. And, they can now follow your custom instructions. Tell your dot in the thread things like how to behave or which actions need your go-ahead. ‘always talk in lowercase.’ ‘Show me a draft before sending any emails.’ You can also set custom instructions and rules in Customize &gt; Behavior on mobile, or through your dot's menu on web and desktop.”</p></blockquote>
+    <p class="src">Tibo投稿内の引用埋め込みで本文を実地確認し、全文と投稿時刻は二次ソース2件（<a href="https://cellcog.ai/blog/openai-dots/">CellCog</a>／<a href="https://codexresets.com/">Codex Resets</a>）で照合。公式投稿単独のURL（status ID）は取得できませんでした。「速くなった」等に数値目標がない点は二次分析（CellCog）も指摘しています。</p>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>Tibo（@thsottiaux）の投稿</h3>
+      <p>ChatGPT／Codex責任者のTiboは11月13日 06:59 JSTにこう投稿しました。</p>
+      <blockquote><p>“We shipped some good updates to dots today and the banked reset has been activated and should land in everyones accounts sometime soon!”</p></blockquote>
+      <p class="note">ここで言う <em>banked reset</em> は Codex／ChatGPT Work の<strong>利用上限のリセット</strong>の発動で、モデル変更ではありません。</p>
+      <p class="src">出典：<a href="https://x.com/thsottiaux/status/2120999993079451919">x.com/thsottiaux/status/2120999993079451919</a>（実地確認）</p>
+    </div>
+    <div class="card">
+      <h3>公式「What's New」では1件だけ</h3>
+      <p>ChatGPT Learn の公式 What's New で、11月9–13日の週に載った項目は <strong>“Set custom instructions for your dot”</strong> の1件のみ。「高速化／専門用語削減／フォロースルー」にも、モデル変更にも触れていません。</p>
+      <p class="src">出典：<a href="https://learn.chatgpt.com/docs/whats-new#november-913-2026">learn.chatgpt.com/docs/whats-new</a>（実地確認）</p>
+      <h3 style="margin-top:18px">直近のモデル変更は11月3日</h3>
+      <p>Dotsを動かすモデルの直近の変更は2026年11月3日の GPT-6.1 Terra 追加（GPT-6 Astra とのファミリー構成）で、今回の発表には新しいモデル名も差し替えも含まれていません。</p>
+      <p class="src">出典：OpenAI公式「Introducing dots」 <a href="https://openai.com/index/introducing-dots/">openai.com/index/introducing-dots</a>（<a href="https://openai.com/ja-JP/index/introducing-dots/">日本語版</a>）</p>
+    </div>
+  </div>
+
+  <div class="callout callout-warn">
+    <h3>ここが「賢さが減った」感とつながりうる所</h3>
+    <p>公式はモデルに一切触れていません。なので「速くなった」の裏側で非公表のモデル変更や提供方法の変更があったかどうかは、<strong>公式情報からは確認できません</strong>（未確認）。逆に、公式に言える範囲では「応答の速さと口調（専門用語の量）をいじった更新」であり、速さ優先の調整が体感の「賢さ」に影響した可能性は、仮説としては残ります。ただしそれを裏付ける投稿のまとまりや測定は、今回見つかりませんでした。</p>
+  </div>
+</section>
+
+<!-- 2. Status -->
+<section id="status">
+  <div class="sec-head"><h2>2. 公式ステータス — 11月12〜13日の障害は4件</h2><span class="tag tag-fact">公式に確認できた事実</span></div>
+  <p>status.openai.com を11月13日 12:55頃に直接開いて確認しました（時刻はすべてJST）。「Dots」をタイトルに含む障害はこの期間には<strong>存在しません</strong>。dots の名前が本文に出るのは、11月12日早朝の約9分間のログイン系障害だけです。</p>
+
+  <div class="timeline" role="img" aria-label="障害の時系列：11月12日5時43分にログイン障害、7時50分にWorkspace Agent障害、17時52分に画像モデル障害、11月13日3時29分にMicrosoft 365コネクタ障害が始まり進行中">
+    <div class="tl-item"><div class="tl-time">11/12 05:43<br>〜05:52</div><div class="tl-dot"></div><div class="tl-body"><strong>ログイン・サインアップ・ChatGPT機能のエラー増</strong> <span class="badge b-done">解決済・約9分</span><p>調査文が対象に “logins, signups, work mode, <b>dots</b>, sites, and spaces” と明記。期間内で dots に言及した唯一の incident。</p></div></div>
+    <div class="tl-item"><div class="tl-time">11/12 07:50<br>〜17:32</div><div class="tl-dot"></div><div class="tl-body"><strong>Workspace Agent の新規実行が開始できない</strong> <span class="badge b-done">解決済・9時間42分</span><p>Full outage（全面障害）分類。影響は ChatGPT の Agent コンポーネント。</p></div></div>
+    <div class="tl-item"><div class="tl-time">11/12 17:52<br>〜18:25頃</div><div class="tl-dot"></div><div class="tl-body"><strong>GPT-image-2.5 / 2.6 の高エラー率</strong> <span class="badge b-done">解決済・約33分</span><p>画像モデルの障害。Dotsとは無関係。</p></div></div>
+    <div class="tl-item"><div class="tl-time">11/13 03:29<br>開始</div><div class="tl-dot"></div><div class="tl-body"><strong>Microsoft 365 コネクタのエラー増</strong> <span class="badge b-live">進行中（調査時点）</span><p>新規接続が壊れ、ツールが期待通り動かない。影響は ChatGPT の Connectors / Apps。</p></div></div>
+  </div>
+
+  <table>
+    <thead><tr><th style="width:34%">タイトル</th><th>状態</th><th>出典</th></tr></thead>
+    <tbody>
+      <tr><td>Elevated errors affecting the Microsoft 365 connector</td><td><span class="badge b-live">進行中</span><br><span class="note">Investigating / 性能低下。タイトル・本文とも Dots 固有の障害とはされていない</span></td><td><a href="https://status.openai.com/incidents/01M78GAT3AK9P9W8Z230KHFVE8">status.openai.com</a></td></tr>
+      <tr><td>Elevated errors affecting logins, sign-ups, and ChatGPT features</td><td><span class="badge b-done">解決済</span><br><span class="note">影響コンポーネントに Login、ChatGPT Work、dots、Sites、Space</span></td><td><a href="https://status.openai.com/incidents/01M765MJQK7F85SC82RMTYN0V3">status.openai.com</a></td></tr>
+      <tr><td>Unable to start new Workspace Agent runs</td><td><span class="badge b-done">解決済</span></td><td><a href="https://status.openai.com/incidents/01M76CW2D7FM7K7F8NJ4W0G08N">status.openai.com</a></td></tr>
+      <tr><td>GPT-image-2.5 and 2.6 Sunburst &amp; Flare High error rate</td><td><span class="badge b-done">解決済</span></td><td><a href="https://status.openai.com/history">status.openai.com/history</a></td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout callout-red">
+    <h3>進行中の障害について、混同しやすい点</h3>
+    <p>Microsoft 365 コネクタ障害について、OpenAI公式は原因を特定・公表していません（“investigating” のまま）。「原因は Microsoft 365 側」と特定して公表したのは <strong>Anthropic側</strong> で、両社を混同した集約サイトがあります。同時刻帯に Microsoft 365 自体の大規模障害があり、ChatGPTとClaude両方のコネクタが影響を受けたと ITmedia AI+（11月13日 09:01）が報じています。</p>
+    <p class="src" style="margin-top:8px">出典：<a href="https://www.itmedia.co.jp/aiplus/article/2611/13/2000003164/">ITmedia AI+</a>／対応差の解説：<a href="https://ainformation.jp/article/19173">AInformation（11月13日 10:24時点の確認記事）</a></p>
+  </div>
+  <p class="note">なお Workspace Agent 障害の解決時刻は、二次ソース AInformation が「19:21・約11時間31分」と書いており公式（17:32・9時間42分）と食い違います。このページでは一次情報である公式ページの値を採用しました。出典：<a href="https://ainformation.jp/article/19039">ainformation.jp/article/19039</a></p>
+</section>
+
+<!-- 3. Voices -->
+<section id="voices">
+  <div class="sec-head"><h2>3. 利用者の生の声</h2><span class="tag tag-voice">利用者報告 — 未検証</span></div>
+
+  <div class="callout callout-warn">
+    <h3>まず大事な前提：「賢くなくなった」という声の波は、なかった</h3>
+    <p>X、Reddit、Threads、Instagram、フォーラムを英語・日本語で探した範囲では、<strong>「11月12日のアップデートを境に急に賢くなくなった」という投稿のまとまりは確認できませんでした</strong>。日本語の同趣旨の投稿も見つからず、Instagram上の Dots 固有の不具合投稿も確認できませんでした。Tiboの投稿への日本語圏の反応も、感謝や「待っていた」が中心で、品質低下の指摘は目立たなかったとのことです。ただし X は未ログイン状態では全件検索できないため、「存在しない」とまでは言い切れません。</p>
+    <p class="src" style="margin-top:8px">日本語反応のまとめ：<a href="https://search.yahoo.co.jp/realtime/search/matome/post/001-7e16fa1756bab773c61448a3?rkf=1&ifr=matome_matometl">Yahoo! リアルタイム検索まとめ</a></p>
+  </div>
+
+  <p>確認できたのは次の3種類です — (a) 10月から続く Dots 不具合スレッドへの 11月12–13日の新規書き込み、(b) 公式障害と一致する機能不全、(c) むしろ「軽くなった」という逆方向の報告1件。絞り込みできます。</p>
+
+  <div class="filters" role="group" aria-label="声の絞り込み">
+    <button type="button" data-filter="all" aria-pressed="true">すべて（10件）</button>
+    <button type="button" data-filter="bug" aria-pressed="false">機能の不具合</button>
+    <button type="button" data-filter="official" aria-pressed="false">公式障害と一致</button>
+    <button type="button" data-filter="better" aria-pressed="false">改善を感じた声</button>
+  </div>
+
+  <div id="voiceList">
+    <article class="voice" data-cat="bug">
+      <div class="vhead"><time>11月13日 10:22（最新書込）</time><span class="medium">OpenAI Developer Community</span></div>
+      <p><strong>クラウドブラウザがブロックされたまま。</strong>手動サインインを終えても dot のクラウドブラウザが <em>credential_observation_restricted</em> 等でブロックされ、タスクを再開できない。11月13日に OpenAI サポートが「まだ起きているか」と応答。投稿者は11月12日夕方の再テストで一部解消したものの「元の問題が直った証拠ではない」とし、パスキーの別問題も提起しています。スレッド自体は10月5–6日作成の継続案件です。</p>
+      <p class="src"><a href="https://community.openai.com/t/dot-cloud-browser-stays-blocked-after-completed-manual-sign-in/1403535">community.openai.com/t/…/1403535</a></p>
+    </article>
+
+    <article class="voice" data-cat="bug">
+      <div class="vhead"><time>11月13日 04:26（最新書込）</time><span class="medium">OpenAI Developer Community</span></div>
+      <p><strong>Dotを消したら作り直せない。</strong>既存の Dot を削除したあと、新規作成が “Failed to load your dot” で不可能に。複数の利用者が同じ症状を報告。サポートは問題を認識しているが明確な解決策はない、という利用者談があります（解決策マーク付き）。スレッド作成は10月8日。</p>
+      <p class="src"><a href="https://community.openai.com/t/unable-to-create-a-new-dot-after-deleting-the-previous-one-failed-to-load-your-dot/1404348">community.openai.com/t/…/1404348</a></p>
+    </article>
+
+    <article class="voice" data-cat="bug">
+      <div class="vhead"><time>11月13日 03:05（最新書込）</time><span class="medium">OpenAI Developer Community</span></div>
+      <p><strong>音声通話で自分の名前を認識しない。</strong>Dot の音声通話開始時に、保存済みの自分の名前を認識しないという報告。</p>
+      <p class="src">一覧：<a href="https://community.openai.com/c/chatgpt/dots/47/l/latest">community.openai.com/c/chatgpt/dots</a></p>
+    </article>
+
+    <article class="voice" data-cat="bug">
+      <div class="vhead"><time>11月12日 23:51（最新書込）</time><span class="medium">OpenAI Developer Community</span></div>
+      <p><strong>音声通話中に画面が自動ロック。</strong>iPhone 15 で dot の音声通話中に画面が自動ロックされるという報告。</p>
+      <p class="src">一覧：<a href="https://community.openai.com/c/chatgpt/dots/47/l/latest">community.openai.com/c/chatgpt/dots</a></p>
+    </article>
+
+    <article class="voice" data-cat="bug">
+      <div class="vhead"><time>11月12日 23:19（最新書込・スレッド閉鎖）</time><span class="medium">OpenAI Developer Community</span></div>
+      <p><strong>Slackで改名・再追加するとエラー。</strong>Slack上で Dot を改名・再追加しようとすると Internal Server Error で追加できない。スレッド作成は10月7日。</p>
+      <p class="src"><a href="https://community.openai.com/t/dots-broken-when-trying-to-rename-on-slack-internal-server-error/1404100">community.openai.com/t/…/1404100</a></p>
+    </article>
+
+    <article class="voice" data-cat="bug">
+      <div class="vhead"><time>11月12日 04:08（最新書込）</time><span class="medium">OpenAI Developer Community</span></div>
+      <p><strong>“Dots takeover issue”。</strong>全プラットフォームでの引き継ぎ（takeover）問題の報告。</p>
+      <p class="src">一覧：<a href="https://community.openai.com/c/chatgpt/dots/47/l/latest">community.openai.com/c/chatgpt/dots</a></p>
+    </article>
+
+    <article class="voice" data-cat="bug">
+      <div class="vhead"><time>11月12日 02:34（最新書込）</time><span class="medium">OpenAI Developer Community</span></div>
+      <p><strong>“Dots connection error occur”。</strong>Dots の接続エラーの報告。</p>
+      <p class="src">一覧：<a href="https://community.openai.com/c/chatgpt/dots/47/l/latest">community.openai.com/c/chatgpt/dots</a></p>
+    </article>
+
+    <article class="voice" data-cat="bug">
+      <div class="vhead"><time>11月12日 00:44（最新書込）</time><span class="medium">OpenAI Developer Community</span></div>
+      <p><strong>音声通話の応答が止まる。</strong>Dot の音声通話は接続するが応答が止まり、回答がテキストで届くという報告。</p>
+      <p class="src">一覧：<a href="https://community.openai.com/c/chatgpt/dots/47/l/latest">community.openai.com/c/chatgpt/dots</a></p>
+    </article>
+
+    <article class="voice" data-cat="official">
+      <div class="vhead"><time>11月13日</time><span class="medium">Threads（日本語）</span><span class="badge b-info">公式障害と一致</span></div>
+      <p><strong>Microsoft 365 コネクタが使えない。</strong>@7.17717 が、M365コネクタ障害（11月13日 03:29開始）の報告を投稿。新規接続が失敗しツールが正常に動作しない——第2節の進行中 incident と一致する機能不全です。</p>
+      <p class="src"><a href="https://www.threads.com/@7.17717/post/DfqFOgKE5yR">threads.com/@7.17717/post/DfqFOgKE5yR</a></p>
+    </article>
+
+    <article class="voice" data-cat="better">
+      <div class="vhead"><time>11月13日 追記</time><span class="medium">dev.to（日本語著者 moruku36）</span><span class="badge b-done">逆方向の報告</span></div>
+      <p><strong>「明らかに軽くなった」という逆の声。</strong>Windowsで長大な Dots 会話が重くなる問題を追っていた著者が、11月13日のアップデート後に「インターフェースが明らかに軽くなった」と追記。ただし長文会話の鈍化が解消したかは未確認・未測定の印象だと、本人が明記しています。</p>
+      <p class="src"><a href="https://dev.to/moruku36/observing-a-slowdown-when-long-conversations-with-my-ai-agent-get-heavy-on-windows-1170">dev.to/moruku36/…</a></p>
+    </article>
+  </div>
+  <p class="note" id="filterNote">※ フォーラムのスレッドは大半が10月作成で、日時は最新の書き込み日時です。新規に発生した不具合とは限りません。このほか11月12日には “Missing dot activity indicators and task handover controls on Mac”（11月12日 04:03作成）など、Dotsの不具合報告が継続的に投稿されていることも、カテゴリ一覧で確認できました。</p>
+
+  <details>
+    <summary>参考：対象期間「以前」の品質低下の不満（今回の更新の話ではありません）</summary>
+    <div class="inner">
+      <p>「ChatGPTが賢くなくなった」という不満自体は、今回の更新より前からありました。混同しないための文脈として置きます。</p>
+      <ul class="tight">
+        <li>11月6日頃にまとめられた r/ChatGPT の不満の波：コード品質の低下、文脈の忘却、過剰な訂正、延々と続く確認質問など（11月11日のスレッドを含む）。出典：<a href="https://aibriefs.news/card/89f26529-0509-4429-900b-9da5d989abdd">AI Briefs</a></li>
+        <li>11月7日の Reddit 利用者報告：3週間で品質が低下し GPT-6 Extra High がローカルモデル以下になった等。出典：<a href="https://agihunt.info/en/p/1a1b6281243ff66d4d281488c86">AGI Hunt</a></li>
+        <li>11月8日の Community スレッド “My ChatGPT is acting weird — Has ChatGPT been changed or downgraded recently?”（長編執筆で指示・文体を忘れる）。出典：<a href="https://community.openai.com/t/my-chatgpt-is-acting-weird/1414065">community.openai.com/t/…/1414065</a></li>
+        <li>反証材料：第三者のベンチマーク追跡では、直近24時間で対象9モデルに性能ドリフトは検出されていないと表示。出典：<a href="https://aistupidlevel.info/is-chatgpt-getting-worse">AI Stupid Level</a></li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<!-- 4. Official response -->
+<section id="response">
+  <div class="sec-head"><h2>4. 公式の認否と対応</h2><span class="tag tag-fact">公式に確認できた事実</span></div>
+  <div class="card">
+    <h3>品質低下への承認・修正・ロールバックは「なし」</h3>
+    <p>ステータスページ、What's New、@ChatGPT／@thsottiaux の投稿、Community を確認した範囲で、<strong>品質低下についての承認、修正発表、ロールバックは存在しませんでした</strong>（11月13日 13:00時点）。</p>
+    <p>公式対応として実在するのは次の3つだけです。</p>
+    <ul class="tight">
+      <li>11月12日分の incident 3件についての解決宣言（「影響を受けたサービスは正常に復旧」旨）</li>
+      <li>Microsoft 365 コネクタ incident は調査継続中で、OpenAIは原因を特定・公表していない</li>
+      <li>Community の既存スレッド（クラウドブラウザの件）に11月13日、OpenAI_Support が返信し、トラブルシューティングガイドの参照と、アプリ版・エラー・時刻を添えたサポートケース作成を依頼した。これは<strong>アップデート起因の不具合の承認ではなく</strong>、通常のサポート対応です</li>
+    </ul>
+    <p class="note">Tibo投稿の “banked reset”（利用上限リセット）も、公式には劣化への補償とは位置づけられておらず、品質問題への対応として発表されたものではありません。</p>
+  </div>
+
+  <div class="card">
+    <h3>スペ自身の体感は、どう位置づけるか</h3>
+    <p>今回の調査で言えるのはここまでです。「モデルが差し替わった」「みんなが賢さの低下を訴えている」「OpenAIが認めた」——この3つは、いずれも裏付けが取れませんでした。一方で、同時期にコネクタ障害（進行中）とログイン系障害が実在し、Dotsの不具合スレッドも活発に動いていたので、「機能が使えない」という体感には、障害側の説明がつく部分があります。「賢さ」の方は、公式発表の範囲では口調と速度の調整しか確認できず、非公表の変更があったかどうかは未確認のまま残ります。</p>
+  </div>
+</section>
+
+<!-- 5. Unknown -->
+<section id="unknown">
+  <div class="sec-head"><h2>5. 未確認事項</h2><span class="tag tag-unknown">未確認</span></div>
+  <ul class="tight">
+    <li><strong>@ChatGPT 公式投稿の単独URL</strong>は取得できなかった。本文はTibo投稿内の引用埋め込みで実地確認し、全文・時刻は二次ソース2件で照合した。</li>
+    <li><strong>日本語の「頭が悪くなった」趣旨の投稿の有無</strong>：日本語検索では該当なし。ただし未ログインのX検索は網羅的でないため「存在しない」とは断言できない。</li>
+    <li><strong>Workspace Agent 障害の解決時刻</strong>は二次ソース（19:21）と公式（17:32）で食い違う。公式を採用したが、集約側の集計基準の違いの可能性は残る。</li>
+    <li><strong>「Faster replies」の技術的実体</strong>（モデル／推論基盤の非公表変更の有無）は公式未発表のため未確認。</li>
+    <li><strong>Instagram 上の Dots 固有の不具合投稿</strong>は、検索範囲では確認できなかった。</li>
+    <li><strong>OpenAIが社内で問題を認識しているか</strong>、追加修正を予定しているかは、公開情報からは確認できない。</li>
+  </ul>
+</section>
+
+<section id="sources">
+  <div class="sec-head"><h2>出典</h2></div>
+  <p class="note">一次（公式）— 実地確認したもの</p>
+  <ul class="tight sources">
+    <li>OpenAI Status — M365コネクタ incident：<a href="https://status.openai.com/incidents/01M78GAT3AK9P9W8Z230KHFVE8">status.openai.com/incidents/01M78GAT3AK9P9W8Z230KHFVE8</a></li>
+    <li>OpenAI Status — ログイン incident（dots明記）：<a href="https://status.openai.com/incidents/01M765MJQK7F85SC82RMTYN0V3">status.openai.com/incidents/01M765MJQK7F85SC82RMTYN0V3</a></li>
+    <li>OpenAI Status — Workspace Agent incident：<a href="https://status.openai.com/incidents/01M76CW2D7FM7K7F8NJ4W0G08N">status.openai.com/incidents/01M76CW2D7FM7K7F8NJ4W0G08N</a></li>
+    <li>OpenAI Status — History：<a href="https://status.openai.com/history">status.openai.com/history</a></li>
+    <li>Tibo Sottiaux X投稿（11月13日 06:59 JST）：<a href="https://x.com/thsottiaux/status/2120999993079451919">x.com/thsottiaux/status/2120999993079451919</a></li>
+    <li>ChatGPT Learn — What's New：<a href="https://learn.chatgpt.com/docs/whats-new#november-913-2026">learn.chatgpt.com/docs/whats-new#november-913-2026</a></li>
+    <li>Developer Community — Dotsカテゴリ一覧：<a href="https://community.openai.com/c/chatgpt/dots/47/l/latest">community.openai.com/c/chatgpt/dots/47/l/latest</a></li>
+  </ul>
+  <p class="note">一次（公式）— 検索経由で確認したもの</p>
+  <ul class="tight sources">
+    <li>OpenAI「Introducing dots」：<a href="https://openai.com/index/introducing-dots/">openai.com/index/introducing-dots</a>（<a href="https://openai.com/ja-JP/index/introducing-dots/">日本語版</a>）</li>
+    <li>Help Center — Enterprise/Edu リリースノート：<a href="https://help.openai.com/en/articles/10128477-chatgpt-enterprise-edu-release-notes-0">help.openai.com/en/articles/10128477…</a></li>
+  </ul>
+  <p class="note">二次・利用者投稿</p>
+  <ul class="tight sources">
+    <li>ITmedia AI+（11月13日）：<a href="https://www.itmedia.co.jp/aiplus/article/2611/13/2000003164/">itmedia.co.jp/aiplus/article/2611/13/2000003164</a></li>
+    <li>AInformation（M365障害）：<a href="https://ainformation.jp/article/19173">ainformation.jp/article/19173</a>／（Workspace Agent障害）：<a href="https://ainformation.jp/article/19039">ainformation.jp/article/19039</a></li>
+    <li>meNext（ログイン障害の日本語報道）：<a href="https://menext.jp/news/chatgpt-login-outage-work-dots-sites">menext.jp/news/chatgpt-login-outage-work-dots-sites</a></li>
+    <li>CellCog（@ChatGPT投稿全文と分析）：<a href="https://cellcog.ai/blog/openai-dots/">cellcog.ai/blog/openai-dots</a>／Codex Resets：<a href="https://codexresets.com/">codexresets.com</a></li>
+    <li>Webmaster.net（アップデート要約）：<a href="https://Webmaster.net/post/dots-update-custom-instructions-faster-replies">Webmaster.net/post/dots-update-custom-instructions-faster-replies</a></li>
+    <li>ステータスミラー：<a href="https://www.aiwins.news/tools/is-chatgpt-down">aiwins.news</a>／<a href="https://pingoru.io/providers/chatgpt">pingoru.io</a>／<a href="https://getuptimely.com/service-status/chatgpt">getuptimely.com</a></li>
+  </ul>
+</section>
+
+<footer>
+  調査日：2026年11月13日（JST）。公式ステータスは同日12:55頃、公式の認否は同日13:00時点の確認です。それ以降に障害の解決や追加発表があった場合は、このページには含まれません。
+</footer>
+
+</div>
+<script>
+(function(){
+  var buttons = document.querySelectorAll('.filters button');
+  var items = document.querySelectorAll('#voiceList .voice');
+  buttons.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      buttons.forEach(function(b){ b.setAttribute('aria-pressed','false'); });
+      btn.setAttribute('aria-pressed','true');
+      var f = btn.getAttribute('data-filter');
+      items.forEach(function(it){
+        var show = (f === 'all') || (it.getAttribute('data-cat') === f);
+        it.classList.toggle('hidden', !show);
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>
